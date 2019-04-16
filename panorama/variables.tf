@@ -24,6 +24,10 @@ variable "admin_password" {
   default = "s0wqLK0N5f0!"
 }
 
+variable "refarch_vnet_name" {
+  default = "Unit-10-PAN-RefArch-VNET"
+}
+
 variable "panorama_resource_group_name" {
   default = "Unit-10-PAN-RefArch-Panorama"
 }
@@ -41,11 +45,11 @@ variable "shared_mgmt_subnet_prefix" {
 }
 
 ## Panorama vars
-variable "panorama1_panorama_public_ip_name" {
+variable "panorama1_public_ip_name" {
   default = "Unit-10-PAN-RefArch-1-PIP"
 }
 
-variable "panorama1_panorama_domain_name_label" {
+variable "panorama1_domain_name_label" {
   default = "unit-10-pan-refarch-panorama-1"
 }
 
@@ -65,11 +69,11 @@ variable "panorama1_os_disk_account_name" {
   default = "panorama1osdisk"
 }
 
-variable "panorama2_panorama_public_ip_name" {
+variable "panorama2_public_ip_name" {
   default = "Unit-10-PAN-RefArch-2-PIP"
 }
 
-variable "panorama2_panorama_domain_name_label" {
+variable "panorama2_domain_name_label" {
   default = "unit-10-pan-refarch-panorama-2"
 }
 

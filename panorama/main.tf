@@ -37,8 +37,8 @@ resource "azurerm_public_ip" "panorama1_panorama_publicip" {
 # Create the public ip for Panorama 2
 resource "azurerm_public_ip" "panorama2_mgmt_publicip" {
   name                = "${var.panorama2_mgmt_public_ip_name}"
-  location            = "${azurerm_resource_group.mgmtrg.location}"
-  resource_group_name = "${azurerm_resource_group.mgmtrg.name}"
+  location            = "${azurerm_resource_group.panorama_resource_group_name.location}"
+  resource_group_name = "${azurerm_resource_group.panorama_resource_group_name.name}"
   sku                 = "Standard"
   allocation_method   = "Static"
   domain_name_label   = "${var.panorama2_mgmt_domain_name_label}"
