@@ -528,7 +528,7 @@ resource "azurerm_lb_backend_address_pool" "public_lb_backend_address_pool" {
 ## Create Public Load Balancer
 resource "azurerm_lb" "public_lb" {
   name                = "${var.public_lb_name}"
-  location            = "West US"
+  location            = "${var.shared_resource_group_location}"
   resource_group_name = "${azurerm_resource_group.shared_resource_group.name}"
   sku                 = "Standard"
 
@@ -608,7 +608,7 @@ resource "azurerm_lb_backend_address_pool" "vpn_lb_backend_address_pool" {
 ## Create Internal LB
 resource "azurerm_lb" "internal_lb" {
   name                = "${var.internal_lb_name}"
-  location            = "West US"
+  location            = "${var.shared_resource_group_location}"
   resource_group_name = "${azurerm_resource_group.shared_resource_group.name}"
   sku                 = "Standard"
 
