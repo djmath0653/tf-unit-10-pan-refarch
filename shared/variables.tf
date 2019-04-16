@@ -1,4 +1,4 @@
-## Variables used to deploy PAN DevAzureRefArch
+## Variables used to deploy PAN Unit-10-PAN-RefArch
 # Environment vars
 variable "provider_version" {
   default = "1.23.0"
@@ -117,15 +117,15 @@ variable "shared_gw_subnet_prefix" {
 }
 
 variable "public_lb_frontend_ip_name" {
-  default = "DevAzureRefArch-Public-Shared-Web-IP"
+  default = "Unit-10-PAN-RefArch-Public-LB-IP"
 }
 
 variable "public_lb_domain_name_label" {
-  default = "xm-dev-public-shared-web"
+  default = "unit-10-pan-refarch-public-lb-ip"
 }
 
 variable "public_lb_name" {
-  default = "DevAzureRefArch-Shared-Public"
+  default = "Unit-10-PAN-RefArch-Shared-Public"
 }
 
 variable "public_lb_backend_pool_name" {
@@ -133,7 +133,7 @@ variable "public_lb_backend_pool_name" {
 }
 
 variable "internal_lb_name" {
-  default = "DevAzureRefArch-Shared-Internal"
+  default = "Unit-10-PAN-RefArch-Shared-Internal"
 }
 
 variable "internal_lb_frontend_ip_name" {
