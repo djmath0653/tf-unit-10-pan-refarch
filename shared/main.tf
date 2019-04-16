@@ -27,10 +27,10 @@ resource "azurerm_virtual_network" "refarch_vnet" {
 
 # Create subnet within the vnet
 resource "azurerm_subnet" "shared_mgmt_subnet" {
-  name                 = "${var.shared_subnet_name}"
+  name                 = "${var.shared_mgmt_subnet_name}"
   resource_group_name  = "${azurerm_resource_group.shared_resource_group.name}"
   virtual_network_name = "${azurerm_virtual_network.refarch_vnet.name}"
-  address_prefix       = "${var.shared_subnet_prefix}"
+  address_prefix       = "${var.shared_mgmt_subnet_prefix}"
 }
 
 # Create subnet within the vnet

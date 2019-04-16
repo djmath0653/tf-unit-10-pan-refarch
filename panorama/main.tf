@@ -7,13 +7,17 @@ provider "azurerm" {
 }
 
 ## Panorama Infrastructure
+# Create Panorama Resource Group
+resource "azurerm_resource_group" "panorama_resource_group" {
+  name     = "${var.panorama_resource_group_name}"
+  location = "${var.panorama_resource_group_location}"
+}
 
-# Create subnet within the vnet
+# get subnet data
 data "azurerm_subnet" "panorama_subnet" {
   name                 = "${var.panorama_subnet_name}"
   resource_group_name  = "${azurerm_resource_group.panorama_resource_group.name}"
   virtual_network_name = "${azurerm_virtual_network.azrefarchvnet.name}"
-  address_prefix       = "${var.panorama_subnet_prefix}"
 }
 
 # Create the public ip for Panorama 1
@@ -45,7 +49,7 @@ resource "azurerm_public_ip" "panorama2_mgmt_publicip" {
 }
 
 # Create the Panorama availability set
-resource "azurerm_availability_set" "panoramaas" {
+resource "azurerm_availability_set" "panorama_as" {
   name                = "${var.panorama_avail_set_name}"
   resource_group_name = "${azurerm_resource_group.panorama_resource_group.name}"
   location            = "${azurerm_resource_group.panorama_resource_group.location}"
@@ -130,7 +134,7 @@ resource "azurerm_virtual_machine" "panorama1" {
   location                      = "${azurerm_resource_group.panorama_resource_group.location}"
   resource_group_name           = "${azurerm_resource_group.panorama_resource_group.name}"
   vm_size                       = "${var.panorama_vm_size}"
-  availability_set_id           = "${azurerm_availability_set.panoramaas.id}"
+  availability_set_id           = "${azurerm_availability_set.panorama_as.id}"
   delete_os_disk_on_termination = "true"
   depends_on                    = ["azurerm_network_interface.panoram1nic0"]
 
@@ -174,7 +178,7 @@ resource "azurerm_virtual_machine" "panorama2" {
   location                      = "${azurerm_resource_group.panorama_resource_group.location}"
   resource_group_name           = "${azurerm_resource_group.panorama_resource_group.name}"
   vm_size                       = "${var.panorama_vm_size}"
-  availability_set_id           = "${azurerm_availability_set.panoramaas.id}"
+  availability_set_id           = "${azurerm_availability_set.panorama_as.id}"
   delete_os_disk_on_termination = "true"
   depends_on                    = ["azurerm_network_interface.panoram2nic0"]
 

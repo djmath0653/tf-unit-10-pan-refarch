@@ -36,6 +36,10 @@ variable "panorama_subnet_name" {
   default = "Management"
 }
 
+variable "shared_mgmt_subnet_prefix" {
+  default = "10.255.255.0/24"
+}
+
 ## Panorama vars
 variable "panorama1_panorama_public_ip_name" {
   default = "Unit-10-PAN-RefArch-1-PIP"
