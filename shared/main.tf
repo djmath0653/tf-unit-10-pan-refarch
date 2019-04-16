@@ -14,7 +14,7 @@ resource "azurerm_resource_group" "shared-resource-group" {
 }
 
 # Create a vnet within the resource group
-resource "azurerm_virtual_network" "refarch_vnet" {
+resource "azurerm_virtual_network" "refarch-vnet" {
   name                = "${var.refarch_vnet_name}"
   address_space       = ["${var.refarch_shared_address_space}", "${var.refarch_shrd_ext_address_space}", "${var.refarch_shrd_address_space}"]
   location            = "${azurerm_resource_group.shared-resource-group.location}"
@@ -29,7 +29,7 @@ resource "azurerm_virtual_network" "refarch_vnet" {
 resource "azurerm_subnet" "sharedsubnet" {
   name                 = "${var.shared_subnet_name}"
   resource_group_name  = "${azurerm_resource_group.shared-resource-group.name}"
-  virtual_network_name = "${azurerm_virtual_network.azrefarchvnet.name}"
+  virtual_network_name = "${azurerm_virtual_network.refarch-vnet.name}"
   address_prefix       = "${var.shared_subnet_prefix}"
 }
 
@@ -37,7 +37,7 @@ resource "azurerm_subnet" "sharedsubnet" {
 resource "azurerm_subnet" "sharedpublicsubnet" {
   name                 = "${var.shared_public_subnet_name}"
   resource_group_name  = "${azurerm_resource_group.shared-resource-group.name}"
-  virtual_network_name = "${azurerm_virtual_network.azrefarchvnet.name}"
+  virtual_network_name = "${azurerm_virtual_network.refarch-vnet.name}"
   address_prefix       = "${var.shared_public_subnet_prefix}"
 }
 
@@ -45,7 +45,7 @@ resource "azurerm_subnet" "sharedpublicsubnet" {
 resource "azurerm_subnet" "sharedprivatesubnet" {
   name                 = "${var.shared_private_subnet_name}"
   resource_group_name  = "${azurerm_resource_group.shared-resource-group.name}"
-  virtual_network_name = "${azurerm_virtual_network.azrefarchvnet.name}"
+  virtual_network_name = "${azurerm_virtual_network.refarch-vnet.name}"
   address_prefix       = "${var.shared_private_subnet_prefix}"
 }
 
@@ -53,7 +53,7 @@ resource "azurerm_subnet" "sharedprivatesubnet" {
 resource "azurerm_subnet" "sharedwebsubnet" {
   name                 = "${var.shared_web_subnet_name}"
   resource_group_name  = "${azurerm_resource_group.shared-resource-group.name}"
-  virtual_network_name = "${azurerm_virtual_network.azrefarchvnet.name}"
+  virtual_network_name = "${azurerm_virtual_network.refarch-vnet.name}"
   address_prefix       = "${var.shared_web_subnet_prefix}"
 }
 
@@ -61,7 +61,7 @@ resource "azurerm_subnet" "sharedwebsubnet" {
 resource "azurerm_subnet" "sharedbusinesssubnet" {
   name                 = "${var.shared_business_subnet_name}"
   resource_group_name  = "${azurerm_resource_group.shared-resource-group.name}"
-  virtual_network_name = "${azurerm_virtual_network.azrefarchvnet.name}"
+  virtual_network_name = "${azurerm_virtual_network.refarch-vnet.name}"
   address_prefix       = "${var.shared_business_subnet_prefix}"
 }
 
@@ -69,7 +69,7 @@ resource "azurerm_subnet" "sharedbusinesssubnet" {
 resource "azurerm_subnet" "shareddbsubnet" {
   name                 = "${var.shared_db_subnet_name}"
   resource_group_name  = "${azurerm_resource_group.shared-resource-group.name}"
-  virtual_network_name = "${azurerm_virtual_network.azrefarchvnet.name}"
+  virtual_network_name = "${azurerm_virtual_network.refarch-vnet.name}"
   address_prefix       = "${var.shared_db_subnet_prefix}"
 }
 
@@ -77,7 +77,7 @@ resource "azurerm_subnet" "shareddbsubnet" {
 resource "azurerm_subnet" "sharedvpnsubnet" {
   name                 = "${var.shared_vpn_subnet_name}"
   resource_group_name  = "${azurerm_resource_group.shared-resource-group.name}"
-  virtual_network_name = "${azurerm_virtual_network.azrefarchvnet.name}"
+  virtual_network_name = "${azurerm_virtual_network.refarch-vnet.name}"
   address_prefix       = "${var.shared_vpn_subnet_prefix}"
 }
 
@@ -85,7 +85,7 @@ resource "azurerm_subnet" "sharedvpnsubnet" {
 resource "azurerm_subnet" "sharedgwsubnet" {
   name                 = "${var.shared_gw_subnet_name}"
   resource_group_name  = "${azurerm_resource_group.shared-resource-group.name}"
-  virtual_network_name = "${azurerm_virtual_network.azrefarchvnet.name}"
+  virtual_network_name = "${azurerm_virtual_network.refarch-vnet.name}"
   address_prefix       = "${var.shared_gw_subnet_prefix}"
 }
 
