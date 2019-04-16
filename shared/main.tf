@@ -508,7 +508,7 @@ resource "azurerm_subnet_route_table_association" "AzureRefArch-Shared-Public-As
 resource "azurerm_public_ip" "public_lb_frontend_ip" {
   name                = "${var.public_lb_frontend_ip_name}"
   location            = "${var.shared_resource_group_location}"
-  resource_group_name = "${azurerm_resource_group.sharedrg.name}"
+  resource_group_name = "${azurerm_resource_group.shared_resource_group.name}"
   sku                 = "Standard"
   allocation_method   = "Static"
   domain_name_label   = "${var.public_lb_domain_name_label}"
@@ -520,7 +520,7 @@ resource "azurerm_public_ip" "public_lb_frontend_ip" {
 
 ## Create LB backend pool
 resource "azurerm_lb_backend_address_pool" "public_lb_backend_address_pool" {
-  resource_group_name = "${azurerm_resource_group.sharedrg.name}"
+  resource_group_name = "${azurerm_resource_group.shared_resource_group.name}"
   loadbalancer_id     = "${azurerm_lb.public_lb.id}"
   name                = "${var.public_lb_backend_pool_name}"
 }
@@ -529,7 +529,7 @@ resource "azurerm_lb_backend_address_pool" "public_lb_backend_address_pool" {
 resource "azurerm_lb" "public_lb" {
   name                = "${var.public_lb_name}"
   location            = "West US"
-  resource_group_name = "${azurerm_resource_group.sharedrg.name}"
+  resource_group_name = "${azurerm_resource_group.shared_resource_group.name}"
   sku                 = "Standard"
 
   frontend_ip_configuration {
@@ -539,26 +539,14 @@ resource "azurerm_lb" "public_lb" {
 }
 
 resource "azurerm_lb_probe" "public_https_probe" {
-  resource_group_name = "${azurerm_resource_group.sharedrg.name}"
+  resource_group_name = "${azurerm_resource_group.shared_resource_group.name}"
   loadbalancer_id     = "${azurerm_lb.public_lb.id}"
   name                = "HTTPS-Probe"
   port                = 443
 }
 
-resource "azurerm_network_interface_backend_address_pool_association" "public_lb_fw1_address_pool_association" {
-  network_interface_id    = "${azurerm_network_interface.firewall1nic1.id}"
-  ip_configuration_name   = "firewall1-nic1-ipconfig"
-  backend_address_pool_id = "${azurerm_lb_backend_address_pool.public_lb_backend_address_pool.id}"
-}
-
-resource "azurerm_network_interface_backend_address_pool_association" "public_lb_fw2_address_pool_association" {
-  network_interface_id    = "${azurerm_network_interface.firewall2nic1.id}"
-  ip_configuration_name   = "firewall2-nic1-ipconfig"
-  backend_address_pool_id = "${azurerm_lb_backend_address_pool.public_lb_backend_address_pool.id}"
-}
-
 resource "azurerm_lb_rule" "shared_public_web_22" {
-  resource_group_name            = "${azurerm_resource_group.sharedrg.name}"
+  resource_group_name            = "${azurerm_resource_group.shared_resource_group.name}"
   loadbalancer_id                = "${azurerm_lb.public_lb.id}"
   name                           = "Shared-Public-Web-80"
   protocol                       = "Tcp"
@@ -571,7 +559,7 @@ resource "azurerm_lb_rule" "shared_public_web_22" {
 }
 
 resource "azurerm_lb_rule" "shared_public_web_80" {
-  resource_group_name            = "${azurerm_resource_group.sharedrg.name}"
+  resource_group_name            = "${azurerm_resource_group.shared_resource_group.name}"
   loadbalancer_id                = "${azurerm_lb.public_lb.id}"
   name                           = "Shared-Public-Web-80"
   protocol                       = "Tcp"
@@ -584,7 +572,7 @@ resource "azurerm_lb_rule" "shared_public_web_80" {
 }
 
 resource "azurerm_lb_rule" "shared_public_web_443" {
-  resource_group_name            = "${azurerm_resource_group.sharedrg.name}"
+  resource_group_name            = "${azurerm_resource_group.shared_resource_group.name}"
   loadbalancer_id                = "${azurerm_lb.public_lb.id}"
   name                           = "Shared-Public-Web-443"
   protocol                       = "Tcp"
@@ -598,21 +586,21 @@ resource "azurerm_lb_rule" "shared_public_web_443" {
 
 ## Create LB Internal backend pool
 resource "azurerm_lb_backend_address_pool" "internal_lb_backend_address_pool" {
-  resource_group_name = "${azurerm_resource_group.sharedrg.name}"
+  resource_group_name = "${azurerm_resource_group.shared_resource_group.name}"
   loadbalancer_id     = "${azurerm_lb.internal_lb.id}"
   name                = "${var.internal_lb_backend_pool_name}"
 }
 
 ## Create LB Internal Public backend pool
 resource "azurerm_lb_backend_address_pool" "internal_public_lb_backend_address_pool" {
-  resource_group_name = "${azurerm_resource_group.sharedrg.name}"
+  resource_group_name = "${azurerm_resource_group.shared_resource_group.name}"
   loadbalancer_id     = "${azurerm_lb.internal_lb.id}"
   name                = "${var.internal_Public_lb_backend_pool_name}"
 }
 
 ## Create LB VPN backend pool
 resource "azurerm_lb_backend_address_pool" "vpn_lb_backend_address_pool" {
-  resource_group_name = "${azurerm_resource_group.sharedrg.name}"
+  resource_group_name = "${azurerm_resource_group.shared_resource_group.name}"
   loadbalancer_id     = "${azurerm_lb.internal_lb.id}"
   name                = "${var.vpn_lb_backend_pool_name}"
 }
@@ -621,7 +609,7 @@ resource "azurerm_lb_backend_address_pool" "vpn_lb_backend_address_pool" {
 resource "azurerm_lb" "internal_lb" {
   name                = "${var.internal_lb_name}"
   location            = "West US"
-  resource_group_name = "${azurerm_resource_group.sharedrg.name}"
+  resource_group_name = "${azurerm_resource_group.shared_resource_group.name}"
   sku                 = "Standard"
 
   frontend_ip_configuration {
@@ -647,50 +635,14 @@ resource "azurerm_lb" "internal_lb" {
 }
 
 resource "azurerm_lb_probe" "internal_https_probe" {
-  resource_group_name = "${azurerm_resource_group.sharedrg.name}"
+  resource_group_name = "${azurerm_resource_group.shared_resource_group.name}"
   loadbalancer_id     = "${azurerm_lb.internal_lb.id}"
   name                = "HTTPS-Probe"
   port                = 443
 }
 
-resource "azurerm_network_interface_backend_address_pool_association" "internal_lb_fw1_address_pool_association" {
-  network_interface_id    = "${azurerm_network_interface.firewall1nic2.id}"
-  ip_configuration_name   = "firewall1-nic2-ipconfig"
-  backend_address_pool_id = "${azurerm_lb_backend_address_pool.internal_lb_backend_address_pool.id}"
-}
-
-resource "azurerm_network_interface_backend_address_pool_association" "internal_lb_fw2_address_pool_association" {
-  network_interface_id    = "${azurerm_network_interface.firewall2nic2.id}"
-  ip_configuration_name   = "firewall2-nic2-ipconfig"
-  backend_address_pool_id = "${azurerm_lb_backend_address_pool.internal_lb_backend_address_pool.id}"
-}
-
-resource "azurerm_network_interface_backend_address_pool_association" "internal_public_lb_fw1_address_pool_association" {
-  network_interface_id    = "${azurerm_network_interface.firewall1nic1.id}"
-  ip_configuration_name   = "firewall1-nic1-ipconfig"
-  backend_address_pool_id = "${azurerm_lb_backend_address_pool.public_lb_backend_address_pool.id}"
-}
-
-resource "azurerm_network_interface_backend_address_pool_association" "internal_public_lb_fw2_address_pool_association" {
-  network_interface_id    = "${azurerm_network_interface.firewall2nic1.id}"
-  ip_configuration_name   = "firewall2-nic1-ipconfig"
-  backend_address_pool_id = "${azurerm_lb_backend_address_pool.public_lb_backend_address_pool.id}"
-}
-
-resource "azurerm_network_interface_backend_address_pool_association" "vpn_lb_fw1_address_pool_association" {
-  network_interface_id    = "${azurerm_network_interface.firewall1nic3.id}"
-  ip_configuration_name   = "firewall1-nic3-ipconfig"
-  backend_address_pool_id = "${azurerm_lb_backend_address_pool.vpn_lb_backend_address_pool.id}"
-}
-
-resource "azurerm_network_interface_backend_address_pool_association" "vpn_lb_fw2_address_pool_association" {
-  network_interface_id    = "${azurerm_network_interface.firewall2nic3.id}"
-  ip_configuration_name   = "firewall2-nic3-ipconfig"
-  backend_address_pool_id = "${azurerm_lb_backend_address_pool.vpn_lb_backend_address_pool.id}"
-}
-
 resource "azurerm_lb_rule" "shared_private_all_ports" {
-  resource_group_name            = "${azurerm_resource_group.sharedrg.name}"
+  resource_group_name            = "${azurerm_resource_group.shared_resource_group.name}"
   loadbalancer_id                = "${azurerm_lb.internal_lb.id}"
   name                           = "Shared-Private-All-Ports"
   protocol                       = "All"
@@ -703,7 +655,7 @@ resource "azurerm_lb_rule" "shared_private_all_ports" {
 }
 
 resource "azurerm_lb_rule" "shared_public_all_ports" {
-  resource_group_name            = "${azurerm_resource_group.sharedrg.name}"
+  resource_group_name            = "${azurerm_resource_group.shared_resource_group.name}"
   loadbalancer_id                = "${azurerm_lb.internal_lb.id}"
   name                           = "Shared-Public-All-Ports"
   protocol                       = "All"
@@ -716,7 +668,7 @@ resource "azurerm_lb_rule" "shared_public_all_ports" {
 }
 
 resource "azurerm_lb_rule" "shared_vpn_all_ports" {
-  resource_group_name            = "${azurerm_resource_group.sharedrg.name}"
+  resource_group_name            = "${azurerm_resource_group.shared_resource_group.name}"
   loadbalancer_id                = "${azurerm_lb.internal_lb.id}"
   name                           = "Shared-VPN-All-Ports"
   protocol                       = "All"
