@@ -16,14 +16,6 @@ variable "environment_tag_name" {
   default = "Unit 10 PAN Referece Architecture"
 }
 
-variable "admin_username" {
-  default = "xmrefarchadmin"
-}
-
-variable "admin_password" {
-  default = "s0wqLK0N5f0!"
-}
-
 variable "shared_resource_group_name" {
   default = "Unit-10-PAN-RefArch-Shared"
 }
