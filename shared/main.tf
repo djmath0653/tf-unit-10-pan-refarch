@@ -9,7 +9,7 @@ provider "azurerm" {
 ## Shared Infrastructure
 # Create Shared Resource Group
 resource "azurerm_resource_group" "shared-resource-group" {
-  name     = "${var.shared-resource-group_name}"
+  name     = "${var.shared_resource_group_name}"
   location = "${var.shared_resource_group_location}"
 }
 
