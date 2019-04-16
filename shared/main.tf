@@ -26,7 +26,7 @@ resource "azurerm_virtual_network" "refarch_vnet" {
 }
 
 # Create subnet within the vnet
-resource "azurerm_subnet" "sharedsubnet" {
+resource "azurerm_subnet" "shared_mgmt_subnet" {
   name                 = "${var.shared_subnet_name}"
   resource_group_name  = "${azurerm_resource_group.shared_resource_group.name}"
   virtual_network_name = "${azurerm_virtual_network.refarch_vnet.name}"
@@ -501,4 +501,229 @@ resource "azurerm_route_table" "AzureRefArch-Shared-Public" {
 resource "azurerm_subnet_route_table_association" "AzureRefArch-Shared-Public-Assoc" {
   subnet_id      = "${azurerm_subnet.sharedpublicsubnet.id}"
   route_table_id = "${azurerm_route_table.AzureRefArch-Shared-Public.id}"
+}
+
+## Load Balancers
+# Create the Public IP Address for the frontend IP address for Azure Public Load-Balancer
+resource "azurerm_public_ip" "public_lb_frontend_ip" {
+  name                = "${var.public_lb_frontend_ip_name}"
+  location            = "${var.shared_resource_group_location}"
+  resource_group_name = "${azurerm_resource_group.sharedrg.name}"
+  sku                 = "Standard"
+  allocation_method   = "Static"
+  domain_name_label   = "${var.public_lb_domain_name_label}"
+
+  tags = {
+    environment = "${var.environment_tag_name}"
+  }
+}
+
+## Create LB backend pool
+resource "azurerm_lb_backend_address_pool" "public_lb_backend_address_pool" {
+  resource_group_name = "${azurerm_resource_group.sharedrg.name}"
+  loadbalancer_id     = "${azurerm_lb.public_lb.id}"
+  name                = "${var.public_lb_backend_pool_name}"
+}
+
+## Create Public Load Balancer
+resource "azurerm_lb" "public_lb" {
+  name                = "${var.public_lb_name}"
+  location            = "West US"
+  resource_group_name = "${azurerm_resource_group.sharedrg.name}"
+  sku                 = "Standard"
+
+  frontend_ip_configuration {
+    name                 = "${var.public_lb_frontend_ip_name}"
+    public_ip_address_id = "${azurerm_public_ip.public_lb_frontend_ip.id}"
+  }
+}
+
+resource "azurerm_lb_probe" "public_https_probe" {
+  resource_group_name = "${azurerm_resource_group.sharedrg.name}"
+  loadbalancer_id     = "${azurerm_lb.public_lb.id}"
+  name                = "HTTPS-Probe"
+  port                = 443
+}
+
+resource "azurerm_network_interface_backend_address_pool_association" "public_lb_fw1_address_pool_association" {
+  network_interface_id    = "${azurerm_network_interface.firewall1nic1.id}"
+  ip_configuration_name   = "firewall1-nic1-ipconfig"
+  backend_address_pool_id = "${azurerm_lb_backend_address_pool.public_lb_backend_address_pool.id}"
+}
+
+resource "azurerm_network_interface_backend_address_pool_association" "public_lb_fw2_address_pool_association" {
+  network_interface_id    = "${azurerm_network_interface.firewall2nic1.id}"
+  ip_configuration_name   = "firewall2-nic1-ipconfig"
+  backend_address_pool_id = "${azurerm_lb_backend_address_pool.public_lb_backend_address_pool.id}"
+}
+
+resource "azurerm_lb_rule" "shared_public_web_22" {
+  resource_group_name            = "${azurerm_resource_group.sharedrg.name}"
+  loadbalancer_id                = "${azurerm_lb.public_lb.id}"
+  name                           = "Shared-Public-Web-80"
+  protocol                       = "Tcp"
+  frontend_port                  = 80
+  backend_port                   = 80
+  frontend_ip_configuration_name = "${var.public_lb_frontend_ip_name}"
+  backend_address_pool_id        = "${azurerm_lb_backend_address_pool.public_lb_backend_address_pool.id}"
+  probe_id                       = "${azurerm_lb_probe.public_https_probe.id}"
+  enable_floating_ip             = "True"
+}
+
+resource "azurerm_lb_rule" "shared_public_web_80" {
+  resource_group_name            = "${azurerm_resource_group.sharedrg.name}"
+  loadbalancer_id                = "${azurerm_lb.public_lb.id}"
+  name                           = "Shared-Public-Web-80"
+  protocol                       = "Tcp"
+  frontend_port                  = 80
+  backend_port                   = 80
+  frontend_ip_configuration_name = "${var.public_lb_frontend_ip_name}"
+  backend_address_pool_id        = "${azurerm_lb_backend_address_pool.public_lb_backend_address_pool.id}"
+  probe_id                       = "${azurerm_lb_probe.public_https_probe.id}"
+  enable_floating_ip             = "True"
+}
+
+resource "azurerm_lb_rule" "shared_public_web_443" {
+  resource_group_name            = "${azurerm_resource_group.sharedrg.name}"
+  loadbalancer_id                = "${azurerm_lb.public_lb.id}"
+  name                           = "Shared-Public-Web-443"
+  protocol                       = "Tcp"
+  frontend_port                  = 443
+  backend_port                   = 443
+  frontend_ip_configuration_name = "${var.public_lb_frontend_ip_name}"
+  backend_address_pool_id        = "${azurerm_lb_backend_address_pool.public_lb_backend_address_pool.id}"
+  probe_id                       = "${azurerm_lb_probe.public_https_probe.id}"
+  enable_floating_ip             = "True"
+}
+
+## Create LB Internal backend pool
+resource "azurerm_lb_backend_address_pool" "internal_lb_backend_address_pool" {
+  resource_group_name = "${azurerm_resource_group.sharedrg.name}"
+  loadbalancer_id     = "${azurerm_lb.internal_lb.id}"
+  name                = "${var.internal_lb_backend_pool_name}"
+}
+
+## Create LB Internal Public backend pool
+resource "azurerm_lb_backend_address_pool" "internal_public_lb_backend_address_pool" {
+  resource_group_name = "${azurerm_resource_group.sharedrg.name}"
+  loadbalancer_id     = "${azurerm_lb.internal_lb.id}"
+  name                = "${var.internal_Public_lb_backend_pool_name}"
+}
+
+## Create LB VPN backend pool
+resource "azurerm_lb_backend_address_pool" "vpn_lb_backend_address_pool" {
+  resource_group_name = "${azurerm_resource_group.sharedrg.name}"
+  loadbalancer_id     = "${azurerm_lb.internal_lb.id}"
+  name                = "${var.vpn_lb_backend_pool_name}"
+}
+
+## Create Internal LB
+resource "azurerm_lb" "internal_lb" {
+  name                = "${var.internal_lb_name}"
+  location            = "West US"
+  resource_group_name = "${azurerm_resource_group.sharedrg.name}"
+  sku                 = "Standard"
+
+  frontend_ip_configuration {
+    name                          = "${var.internal_lb_frontend_ip_name}"
+    private_ip_address            = "${var.internal_lb_frontend_ip}"
+    private_ip_address_allocation = "Static"
+    subnet_id                     = "${azurerm_subnet.sharedprivatesubnet.id}"
+  }
+
+  frontend_ip_configuration {
+    name                          = "${var.internal_public_lb_frontend_ip_name}"
+    private_ip_address            = "${var.internal_public_lb_frontend_ip}"
+    private_ip_address_allocation = "Static"
+    subnet_id                     = "${azurerm_subnet.sharedpublicsubnet.id}"
+  }
+
+  frontend_ip_configuration {
+    name                          = "${var.vpn_lb_frontend_ip_name}"
+    private_ip_address            = "${var.vpn_lb_frontend_ip}"
+    private_ip_address_allocation = "Static"
+    subnet_id                     = "${azurerm_subnet.sharedvpnsubnet.id}"
+  }
+}
+
+resource "azurerm_lb_probe" "internal_https_probe" {
+  resource_group_name = "${azurerm_resource_group.sharedrg.name}"
+  loadbalancer_id     = "${azurerm_lb.internal_lb.id}"
+  name                = "HTTPS-Probe"
+  port                = 443
+}
+
+resource "azurerm_network_interface_backend_address_pool_association" "internal_lb_fw1_address_pool_association" {
+  network_interface_id    = "${azurerm_network_interface.firewall1nic2.id}"
+  ip_configuration_name   = "firewall1-nic2-ipconfig"
+  backend_address_pool_id = "${azurerm_lb_backend_address_pool.internal_lb_backend_address_pool.id}"
+}
+
+resource "azurerm_network_interface_backend_address_pool_association" "internal_lb_fw2_address_pool_association" {
+  network_interface_id    = "${azurerm_network_interface.firewall2nic2.id}"
+  ip_configuration_name   = "firewall2-nic2-ipconfig"
+  backend_address_pool_id = "${azurerm_lb_backend_address_pool.internal_lb_backend_address_pool.id}"
+}
+
+resource "azurerm_network_interface_backend_address_pool_association" "internal_public_lb_fw1_address_pool_association" {
+  network_interface_id    = "${azurerm_network_interface.firewall1nic1.id}"
+  ip_configuration_name   = "firewall1-nic1-ipconfig"
+  backend_address_pool_id = "${azurerm_lb_backend_address_pool.public_lb_backend_address_pool.id}"
+}
+
+resource "azurerm_network_interface_backend_address_pool_association" "internal_public_lb_fw2_address_pool_association" {
+  network_interface_id    = "${azurerm_network_interface.firewall2nic1.id}"
+  ip_configuration_name   = "firewall2-nic1-ipconfig"
+  backend_address_pool_id = "${azurerm_lb_backend_address_pool.public_lb_backend_address_pool.id}"
+}
+
+resource "azurerm_network_interface_backend_address_pool_association" "vpn_lb_fw1_address_pool_association" {
+  network_interface_id    = "${azurerm_network_interface.firewall1nic3.id}"
+  ip_configuration_name   = "firewall1-nic3-ipconfig"
+  backend_address_pool_id = "${azurerm_lb_backend_address_pool.vpn_lb_backend_address_pool.id}"
+}
+
+resource "azurerm_network_interface_backend_address_pool_association" "vpn_lb_fw2_address_pool_association" {
+  network_interface_id    = "${azurerm_network_interface.firewall2nic3.id}"
+  ip_configuration_name   = "firewall2-nic3-ipconfig"
+  backend_address_pool_id = "${azurerm_lb_backend_address_pool.vpn_lb_backend_address_pool.id}"
+}
+
+resource "azurerm_lb_rule" "shared_private_all_ports" {
+  resource_group_name            = "${azurerm_resource_group.sharedrg.name}"
+  loadbalancer_id                = "${azurerm_lb.internal_lb.id}"
+  name                           = "Shared-Private-All-Ports"
+  protocol                       = "All"
+  frontend_port                  = 0
+  backend_port                   = 0
+  frontend_ip_configuration_name = "${var.internal_lb_frontend_ip_name}"
+  backend_address_pool_id        = "${azurerm_lb_backend_address_pool.internal_lb_backend_address_pool.id}"
+  probe_id                       = "${azurerm_lb_probe.internal_https_probe.id}"
+  enable_floating_ip             = "True"
+}
+
+resource "azurerm_lb_rule" "shared_public_all_ports" {
+  resource_group_name            = "${azurerm_resource_group.sharedrg.name}"
+  loadbalancer_id                = "${azurerm_lb.internal_lb.id}"
+  name                           = "Shared-Public-All-Ports"
+  protocol                       = "All"
+  frontend_port                  = 0
+  backend_port                   = 0
+  frontend_ip_configuration_name = "${var.internal_public_lb_frontend_ip_name}"
+  backend_address_pool_id        = "${azurerm_lb_backend_address_pool.internal_public_lb_backend_address_pool.id}"
+  probe_id                       = "${azurerm_lb_probe.internal_https_probe.id}"
+  enable_floating_ip             = "True"
+}
+
+resource "azurerm_lb_rule" "shared_vpn_all_ports" {
+  resource_group_name            = "${azurerm_resource_group.sharedrg.name}"
+  loadbalancer_id                = "${azurerm_lb.internal_lb.id}"
+  name                           = "Shared-VPN-All-Ports"
+  protocol                       = "All"
+  frontend_port                  = 0
+  backend_port                   = 0
+  frontend_ip_configuration_name = "${var.vpn_lb_frontend_ip_name}"
+  backend_address_pool_id        = "${azurerm_lb_backend_address_pool.vpn_lb_backend_address_pool.id}"
+  probe_id                       = "${azurerm_lb_probe.internal_https_probe.id}"
+  enable_floating_ip             = "True"
 }

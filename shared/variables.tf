@@ -116,76 +116,58 @@ variable "shared_gw_subnet_prefix" {
   default = "10.5.40.0/24"
 }
 
-# ## Panorama vars
-# variable "panorama1_shared_public_ip_name" {
-#   default = "10M-Dev-Azure-Panorama-1-PIP"
-# }
-#
-# variable "panorama1_shared_domain_name_label" {
-#   default = "xm-dev-panorama-1"
-# }
-#
-# variable "panorama1_vm_name" {
-#   default = "10M-Dev-Azure-Panorama-1"
-# }
-#
-# variable "panorama1_vnic0_name" {
-#   default = "azure-panorama1-VNIC0"
-# }
-#
-# variable "panorama1_vnic0_private_ip" {
-#   default = "10.255.255.4"
-# }
-#
-# variable "panorama1_os_disk_account_name" {
-#   default = "panorama1osdisk"
-# }
-#
-# variable "panorama2_shared_public_ip_name" {
-#   default = "10M-Dev-Azure-Panoram-2-PIP"
-# }
-#
-# variable "panorama2_shared_domain_name_label" {
-#   default = "xm-dev-panorama-2"
-# }
-#
-# variable "panorama2_vm_name" {
-#   default = "10M-Dev-Azure-Panorama-2"
-# }
-#
-# variable "panorama2_vnic0_name" {
-#   default = "azure-panorama2-VNIC0"
-# }
-#
-# variable "panorama2_vnic0_private_ip" {
-#   default = "10.255.255.5"
-# }
-#
-# variable "panorama2_os_disk_account_name" {
-#   default = "panorama2osdisk"
-# }
-#
-# variable "panorama_avail_set_name" {
-#   default = "DevAzureRefArch-AS"
-# }
-#
-# variable "panorama_storage_acct_name" {
-#   default = "xmdevazurerefarchpandiag"
-# }
-#
-# variable "panorama_vm_size" {
-#   default = "Standard_DS3_v2"
-# }
-#
-# variable "panoramaSku" {
-#   default = "byol"
-# }
-#
-# variable "panoramaOffer" {
-#   default = "panorama"
-# }
-#
-# variable "panoramaPublisher" {
-#   default = "paloaltonetworks"
-# }
+variable "public_lb_frontend_ip_name" {
+  default = "DevAzureRefArch-Public-Shared-Web-IP"
+}
 
+variable "public_lb_domain_name_label" {
+  default = "xm-dev-public-shared-web"
+}
+
+variable "public_lb_name" {
+  default = "DevAzureRefArch-Shared-Public"
+}
+
+variable "public_lb_backend_pool_name" {
+  default = "Firewall-Layer"
+}
+
+variable "internal_lb_name" {
+  default = "DevAzureRefArch-Shared-Internal"
+}
+
+variable "internal_lb_frontend_ip_name" {
+  default = "LoadBalancerFrontEnd"
+}
+
+variable "internal_lb_frontend_ip" {
+  default = "10.5.0.21"
+}
+
+variable "internal_lb_backend_pool_name" {
+  default = "Firewall-Layer-Private"
+}
+
+variable "internal_Public_lb_backend_pool_name" {
+  default = "Firewall-Layer-Public"
+}
+
+variable "internal_public_lb_frontend_ip_name" {
+  default = "Internal-Frontend-Public"
+}
+
+variable "internal_public_lb_frontend_ip" {
+  default = "172.16.1.21"
+}
+
+variable "vpn_lb_frontend_ip_name" {
+  default = "Internal-Frontend-VPN"
+}
+
+variable "vpn_lb_frontend_ip" {
+  default = "10.5.15.21"
+}
+
+variable "vpn_lb_backend_pool_name" {
+  default = "Firewall-Layer-VPN"
+}
