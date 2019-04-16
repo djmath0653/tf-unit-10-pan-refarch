@@ -8,17 +8,17 @@ provider "azurerm" {
 
 ## Shared Infrastructure
 # Create Shared Resource Group
-resource "azurerm_resource_group" "shared-resource-group" {
+resource "azurerm_resource_group" "shared_resource_group" {
   name     = "${var.shared_resource_group_name}"
   location = "${var.shared_resource_group_location}"
 }
 
 # Create a vnet within the resource group
-resource "azurerm_virtual_network" "refarch-vnet" {
+resource "azurerm_virtual_network" "refarch_vnet" {
   name                = "${var.refarch_vnet_name}"
   address_space       = ["${var.refarch_shared_address_space}", "${var.refarch_shrd_ext_address_space}", "${var.refarch_shrd_address_space}"]
-  location            = "${azurerm_resource_group.shared-resource-group.location}"
-  resource_group_name = "${azurerm_resource_group.shared-resource-group.name}"
+  location            = "${azurerm_resource_group.shared_resource_group.location}"
+  resource_group_name = "${azurerm_resource_group.shared_resource_group.name}"
 
   tags {
     environment = "${var.environment_tag_name}"
@@ -28,64 +28,64 @@ resource "azurerm_virtual_network" "refarch-vnet" {
 # Create subnet within the vnet
 resource "azurerm_subnet" "sharedsubnet" {
   name                 = "${var.shared_subnet_name}"
-  resource_group_name  = "${azurerm_resource_group.shared-resource-group.name}"
-  virtual_network_name = "${azurerm_virtual_network.refarch-vnet.name}"
+  resource_group_name  = "${azurerm_resource_group.shared_resource_group.name}"
+  virtual_network_name = "${azurerm_virtual_network.refarch_vnet.name}"
   address_prefix       = "${var.shared_subnet_prefix}"
 }
 
 # Create subnet within the vnet
 resource "azurerm_subnet" "sharedpublicsubnet" {
   name                 = "${var.shared_public_subnet_name}"
-  resource_group_name  = "${azurerm_resource_group.shared-resource-group.name}"
-  virtual_network_name = "${azurerm_virtual_network.refarch-vnet.name}"
+  resource_group_name  = "${azurerm_resource_group.shared_resource_group.name}"
+  virtual_network_name = "${azurerm_virtual_network.refarch_vnet.name}"
   address_prefix       = "${var.shared_public_subnet_prefix}"
 }
 
 # Create subnet within the vnet
 resource "azurerm_subnet" "sharedprivatesubnet" {
   name                 = "${var.shared_private_subnet_name}"
-  resource_group_name  = "${azurerm_resource_group.shared-resource-group.name}"
-  virtual_network_name = "${azurerm_virtual_network.refarch-vnet.name}"
+  resource_group_name  = "${azurerm_resource_group.shared_resource_group.name}"
+  virtual_network_name = "${azurerm_virtual_network.refarch_vnet.name}"
   address_prefix       = "${var.shared_private_subnet_prefix}"
 }
 
 # Create subnet within the vnet
 resource "azurerm_subnet" "sharedwebsubnet" {
   name                 = "${var.shared_web_subnet_name}"
-  resource_group_name  = "${azurerm_resource_group.shared-resource-group.name}"
-  virtual_network_name = "${azurerm_virtual_network.refarch-vnet.name}"
+  resource_group_name  = "${azurerm_resource_group.shared_resource_group.name}"
+  virtual_network_name = "${azurerm_virtual_network.refarch_vnet.name}"
   address_prefix       = "${var.shared_web_subnet_prefix}"
 }
 
 # Create subnet within the vnet
 resource "azurerm_subnet" "sharedbusinesssubnet" {
   name                 = "${var.shared_business_subnet_name}"
-  resource_group_name  = "${azurerm_resource_group.shared-resource-group.name}"
-  virtual_network_name = "${azurerm_virtual_network.refarch-vnet.name}"
+  resource_group_name  = "${azurerm_resource_group.shared_resource_group.name}"
+  virtual_network_name = "${azurerm_virtual_network.refarch_vnet.name}"
   address_prefix       = "${var.shared_business_subnet_prefix}"
 }
 
 # Create subnet within the vnet
 resource "azurerm_subnet" "shareddbsubnet" {
   name                 = "${var.shared_db_subnet_name}"
-  resource_group_name  = "${azurerm_resource_group.shared-resource-group.name}"
-  virtual_network_name = "${azurerm_virtual_network.refarch-vnet.name}"
+  resource_group_name  = "${azurerm_resource_group.shared_resource_group.name}"
+  virtual_network_name = "${azurerm_virtual_network.refarch_vnet.name}"
   address_prefix       = "${var.shared_db_subnet_prefix}"
 }
 
 # Create subnet within the vnet
 resource "azurerm_subnet" "sharedvpnsubnet" {
   name                 = "${var.shared_vpn_subnet_name}"
-  resource_group_name  = "${azurerm_resource_group.shared-resource-group.name}"
-  virtual_network_name = "${azurerm_virtual_network.refarch-vnet.name}"
+  resource_group_name  = "${azurerm_resource_group.shared_resource_group.name}"
+  virtual_network_name = "${azurerm_virtual_network.refarch_vnet.name}"
   address_prefix       = "${var.shared_vpn_subnet_prefix}"
 }
 
 # Create subnet within the vnet
 resource "azurerm_subnet" "sharedgwsubnet" {
   name                 = "${var.shared_gw_subnet_name}"
-  resource_group_name  = "${azurerm_resource_group.shared-resource-group.name}"
-  virtual_network_name = "${azurerm_virtual_network.refarch-vnet.name}"
+  resource_group_name  = "${azurerm_resource_group.shared_resource_group.name}"
+  virtual_network_name = "${azurerm_virtual_network.refarch_vnet.name}"
   address_prefix       = "${var.shared_gw_subnet_prefix}"
 }
 
@@ -93,7 +93,7 @@ resource "azurerm_subnet" "sharedgwsubnet" {
 resource "azurerm_network_security_group" "sharednsg" {
   name                = "${var.shared_nsg_name}"
   location            = "${var.shared_resource_group_location}"
-  resource_group_name = "${azurerm_resource_group.shared-resource-group.name}"
+  resource_group_name = "${azurerm_resource_group.shared_resource_group.name}"
 
   security_rule {
     name                       = "AllowHTTPS-Inbound"
@@ -128,7 +128,7 @@ resource "azurerm_network_security_group" "sharednsg" {
 resource "azurerm_network_security_group" "sharedpublicnsg" {
   name                = "${var.shared_fw_pub_nsg_name}"
   location            = "${var.shared_resource_group_location}"
-  resource_group_name = "${azurerm_resource_group.shared-resource-group.name}"
+  resource_group_name = "${azurerm_resource_group.shared_resource_group.name}"
 
   security_rule {
     name                       = "AllowHTTPS-Inbound"
@@ -175,7 +175,7 @@ resource "azurerm_network_security_group" "sharedpublicnsg" {
 resource "azurerm_network_security_group" "sharedallowallnsg" {
   name                = "${var.shared_allow_all_nsg_name}"
   location            = "${var.shared_resource_group_location}"
-  resource_group_name = "${azurerm_resource_group.shared-resource-group.name}"
+  resource_group_name = "${azurerm_resource_group.shared_resource_group.name}"
 
   security_rule {
     name                       = "AllowAll-Inbound"
@@ -239,8 +239,8 @@ resource "azurerm_subnet_network_security_group_association" "sharedvpnsubnetnsg
 ## Create route tables
 resource "azurerm_route_table" "AzureRefArch-Management" {
   name                          = "AzureRefArch-Management"
-  location                      = "${azurerm_resource_group.shared-resource-group.location}"
-  resource_group_name           = "${azurerm_resource_group.shared-resource-group.name}"
+  location                      = "${azurerm_resource_group.shared_resource_group.location}"
+  resource_group_name           = "${azurerm_resource_group.shared_resource_group.name}"
   disable_bgp_route_propagation = false
 
   route {
@@ -274,8 +274,8 @@ resource "azurerm_subnet_route_table_association" "AzureRefArch-Management-Assoc
 
 resource "azurerm_route_table" "AzureRefArch-Shared-Business" {
   name                          = "AzureRefArch-Shared-Business"
-  location                      = "${azurerm_resource_group.shared-resource-group.location}"
-  resource_group_name           = "${azurerm_resource_group.shared-resource-group.name}"
+  location                      = "${azurerm_resource_group.shared_resource_group.location}"
+  resource_group_name           = "${azurerm_resource_group.shared_resource_group.name}"
   disable_bgp_route_propagation = false
 
   route {
@@ -323,8 +323,8 @@ resource "azurerm_subnet_route_table_association" "AzureRefArch-Shared-Business-
 
 resource "azurerm_route_table" "AzureRefArch-Shared-DB" {
   name                          = "AzureRefArch-Shared-DB"
-  location                      = "${azurerm_resource_group.shared-resource-group.location}"
-  resource_group_name           = "${azurerm_resource_group.shared-resource-group.name}"
+  location                      = "${azurerm_resource_group.shared_resource_group.location}"
+  resource_group_name           = "${azurerm_resource_group.shared_resource_group.name}"
   disable_bgp_route_propagation = false
 
   route {
@@ -372,8 +372,8 @@ resource "azurerm_subnet_route_table_association" "AzureRefArch-Shared-DB-Assoc"
 
 resource "azurerm_route_table" "AzureRefArch-Shared-Web" {
   name                          = "AzureRefArch-Shared-Web"
-  location                      = "${azurerm_resource_group.shared-resource-group.location}"
-  resource_group_name           = "${azurerm_resource_group.shared-resource-group.name}"
+  location                      = "${azurerm_resource_group.shared_resource_group.location}"
+  resource_group_name           = "${azurerm_resource_group.shared_resource_group.name}"
   disable_bgp_route_propagation = false
 
   route {
@@ -421,8 +421,8 @@ resource "azurerm_subnet_route_table_association" "AzureRefArch-Shared-Web-Assoc
 
 resource "azurerm_route_table" "AzureRefArch-Shared-Private" {
   name                          = "AzureRefArch-Shared-Private"
-  location                      = "${azurerm_resource_group.shared-resource-group.location}"
-  resource_group_name           = "${azurerm_resource_group.shared-resource-group.name}"
+  location                      = "${azurerm_resource_group.shared_resource_group.location}"
+  resource_group_name           = "${azurerm_resource_group.shared_resource_group.name}"
   disable_bgp_route_propagation = false
 
   route {
@@ -470,8 +470,8 @@ resource "azurerm_subnet_route_table_association" "AzureRefArch-Shared-Private-A
 
 resource "azurerm_route_table" "AzureRefArch-Shared-Public" {
   name                          = "AzureRefArch-Shared-Public"
-  location                      = "${azurerm_resource_group.shared-resource-group.location}"
-  resource_group_name           = "${azurerm_resource_group.shared-resource-group.name}"
+  location                      = "${azurerm_resource_group.shared_resource_group.location}"
+  resource_group_name           = "${azurerm_resource_group.shared_resource_group.name}"
   disable_bgp_route_propagation = false
 
   route {
