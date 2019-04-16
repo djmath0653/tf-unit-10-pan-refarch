@@ -33,7 +33,7 @@ variable "shared_resource_group_location" {
 }
 
 variable "refarch_vnet_name" {
-  default = "DevAzureRefArch-VNET"
+  default = "Unit-10-PAN-RefArch-VNET"
 }
 
 variable "refarch_shared_address_space" {
