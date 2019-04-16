@@ -10,7 +10,7 @@ provider "azurerm" {
 # Create Shared Resource Group
 resource "azurerm_resource_group" "shared-resource-group" {
   name     = "${var.shared-resource-group_name}"
-  location = "${var.shared-resource-group_location}"
+  location = "${var.shared_resource_group_location}"
 }
 
 # Create a vnet within the resource group
@@ -92,7 +92,7 @@ resource "azurerm_subnet" "sharedgwsubnet" {
 # Create network securirty group
 resource "azurerm_network_security_group" "sharednsg" {
   name                = "${var.shared_nsg_name}"
-  location            = "${var.shared-resource-group_location}"
+  location            = "${var.shared_resource_group_location}"
   resource_group_name = "${azurerm_resource_group.shared-resource-group.name}"
 
   security_rule {
@@ -127,7 +127,7 @@ resource "azurerm_network_security_group" "sharednsg" {
 # Create network securirty group
 resource "azurerm_network_security_group" "sharedpublicnsg" {
   name                = "${var.shared_fw_pub_nsg_name}"
-  location            = "${var.shared-resource-group_location}"
+  location            = "${var.shared_resource_group_location}"
   resource_group_name = "${azurerm_resource_group.shared-resource-group.name}"
 
   security_rule {
@@ -174,7 +174,7 @@ resource "azurerm_network_security_group" "sharedpublicnsg" {
 # Create network securirty group
 resource "azurerm_network_security_group" "sharedallowallnsg" {
   name                = "${var.shared_allow_all_nsg_name}"
-  location            = "${var.shared-resource-group_location}"
+  location            = "${var.shared_resource_group_location}"
   resource_group_name = "${azurerm_resource_group.shared-resource-group.name}"
 
   security_rule {
@@ -501,18 +501,4 @@ resource "azurerm_route_table" "AzureRefArch-Shared-Public" {
 resource "azurerm_subnet_route_table_association" "AzureRefArch-Shared-Public-Assoc" {
   subnet_id      = "${azurerm_subnet.sharedpublicsubnet.id}"
   route_table_id = "${azurerm_route_table.AzureRefArch-Shared-Public.id}"
-}
-
-# Create the public ip for Panorama 2
-resource "azurerm_public_ip" "panorama2_shared_publicip" {
-  name                = "${var.panorama2_shared_public_ip_name}"
-  location            = "${azurerm_resource_group.shared-resource-group.location}"
-  resource_group_name = "${azurerm_resource_group.shared-resource-group.name}"
-  sku                 = "Standard"
-  allocation_method   = "Static"
-  domain_name_label   = "${var.panorama2_shared_domain_name_label}"
-
-  tags = {
-    environment = "${var.environment_tag_name}"
-  }
 }
