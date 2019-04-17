@@ -14,56 +14,56 @@ resource "azurerm_resource_group" "sharedrg" {
 }
 
 data "azurerm_resource_group" "mgmtrg" {
-  name = "${var.mgmt_resource_group_name}"
+  name = "${var.shared_resource_group_name}"
 }
 
 ## get data from mgmt subnet
 data "azurerm_subnet" "mgmtsubnet" {
   name                 = "${var.mgmt_subnet_name}"
-  virtual_network_name = "${var.azure_refarch_vnet_name}"
-  resource_group_name  = "${var.mgmt_resource_group_name}"
+  virtual_network_name = "${var.refarch_vnet_name}"
+  resource_group_name  = "${var.shared_resource_group_name}"
 }
 
 # get data from public subnet
 data "azurerm_subnet" "sharedpublicsubnet" {
   name                 = "${var.shared_public_subnet_name}"
-  virtual_network_name = "${var.azure_refarch_vnet_name}"
-  resource_group_name  = "${var.mgmt_resource_group_name}"
+  virtual_network_name = "${var.refarch_vnet_name}"
+  resource_group_name  = "${var.shared_resource_group_name}"
 }
 
 # get data from private subnet
 data "azurerm_subnet" "sharedprivatesubnet" {
   name                 = "${var.shared_private_subnet_name}"
-  virtual_network_name = "${var.azure_refarch_vnet_name}"
-  resource_group_name  = "${var.mgmt_resource_group_name}"
+  virtual_network_name = "${var.refarch_vnet_name}"
+  resource_group_name  = "${var.shared_resource_group_name}"
 }
 
 # # get data from web subnet
 # data "azurerm_subnet" "sharedwebsubnet" {
 #   name                 = "${var.shared_web_subnet_name}"
-#   virtual_network_name = "${var.azure_refarch_vnet_name}"
-#   resource_group_name  = "${var.mgmt_resource_group_name}"
+#   virtual_network_name = "${var.refarch_vnet_name}"
+#   resource_group_name  = "${var.shared_resource_group_name}"
 # }
 #
 # # get data from business subnet
 # data "azurerm_subnet" "sharedbusinesssubnet" {
 #   name                 = "${var.shared_business_subnet_name}"
-#   virtual_network_name = "${var.azure_refarch_vnet_name}"
-#   resource_group_name  = "${var.mgmt_resource_group_name}"
+#   virtual_network_name = "${var.refarch_vnet_name}"
+#   resource_group_name  = "${var.shared_resource_group_name}"
 # }
 #
 # # get data from db subnet
 # data "azurerm_subnet" "shareddbsubnet" {
 #   name                 = "${var.shared_db_subnet_name}"
-#   virtual_network_name = "${var.azure_refarch_vnet_name}"
-#   resource_group_name  = "${var.mgmt_resource_group_name}"
+#   virtual_network_name = "${var.refarch_vnet_name}"
+#   resource_group_name  = "${var.shared_resource_group_name}"
 # }
 #
 # # get data from vpn subnet
 # data "azurerm_subnet" "sharedvpnsubnet" {
 #   name                 = "${var.shared_vpn_subnet_name}"
-#   virtual_network_name = "${var.azure_refarch_vnet_name}"
-#   resource_group_name  = "${var.mgmt_resource_group_name}"
+#   virtual_network_name = "${var.refarch_vnet_name}"
+#   resource_group_name  = "${var.shared_resource_group_name}"
 # }
 
 # Create the Firewall diagnostic storage account
