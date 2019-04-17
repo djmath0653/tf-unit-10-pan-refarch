@@ -24,6 +24,10 @@ variable "admin_password" {
   default = "s0wqLK0N5f0!"
 }
 
+variable "shared_resource_group_name" {
+  default = "Unit-10-PAN-RefArch-Shared"
+}
+
 variable "refarch_vnet_name" {
   default = "Unit-10-PAN-RefArch-VNET"
 }
@@ -36,7 +40,7 @@ variable "panorama_resource_group_location" {
   default = "centralus"
 }
 
-variable "panorama_subnet_name" {
+variable "management_subnet_name" {
   default = "Management"
 }
 
