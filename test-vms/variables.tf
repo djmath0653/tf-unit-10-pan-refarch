@@ -33,7 +33,7 @@ variable "testvm_resource_group_name" {
 }
 
 variable "testvm_resource_group_location" {
-  default = "central"
+  default = "centralus"
 }
 
 variable "azure_refarch_vnet_name" {
