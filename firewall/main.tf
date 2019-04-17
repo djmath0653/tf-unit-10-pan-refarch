@@ -57,33 +57,33 @@ data "azurerm_subnet" "sharedprivatesubnet" {
   resource_group_name  = "${var.shared_resource_group_name}"
 }
 
-# # get data from web subnet
-# data "azurerm_subnet" "sharedwebsubnet" {
-#   name                 = "${var.shared_web_subnet_name}"
-#   virtual_network_name = "${var.refarch_vnet_name}"
-#   resource_group_name  = "${var.shared_resource_group_name}"
-# }
-#
-# # get data from business subnet
-# data "azurerm_subnet" "sharedbusinesssubnet" {
-#   name                 = "${var.shared_business_subnet_name}"
-#   virtual_network_name = "${var.refarch_vnet_name}"
-#   resource_group_name  = "${var.shared_resource_group_name}"
-# }
-#
-# # get data from db subnet
-# data "azurerm_subnet" "shareddbsubnet" {
-#   name                 = "${var.shared_db_subnet_name}"
-#   virtual_network_name = "${var.refarch_vnet_name}"
-#   resource_group_name  = "${var.shared_resource_group_name}"
-# }
-#
-# # get data from vpn subnet
-# data "azurerm_subnet" "sharedvpnsubnet" {
-#   name                 = "${var.shared_vpn_subnet_name}"
-#   virtual_network_name = "${var.refarch_vnet_name}"
-#   resource_group_name  = "${var.shared_resource_group_name}"
-# }
+# get data from web subnet
+data "azurerm_subnet" "sharedwebsubnet" {
+  name                 = "${var.shared_web_subnet_name}"
+  virtual_network_name = "${var.refarch_vnet_name}"
+  resource_group_name  = "${var.shared_resource_group_name}"
+}
+
+# get data from business subnet
+data "azurerm_subnet" "sharedbusinesssubnet" {
+  name                 = "${var.shared_business_subnet_name}"
+  virtual_network_name = "${var.refarch_vnet_name}"
+  resource_group_name  = "${var.shared_resource_group_name}"
+}
+
+# get data from db subnet
+data "azurerm_subnet" "shareddbsubnet" {
+  name                 = "${var.shared_db_subnet_name}"
+  virtual_network_name = "${var.refarch_vnet_name}"
+  resource_group_name  = "${var.shared_resource_group_name}"
+}
+
+# get data from vpn subnet
+data "azurerm_subnet" "sharedvpnsubnet" {
+  name                 = "${var.shared_vpn_subnet_name}"
+  virtual_network_name = "${var.refarch_vnet_name}"
+  resource_group_name  = "${var.shared_resource_group_name}"
+}
 
 # Create the Firewall diagnostic storage account
 resource "azurerm_storage_account" "sharedstorage" {
