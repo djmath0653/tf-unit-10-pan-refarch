@@ -88,7 +88,7 @@ data "azurerm_subnet" "sharedprivatesubnet" {
 # Create the Firewall diagnostic storage account
 resource "azurerm_storage_account" "sharedstorage" {
   name                     = "${var.firewall_storage_acct_name}"
-  resource_group_name      = "${azurerm_resource_group.sharedrg.name}"
+  resource_group_name      = "${var.shared_resource_group_name}"
   location                 = "${var.shared_resource_group_location}"
   account_tier             = "Standard"
   account_kind             = "StorageV2"
@@ -102,7 +102,7 @@ resource "azurerm_storage_account" "sharedstorage" {
 # Create the Firewall availability set
 resource "azurerm_availability_set" "sharedas" {
   name                = "${var.shared_avail_set_name}"
-  resource_group_name = "${azurerm_resource_group.sharedrg.name}"
+  resource_group_name = "${var.shared_resource_group_name}"
   location            = "${var.shared_resource_group_location}"
 
   tags = {
@@ -114,7 +114,7 @@ resource "azurerm_availability_set" "sharedas" {
 resource "azurerm_public_ip" "firewall1_mgmt_publicip" {
   name                = "${var.firewall1_mgmt_public_ip_name}"
   location            = "${var.shared_resource_group_location}"
-  resource_group_name = "${azurerm_resource_group.sharedrg.name}"
+  resource_group_name = "${var.shared_resource_group_name}"
   sku                 = "Standard"
   allocation_method   = "Static"
   domain_name_label   = "${var.firewall1_mgmt_domain_name_label}"
@@ -128,7 +128,7 @@ resource "azurerm_public_ip" "firewall1_mgmt_publicip" {
 resource "azurerm_public_ip" "firewall2_mgmt_publicip" {
   name                = "${var.firewall2_mgmt_public_ip_name}"
   location            = "${var.shared_resource_group_location}"
-  resource_group_name = "${azurerm_resource_group.sharedrg.name}"
+  resource_group_name = "${var.shared_resource_group_name}"
   sku                 = "Standard"
   allocation_method   = "Static"
   domain_name_label   = "${var.firewall2_mgmt_domain_name_label}"
@@ -141,7 +141,7 @@ resource "azurerm_public_ip" "firewall2_mgmt_publicip" {
 # Create Firewalls os disks
 resource "azurerm_storage_account" "firewall1osdisk" {
   name                     = "${join("", list(var.firewall1_os_disk_account_name, substr(md5(azurerm_resource_group.sharedrg.id), 0, 4)))}"
-  resource_group_name      = "${azurerm_resource_group.sharedrg.name}"
+  resource_group_name      = "${var.shared_resource_group_name}"
   location                 = "${var.shared_resource_group_location}"
   account_replication_type = "LRS"
   account_tier             = "Standard"
@@ -149,7 +149,7 @@ resource "azurerm_storage_account" "firewall1osdisk" {
 
 resource "azurerm_storage_account" "firewall2osdisk" {
   name                     = "${join("", list(var.firewall2_os_disk_account_name, substr(md5(azurerm_resource_group.sharedrg.id), 0, 4)))}"
-  resource_group_name      = "${azurerm_resource_group.sharedrg.name}"
+  resource_group_name      = "${var.shared_resource_group_name}"
   location                 = "${var.shared_resource_group_location}"
   account_replication_type = "LRS"
   account_tier             = "Standard"
@@ -158,7 +158,7 @@ resource "azurerm_storage_account" "firewall2osdisk" {
 ## Create network interfaces
 resource "azurerm_network_interface" "firewall1nic0" {
   name                = "${var.firewall1_vnic0_name}"
-  resource_group_name = "${azurerm_resource_group.sharedrg.name}"
+  resource_group_name = "${var.shared_resource_group_name}"
   location            = "${var.shared_resource_group_location}"
 
   ip_configuration {
@@ -177,7 +177,7 @@ resource "azurerm_network_interface" "firewall1nic0" {
 ## Create network interfaces
 resource "azurerm_network_interface" "firewall1nic1" {
   name                = "${var.firewall1_vnic1_name}"
-  resource_group_name = "${azurerm_resource_group.sharedrg.name}"
+  resource_group_name = "${var.shared_resource_group_name}"
   location            = "${var.shared_resource_group_location}"
 
   ip_configuration {
@@ -196,7 +196,7 @@ resource "azurerm_network_interface" "firewall1nic1" {
 ## Create network interfaces
 resource "azurerm_network_interface" "firewall1nic2" {
   name                = "${var.firewall1_vnic2_name}"
-  resource_group_name = "${azurerm_resource_group.sharedrg.name}"
+  resource_group_name = "${var.shared_resource_group_name}"
   location            = "${var.shared_resource_group_location}"
 
   ip_configuration {
@@ -214,7 +214,7 @@ resource "azurerm_network_interface" "firewall1nic2" {
 ## Create network interfaces
 resource "azurerm_network_interface" "firewall1nic3" {
   name                = "${var.firewall1_vnic3_name}"
-  resource_group_name = "${azurerm_resource_group.sharedrg.name}"
+  resource_group_name = "${var.shared_resource_group_name}"
   location            = "${var.shared_resource_group_location}"
 
   ip_configuration {
@@ -232,7 +232,7 @@ resource "azurerm_network_interface" "firewall1nic3" {
 ## Create network interfaces
 resource "azurerm_network_interface" "firewall2nic0" {
   name                = "${var.firewall2_vnic0_name}"
-  resource_group_name = "${azurerm_resource_group.sharedrg.name}"
+  resource_group_name = "${var.shared_resource_group_name}"
   location            = "${var.shared_resource_group_location}"
 
   ip_configuration {
@@ -251,7 +251,7 @@ resource "azurerm_network_interface" "firewall2nic0" {
 ## Create network interfaces
 resource "azurerm_network_interface" "firewall2nic1" {
   name                = "${var.firewall2_vnic1_name}"
-  resource_group_name = "${azurerm_resource_group.sharedrg.name}"
+  resource_group_name = "${var.shared_resource_group_name}"
   location            = "${var.shared_resource_group_location}"
 
   ip_configuration {
@@ -270,7 +270,7 @@ resource "azurerm_network_interface" "firewall2nic1" {
 ## Create network interfaces
 resource "azurerm_network_interface" "firewall2nic2" {
   name                = "${var.firewall2_vnic2_name}"
-  resource_group_name = "${azurerm_resource_group.sharedrg.name}"
+  resource_group_name = "${var.shared_resource_group_name}"
   location            = "${var.shared_resource_group_location}"
 
   ip_configuration {
@@ -288,7 +288,7 @@ resource "azurerm_network_interface" "firewall2nic2" {
 ## Create network interfaces
 resource "azurerm_network_interface" "firewall2nic3" {
   name                = "${var.firewall2_vnic3_name}"
-  resource_group_name = "${azurerm_resource_group.sharedrg.name}"
+  resource_group_name = "${var.shared_resource_group_name}"
   location            = "${var.shared_resource_group_location}"
 
   ip_configuration {
@@ -308,7 +308,7 @@ resource "azurerm_network_interface" "firewall2nic3" {
 resource "azurerm_virtual_machine" "firewall1" {
   name                          = "${var.firewall1_vm_name}"
   location                      = "${var.shared_resource_group_location}"
-  resource_group_name           = "${azurerm_resource_group.sharedrg.name}"
+  resource_group_name           = "${var.shared_resource_group_name}"
   vm_size                       = "${var.firewall_vm_size}"
   availability_set_id           = "${azurerm_availability_set.sharedas.id}"
   delete_os_disk_on_termination = "true"
@@ -362,7 +362,7 @@ resource "azurerm_virtual_machine" "firewall1" {
 resource "azurerm_virtual_machine" "firewall2" {
   name                          = "${var.firewall2_vm_name}"
   location                      = "${var.shared_resource_group_location}"
-  resource_group_name           = "${azurerm_resource_group.sharedrg.name}"
+  resource_group_name           = "${var.shared_resource_group_name}"
   vm_size                       = "${var.firewall_vm_size}"
   availability_set_id           = "${azurerm_availability_set.sharedas.id}"
   delete_os_disk_on_termination = "true"
