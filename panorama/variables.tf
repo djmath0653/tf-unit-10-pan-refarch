@@ -45,7 +45,7 @@ variable "shared_mgmt_subnet_prefix" {
 }
 
 ## Panorama vars
-variable "panorama1_public_ip_name" {
+variable "panorama1_mgmt_public_ip_name" {
   default = "Unit-10-PAN-RefArch-1-PIP"
 }
 
@@ -69,7 +69,7 @@ variable "panorama1_os_disk_account_name" {
   default = "panorama1osdisk"
 }
 
-variable "panorama2_public_ip_name" {
+variable "panorama2_mgmt_public_ip_name" {
   default = "Unit-10-PAN-RefArch-2-PIP"
 }
 

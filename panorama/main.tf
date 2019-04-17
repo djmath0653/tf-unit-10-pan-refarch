@@ -22,7 +22,7 @@ data "azurerm_subnet" "panorama_subnet" {
 
 # Create the public ip for Panorama 1
 resource "azurerm_public_ip" "panorama1_panorama_publicip" {
-  name                = "${var.panorama1_panorama_public_ip_name}"
+  name                = "${var.panorama1_mgmt_public_ip_name}"
   location            = "${azurerm_resource_group.panorama_resource_group.location}"
   resource_group_name = "${azurerm_resource_group.panorama_resource_group.name}"
   sku                 = "Standard"
