@@ -17,7 +17,7 @@ resource "azurerm_resource_group" "panorama_resource_group" {
 data "azurerm_subnet" "panorama_subnet" {
   name                 = "${var.panorama_subnet_name}"
   resource_group_name  = "${azurerm_resource_group.panorama_resource_group.name}"
-  virtual_network_name = "${azurerm_virtual_network.azrefarchvnet.name}"
+  virtual_network_name = "${azurerm_virtual_network.refarch_vnet_name.name}"
 }
 
 # Create the public ip for Panorama 1
@@ -27,7 +27,7 @@ resource "azurerm_public_ip" "panorama1_panorama_publicip" {
   resource_group_name = "${azurerm_resource_group.panorama_resource_group.name}"
   sku                 = "Standard"
   allocation_method   = "Static"
-  domain_name_label   = "${var.panorama1_panorama_domain_name_label}"
+  domain_name_label   = "${var.panorama1_domain_name_label}"
 
   tags = {
     environment = "${var.environment_tag_name}"
@@ -41,7 +41,7 @@ resource "azurerm_public_ip" "panorama2_mgmt_publicip" {
   resource_group_name = "${azurerm_resource_group.panorama_resource_group_name.name}"
   sku                 = "Standard"
   allocation_method   = "Static"
-  domain_name_label   = "${var.panorama2_mgmt_domain_name_label}"
+  domain_name_label   = "${var.panorama2_domain_name_label}"
 
   tags = {
     environment = "${var.environment_tag_name}"
