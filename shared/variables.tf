@@ -40,11 +40,11 @@ variable "refarch_shrd_address_space" {
   default = "10.5.0.0/16"
 }
 
-variable "shared_panorama_subnet_name" {
+variable "managment_subnet_name" {
   default = "Management"
 }
 
-variable "panorama_subnet_prefix" {
+variable "managment_subnet_prefix" {
   default = "10.255.255.0/24"
 }
 

@@ -26,11 +26,11 @@ resource "azurerm_virtual_network" "refarch_vnet" {
 }
 
 # Create subnet within the vnet
-resource "azurerm_subnet" "panorama_subnet" {
-  name                 = "${var.panorama_subnet_name}"
+resource "azurerm_subnet" "managment_subnet" {
+  name                 = "${var.managment_subnet_name}"
   resource_group_name  = "${azurerm_resource_group.shared_resource_group.name}"
   virtual_network_name = "${azurerm_virtual_network.refarch_vnet.name}"
-  address_prefix       = "${var.panorama_subnet_prefix}"
+  address_prefix       = "${var.managment_subnet_prefix}"
 }
 
 # Create subnet within the vnet
@@ -195,8 +195,8 @@ resource "azurerm_network_security_group" "sharedallowallnsg" {
 }
 
 # Associate the NSG to the subnet
-resource "azurerm_subnet_network_security_group_association" "shared_panorama_subnetnsgassoc" {
-  subnet_id                 = "${azurerm_subnet.shared_panorama_subnet.id}"
+resource "azurerm_subnet_network_security_group_association" "managment_subnetnsgassoc" {
+  subnet_id                 = "${azurerm_subnet.managment_subnet.id}"
   network_security_group_id = "${azurerm_network_security_group.sharednsg.id}"
 }
 
@@ -268,7 +268,7 @@ resource "azurerm_route_table" "AzureRefArch-Management" {
 }
 
 resource "azurerm_subnet_route_table_association" "AzureRefArch-Management-Assoc" {
-  subnet_id      = "${azurerm_subnet.shared_panorama_subnet.id}"
+  subnet_id      = "${azurerm_subnet.managment_subnet.id}"
   route_table_id = "${azurerm_route_table.AzureRefArch-Management.id}"
 }
 
