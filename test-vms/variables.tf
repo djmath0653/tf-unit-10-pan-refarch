@@ -28,16 +28,12 @@ variable "shared_resource_group_name" {
   default = "Unit-10-PAN-RefArch-Shared"
 }
 
-variable "shared_resource_group_location" {
-  default = "westus"
-}
-
 variable "testvm_resource_group_name" {
   default = "Unit-10-PAN-RefArch-TestVMs"
 }
 
 variable "testvm_resource_group_location" {
-  default = "westus"
+  default = "central"
 }
 
 variable "azure_refarch_vnet_name" {
