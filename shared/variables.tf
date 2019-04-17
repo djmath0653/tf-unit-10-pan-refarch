@@ -40,7 +40,7 @@ variable "refarch_shrd_address_space" {
   default = "10.5.0.0/16"
 }
 
-variable "shared_mgmt_subnet_prefix" {
+variable "shared_panorama_subnet_prefix" {
   default = "10.255.255.0/24"
 }
 
@@ -56,7 +56,7 @@ variable "shared_fw_pub_nsg_name" {
   default = "Firewall-Public-Interface"
 }
 
-variable "shared_mgmt_subnet_name" {
+variable "shared_panorama_subnet_name" {
   default = "Management"
 }
 
