@@ -20,19 +20,19 @@ provider "azurerm" {
 
 ## Get data from LB Internal backend pool
 data "data.azurerm_lb_backend_address_pool" "internal_lb_backend_address_pool" {
-  resource_group_name = "${azurerm_resource_group.shared_resource_group.name}"
+  resource_group_name = "${var.shared_resource_group}"
   name                = "${var.internal_lb_backend_pool_name}"
 }
 
 ## Create LB Internal Public backend pool
 data "data.azurerm_lb_backend_address_pool" "internal_public_lb_backend_address_pool" {
-  resource_group_name = "${azurerm_resource_group.shared_resource_group.name}"
+  resource_group_name = "${var.shared_resource_group}"
   name                = "${var.internal_Public_lb_backend_pool_name}"
 }
 
 ## Create LB VPN backend pool
 data "data.azurerm_lb_backend_address_pool" "vpn_lb_backend_address_pool" {
-  resource_group_name = "${azurerm_resource_group.shared_resource_group.name}"
+  resource_group_name = "${var.shared_resource_group}"
   name                = "${var.vpn_lb_backend_pool_name}"
 }
 
