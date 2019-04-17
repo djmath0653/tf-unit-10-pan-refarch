@@ -7,14 +7,33 @@ provider "azurerm" {
 }
 
 ## Infrastructure
-# Create AzureRefArch-Shared Resource Group
-resource "azurerm_resource_group" "sharedrg" {
-  name     = "${var.shared_resource_group_name}"
-  location = "${var.shared_resource_group_location}"
+# # Create AzureRefArch-Shared Resource Group
+# resource "azurerm_resource_group" "sharedrg" {
+#   name     = "${var.shared_resource_group_name}"
+#   location = "${var.shared_resource_group_location}"
+# }
+#
+# ## Get data from resource
+# data "azurerm_resource_group" "mgmtrg" {
+#   name = "${var.shared_resource_group_name}"
+# }
+
+## Get data from LB Internal backend pool
+data "azurerm_lb_backend_address_pool" "internal_lb_backend_address_pool" {
+  resource_group_name = "${azurerm_resource_group.shared_resource_group.name}"
+  name                = "${var.internal_lb_backend_pool_name}"
 }
 
-data "azurerm_resource_group" "mgmtrg" {
-  name = "${var.shared_resource_group_name}"
+## Create LB Internal Public backend pool
+data "azurerm_lb_backend_address_pool" "internal_public_lb_backend_address_pool" {
+  resource_group_name = "${azurerm_resource_group.shared_resource_group.name}"
+  name                = "${var.internal_Public_lb_backend_pool_name}"
+}
+
+## Create LB VPN backend pool
+data "azurerm_lb_backend_address_pool" "vpn_lb_backend_address_pool" {
+  resource_group_name = "${azurerm_resource_group.shared_resource_group.name}"
+  name                = "${var.vpn_lb_backend_pool_name}"
 }
 
 ## get data from mgmt subnet

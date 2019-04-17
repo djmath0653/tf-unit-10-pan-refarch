@@ -128,10 +128,6 @@ variable "public_lb_name" {
   default = "Unit-10-PAN-RefArch-Shared-Public"
 }
 
-variable "public_lb_backend_pool_name" {
-  default = "Firewall-Layer"
-}
-
 variable "internal_lb_name" {
   default = "Unit-10-PAN-RefArch-Shared-Internal"
 }

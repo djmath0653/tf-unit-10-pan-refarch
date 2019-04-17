@@ -52,6 +52,10 @@ variable "shared_private_subnet_name" {
   default = "Shared-Private"
 }
 
+variable "public_lb_backend_pool_name" {
+  default = "Firewall-Layer"
+}
+
 ## Firewall vars
 variable "admin_username" {
   default = "xmrefarchadmin"
