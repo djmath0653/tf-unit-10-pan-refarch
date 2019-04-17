@@ -13,12 +13,12 @@ resource "azurerm_resource_group" "panorama_resource_group" {
   location = "${var.panorama_resource_group_location}"
 }
 
-# get subnet data
-data "azurerm_subnet" "management_subnet" {
-  name                 = "${var.management_subnet_name}"
-  resource_group_name  = "${var.shared_resource_group_name}"
-  virtual_network_name = "${var.refarch_vnet_name}"
-}
+# # get subnet data
+# data "azurerm_subnet" "management_subnet" {
+#   name                 = "${var.management_subnet_name}"
+#   resource_group_name  = "${var.shared_resource_group_name}"
+#   virtual_network_name = "${var.refarch_vnet_name}"
+# }
 
 ## get data from mgmt subnet
 data "azurerm_subnet" "management_subnet" {
