@@ -68,8 +68,20 @@ variable "shared_db_subnet_name" {
   default = "Shared-DB"
 }
 
+variable "public_lb_name" {
+  default = "Unit-10-PAN-RefArch-Shared-Public"
+}
+
+variable "internal_lb_name" {
+  default = "Unit-10-PAN-RefArch-Shared-Internal"
+}
+
 variable "public_lb_backend_pool_name" {
   default = "Firewall-Layer"
+}
+
+variable "public_lb_name" {
+  default = "Unit-10-PAN-RefArch-Shared-Public"
 }
 
 variable "internal_lb_backend_pool_name" {

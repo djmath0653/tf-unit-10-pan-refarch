@@ -18,19 +18,31 @@ data "azurerm_resource_group" "mgmtrg" {
   name = "${var.shared_resource_group_name}"
 }
 
+## Get data from Internal LB
+data "azurerm_lb" "internal_lb" {
+  name                = "${var.internal_lb_name}"
+  resource_group_name = "${var.shared_resource_group_name}"
+}
+
+## Get data from Internal LB
+data "azurerm_lb" "public_lb" {
+  name                = "${var.public_lb_name}"
+  resource_group_name = "${var.shared_resource_group_name}"
+}
+
 ## Get data from LB Internal backend pool
 data "azurerm_lb_backend_address_pool" "internal_lb_backend_address_pool" {
   resource_group_name = "${var.shared_resource_group_name}"
   name                = "${var.internal_lb_backend_pool_name}"
 }
 
-## Create LB Internal Public backend pool
+## Get data from Internal Public backend pool
 data "azurerm_lb_backend_address_pool" "internal_public_lb_backend_address_pool" {
   resource_group_name = "${var.shared_resource_group_name}"
   name                = "${var.internal_Public_lb_backend_pool_name}"
 }
 
-## Create LB VPN backend pool
+## Get data from  LB VPN backend pool
 data "azurerm_lb_backend_address_pool" "vpn_lb_backend_address_pool" {
   resource_group_name = "${var.shared_resource_group_name}"
   name                = "${var.vpn_lb_backend_pool_name}"
