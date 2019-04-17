@@ -52,6 +52,22 @@ variable "shared_private_subnet_name" {
   default = "Shared-Private"
 }
 
+variable "shared_vpn_subnet_name" {
+  default = "Shared-VPN"
+}
+
+variable "shared_web_subnet_name" {
+  default = "Shared-Web"
+}
+
+variable "shared_business_subnet_name" {
+  default = "Shared-Business"
+}
+
+variable "shared_db_subnet_name" {
+  default = "Shared-DB"
+}
+
 variable "public_lb_backend_pool_name" {
   default = "Firewall-Layer"
 }
