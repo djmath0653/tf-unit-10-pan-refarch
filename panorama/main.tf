@@ -20,6 +20,13 @@ data "azurerm_subnet" "management_subnet" {
   virtual_network_name = "${var.refarch_vnet_name}"
 }
 
+## get data from mgmt subnet
+data "azurerm_subnet" "management_subnet" {
+  name                 = "${var.management_subnet_name}"
+  virtual_network_name = "${var.refarch_vnet_name}"
+  resource_group_name  = "${var.shared_resource_group_name}"
+}
+
 # Create the public ip for Panorama 1
 resource "azurerm_public_ip" "panorama1_public_ip" {
   name                = "${var.panorama1_public_ip_name}"
