@@ -1,4 +1,4 @@
-## Variables used to deploy PAN DevAzureRefArch
+## Variables used to deploy PAN Unit-10-PAN-RefArch
 # Environment vars
 variable "provider_version" {
   default = "1.23.0"
@@ -13,7 +13,7 @@ variable "subscription_id" {
 }
 
 variable "environment_tag_name" {
-  default = "10M DevAzureRefArch Terraform Demo"
+  default = "Unit 10 PAN Referece Architecture"
 }
 
 variable "admin_username" {
@@ -24,12 +24,8 @@ variable "admin_password" {
   default = "s0wqLK0N5f0!"
 }
 
-variable "mgmt_resource_group_name" {
-  default = "DevAzureRefArch-Management"
-}
-
 variable "shared_resource_group_name" {
-  default = "DevAzureRefArch-Shared"
+  default = "Unit-10-PAN-RefArch-Shared"
 }
 
 variable "shared_resource_group_location" {
@@ -37,7 +33,7 @@ variable "shared_resource_group_location" {
 }
 
 variable "testvm_resource_group_name" {
-  default = "DevAzureRefArch-TestVMs"
+  default = "Unit-10-PAN-RefArch-TestVMs"
 }
 
 variable "testvm_resource_group_location" {
@@ -45,7 +41,7 @@ variable "testvm_resource_group_location" {
 }
 
 variable "azure_refarch_vnet_name" {
-  default = "DevAzureRefArch-VNET"
+  default = "Unit-10-PAN-RefArch-VNET"
 }
 
 variable "shared_web_subnet_name" {
@@ -61,7 +57,7 @@ variable "shared_business_subnet_name" {
 }
 
 variable "web_test_publicip_name" {
-  default = "10M-Dev-Azure-Web-Test-PIP"
+  default = "Unit-10-PAN-RefArch-Web-Test-PIP"
 }
 
 variable "web_test_domain_name_label" {
@@ -69,7 +65,7 @@ variable "web_test_domain_name_label" {
 }
 
 variable "db_test_publicip_name" {
-  default = "10M-Dev-Azure-DB-Test-PIP"
+  default = "Unit-10-PAN-RefArch-DB-Test-PIP"
 }
 
 variable "db_test_domain_name_label" {
@@ -77,7 +73,7 @@ variable "db_test_domain_name_label" {
 }
 
 variable "business_test_publicip_name" {
-  default = "10M-Dev-Azure-Business-Test-PIP"
+  default = "Unit-10-PAN-RefArch-Business-Test-PIP"
 }
 
 variable "business_test_domain_name_label" {
@@ -85,13 +81,13 @@ variable "business_test_domain_name_label" {
 }
 
 variable "web_test_1vm_name" {
-  default = "10M-Dev-Azure-webtestvm"
+  default = "Unit-10-PAN-RefArch-webtestvm"
 }
 
 variable "db_test_1vm_name" {
-  default = "10M-Dev-Azure-dbtestvm"
+  default = "Unit-10-PAN-RefArch-dbtestvm"
 }
 
 variable "business_test_1vm_name" {
-  default = "10M-Dev-Azure-businesstestvm"
+  default = "Unit-10-PAN-RefArch-businesstestvm"
 }

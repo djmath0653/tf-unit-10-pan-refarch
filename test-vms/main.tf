@@ -18,21 +18,21 @@ resource "azurerm_resource_group" "testvmrg" {
 data "azurerm_subnet" "sharedwebsubnet" {
   name                 = "${var.shared_web_subnet_name}"
   virtual_network_name = "${var.azure_refarch_vnet_name}"
-  resource_group_name  = "${var.mgmt_resource_group_name}"
+  resource_group_name  = "${var.shared_resource_group_name}"
 }
 
 ## get the id of db subnet
 data "azurerm_subnet" "shareddbsubnet" {
   name                 = "${var.shared_db_subnet_name}"
   virtual_network_name = "${var.azure_refarch_vnet_name}"
-  resource_group_name  = "${var.mgmt_resource_group_name}"
+  resource_group_name  = "${var.shared_resource_group_name}"
 }
 
 ## get the id of buisiness subnet
 data "azurerm_subnet" "sharedbusinesssubnet" {
   name                 = "${var.shared_web_subnet_name}"
   virtual_network_name = "${var.azure_refarch_vnet_name}"
-  resource_group_name  = "${var.mgmt_resource_group_name}"
+  resource_group_name  = "${var.shared_resource_group_name}"
 }
 
 # Create the public ip for web test vm
