@@ -16,8 +16,8 @@ resource "azurerm_resource_group" "panorama_resource_group" {
 # get subnet data
 data "azurerm_subnet" "panorama_subnet" {
   name                 = "${var.panorama_subnet_name}"
-  resource_group_name  = "${azurerm_resource_group.panorama_resource_group.name}"
-  virtual_network_name = "${azurerm_virtual_network.refarch_vnet_name.name}"
+  resource_group_name  = "${var.panorama_resource_group_name}"
+  virtual_network_name = "${var.refarch_vnet_name}"
 }
 
 # Create the public ip for Panorama 1
