@@ -24,11 +24,10 @@ data "azurerm_lb" "public_lb" {
   resource_group_name = "${var.shared_resource_group_name}"
 }
 
-## Create LB backend pool
+## Get data from LB backend pool
 data "azurerm_lb_backend_address_pool" "public_lb_backend_address_pool" {
-  resource_group_name = "${var.shared_resource_group_name}"
-  loadbalancer_id     = "${data.azurerm_lb.public_lb.id}"
-  name                = "${var.public_lb_backend_pool_name}"
+  loadbalancer_id = "${data.azurerm_lb.public_lb.id}"
+  name            = "${var.public_lb_backend_pool_name}"
 }
 
 ## Get data from Internal LB
