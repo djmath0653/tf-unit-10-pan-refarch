@@ -21,7 +21,7 @@ data "azurerm_subnet" "managment_subnet" {
 }
 
 # Create the public ip for Panorama 1
-resource "azurerm_public_ip" "panorama1_publicip" {
+resource "azurerm_public_ip" "panorama1_public_ip" {
   name                = "${var.panorama1_public_ip_name}"
   location            = "${var.panorama_resource_group_location}"
   resource_group_name = "${var.panorama_resource_group_name}"
@@ -35,7 +35,7 @@ resource "azurerm_public_ip" "panorama1_publicip" {
 }
 
 # Create the public ip for Panorama 2
-resource "azurerm_public_ip" "panorama2_publicip" {
+resource "azurerm_public_ip" "panorama2_public_ip" {
   name                = "${var.panorama2_public_ip_name}"
   location            = "${var.panorama_resource_group_location}"
   resource_group_name = "${var.panorama_resource_group_name}"
@@ -119,7 +119,7 @@ resource "azurerm_network_interface" "panoram2nic0" {
     subnet_id                     = "${azurerm_subnet.managment_subnet.id}"
     private_ip_address_allocation = "Static"
     private_ip_address            = "${var.panorama2_vnic0_private_ip}"
-    public_ip_address_id          = "${azurerm_public_ip.panorama2_publicip.id}"
+    public_ip_address_id          = "${azurerm_public_ip.panorama2_public_ip.id}"
   }
 
   tags = {
