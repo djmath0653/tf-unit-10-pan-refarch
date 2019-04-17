@@ -57,27 +57,27 @@ variable "shared_business_subnet_name" {
 }
 
 variable "web_test_publicip_name" {
-  default = "Unit-10-PAN-RefArch-Web-Test-PIP"
+  default = "Unit-10-PAN-RefArch-Web-VM-PIP"
 }
 
 variable "web_test_domain_name_label" {
-  default = "xm-dev-web-test"
+  default = "unit-10-pan-refarch-web-test"
 }
 
 variable "db_test_publicip_name" {
-  default = "Unit-10-PAN-RefArch-DB-Test-PIP"
+  default = "Unit-10-PAN-RefArch-DB-VM-PIP"
 }
 
 variable "db_test_domain_name_label" {
-  default = "xm-dev-db-test"
+  default = "unit-10-pan-refarch-db-test"
 }
 
 variable "business_test_publicip_name" {
-  default = "Unit-10-PAN-RefArch-Business-Test-PIP"
+  default = "Unit-10-PAN-RefArch-Business-VM-PIP"
 }
 
 variable "business_test_domain_name_label" {
-  default = "xm-dev-business-test"
+  default = "unit-10-pan-refarch-business-test"
 }
 
 variable "web_test_1vm_name" {
