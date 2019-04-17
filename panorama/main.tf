@@ -98,7 +98,7 @@ resource "azurerm_network_interface" "panoram1nic0" {
 
   ip_configuration {
     name                          = "panoram1-nic0-ipconfig"
-    subnet_id                     = "${azurerm_subnet.management_subnet.id}"
+    subnet_id                     = "${data.azurerm_subnet.management_subnet.id}"
     private_ip_address_allocation = "Static"
     private_ip_address            = "${var.panorama1_vnic0_private_ip}"
     public_ip_address_id          = "${azurerm_public_ip.panorama1_public_ip.id}"
@@ -116,7 +116,7 @@ resource "azurerm_network_interface" "panoram2nic0" {
 
   ip_configuration {
     name                          = "panoram2-nic0-ipconfig"
-    subnet_id                     = "${azurerm_subnet.management_subnet.id}"
+    subnet_id                     = "${data.azurerm_subnet.management_subnet.id}"
     private_ip_address_allocation = "Static"
     private_ip_address            = "${var.panorama2_vnic0_private_ip}"
     public_ip_address_id          = "${azurerm_public_ip.panorama2_public_ip.id}"
