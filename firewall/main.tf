@@ -19,19 +19,19 @@ provider "azurerm" {
 # }
 
 ## Get data from LB Internal backend pool
-data "azurerm_lb_backend_address_pool" "internal_lb_backend_address_pool" {
+data "data.azurerm_lb_backend_address_pool" "internal_lb_backend_address_pool" {
   resource_group_name = "${azurerm_resource_group.shared_resource_group.name}"
   name                = "${var.internal_lb_backend_pool_name}"
 }
 
 ## Create LB Internal Public backend pool
-data "azurerm_lb_backend_address_pool" "internal_public_lb_backend_address_pool" {
+data "data.azurerm_lb_backend_address_pool" "internal_public_lb_backend_address_pool" {
   resource_group_name = "${azurerm_resource_group.shared_resource_group.name}"
   name                = "${var.internal_Public_lb_backend_pool_name}"
 }
 
 ## Create LB VPN backend pool
-data "azurerm_lb_backend_address_pool" "vpn_lb_backend_address_pool" {
+data "data.azurerm_lb_backend_address_pool" "vpn_lb_backend_address_pool" {
   resource_group_name = "${azurerm_resource_group.shared_resource_group.name}"
   name                = "${var.vpn_lb_backend_pool_name}"
 }
@@ -185,7 +185,7 @@ resource "azurerm_network_interface" "firewall1nic1" {
     subnet_id                               = "${data.azurerm_subnet.sharedpublicsubnet.id}"
     private_ip_address_allocation           = "Static"
     private_ip_address                      = "${var.firewall1_vnic1_private_ip}"
-    load_balancer_backend_address_pools_ids = ["${azurerm_lb_backend_address_pool.public_lb_backend_address_pool.id}"]
+    load_balancer_backend_address_pools_ids = ["${data.azurerm_lb_backend_address_pool.public_lb_backend_address_pool.id}"]
   }
 
   tags = {
@@ -259,7 +259,7 @@ resource "azurerm_network_interface" "firewall2nic1" {
     subnet_id                               = "${data.azurerm_subnet.sharedpublicsubnet.id}"
     private_ip_address_allocation           = "Static"
     private_ip_address                      = "${var.firewall2_vnic1_private_ip}"
-    load_balancer_backend_address_pools_ids = ["${azurerm_lb_backend_address_pool.public_lb_backend_address_pool.id}"]
+    load_balancer_backend_address_pools_ids = ["${data.azurerm_lb_backend_address_pool.public_lb_backend_address_pool.id}"]
   }
 
   tags = {
@@ -416,48 +416,48 @@ resource "azurerm_virtual_machine" "firewall2" {
 resource "azurerm_network_interface_backend_address_pool_association" "public_lb_fw1_address_pool_association" {
   network_interface_id    = "${azurerm_network_interface.firewall1nic1.id}"
   ip_configuration_name   = "firewall1-nic1-ipconfig"
-  backend_address_pool_id = "${azurerm_lb_backend_address_pool.public_lb_backend_address_pool.id}"
+  backend_address_pool_id = "${data.azurerm_lb_backend_address_pool.public_lb_backend_address_pool.id}"
 }
 
 resource "azurerm_network_interface_backend_address_pool_association" "public_lb_fw2_address_pool_association" {
   network_interface_id    = "${azurerm_network_interface.firewall2nic1.id}"
   ip_configuration_name   = "firewall2-nic1-ipconfig"
-  backend_address_pool_id = "${azurerm_lb_backend_address_pool.public_lb_backend_address_pool.id}"
+  backend_address_pool_id = "${data.azurerm_lb_backend_address_pool.public_lb_backend_address_pool.id}"
 }
 
 ## private lb pool associations
 resource "azurerm_network_interface_backend_address_pool_association" "internal_lb_fw1_address_pool_association" {
   network_interface_id    = "${azurerm_network_interface.firewall1nic2.id}"
   ip_configuration_name   = "firewall1-nic2-ipconfig"
-  backend_address_pool_id = "${azurerm_lb_backend_address_pool.internal_lb_backend_address_pool.id}"
+  backend_address_pool_id = "${data.azurerm_lb_backend_address_pool.internal_lb_backend_address_pool.id}"
 }
 
 resource "azurerm_network_interface_backend_address_pool_association" "internal_lb_fw2_address_pool_association" {
   network_interface_id    = "${azurerm_network_interface.firewall2nic2.id}"
   ip_configuration_name   = "firewall2-nic2-ipconfig"
-  backend_address_pool_id = "${azurerm_lb_backend_address_pool.internal_lb_backend_address_pool.id}"
+  backend_address_pool_id = "${data.azurerm_lb_backend_address_pool.internal_lb_backend_address_pool.id}"
 }
 
 resource "azurerm_network_interface_backend_address_pool_association" "internal_public_lb_fw1_address_pool_association" {
   network_interface_id    = "${azurerm_network_interface.firewall1nic1.id}"
   ip_configuration_name   = "firewall1-nic1-ipconfig"
-  backend_address_pool_id = "${azurerm_lb_backend_address_pool.public_lb_backend_address_pool.id}"
+  backend_address_pool_id = "${data.azurerm_lb_backend_address_pool.public_lb_backend_address_pool.id}"
 }
 
 resource "azurerm_network_interface_backend_address_pool_association" "internal_public_lb_fw2_address_pool_association" {
   network_interface_id    = "${azurerm_network_interface.firewall2nic1.id}"
   ip_configuration_name   = "firewall2-nic1-ipconfig"
-  backend_address_pool_id = "${azurerm_lb_backend_address_pool.public_lb_backend_address_pool.id}"
+  backend_address_pool_id = "${data.azurerm_lb_backend_address_pool.public_lb_backend_address_pool.id}"
 }
 
 resource "azurerm_network_interface_backend_address_pool_association" "vpn_lb_fw1_address_pool_association" {
   network_interface_id    = "${azurerm_network_interface.firewall1nic3.id}"
   ip_configuration_name   = "firewall1-nic3-ipconfig"
-  backend_address_pool_id = "${azurerm_lb_backend_address_pool.vpn_lb_backend_address_pool.id}"
+  backend_address_pool_id = "${data.azurerm_lb_backend_address_pool.vpn_lb_backend_address_pool.id}"
 }
 
 resource "azurerm_network_interface_backend_address_pool_association" "vpn_lb_fw2_address_pool_association" {
   network_interface_id    = "${azurerm_network_interface.firewall2nic3.id}"
   ip_configuration_name   = "firewall2-nic3-ipconfig"
-  backend_address_pool_id = "${azurerm_lb_backend_address_pool.vpn_lb_backend_address_pool.id}"
+  backend_address_pool_id = "${data.azurerm_lb_backend_address_pool.vpn_lb_backend_address_pool.id}"
 }
