@@ -18,15 +18,21 @@ data "azurerm_resource_group" "mgmtrg" {
   name = "${var.shared_resource_group_name}"
 }
 
-## Get data from Internal LB
-data "azurerm_lb" "internal_lb" {
-  name                = "${var.internal_lb_name}"
+## Get data from Public LB
+data "azurerm_lb" "public_lb" {
+  name                = "${var.public_lb_name}"
   resource_group_name = "${var.shared_resource_group_name}"
 }
 
+## Create LB backend pool
+data "azurerm_lb_backend_address_pool" "public_lb_backend_address_pool" {
+  resource_group_name = "${var.shared_resource_group_name}"
+  name                = "${var.public_lb_backend_pool_name}"
+}
+
 ## Get data from Internal LB
-data "azurerm_lb" "public_lb" {
-  name                = "${var.public_lb_name}"
+data "azurerm_lb" "internal_lb" {
+  name                = "${var.internal_lb_name}"
   resource_group_name = "${var.shared_resource_group_name}"
 }
 
