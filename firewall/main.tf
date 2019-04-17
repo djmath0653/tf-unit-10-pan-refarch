@@ -27,7 +27,7 @@ data "azurerm_lb" "public_lb" {
 ## Create LB backend pool
 data "azurerm_lb_backend_address_pool" "public_lb_backend_address_pool" {
   resource_group_name = "${var.shared_resource_group_name}"
-  loadbalancer_id     = "${azurerm_lb.public_lb.id}"
+  loadbalancer_id     = "${data.azurerm_lb.public_lb.id}"
   name                = "${var.public_lb_backend_pool_name}"
 }
 
@@ -40,21 +40,21 @@ data "azurerm_lb" "internal_lb" {
 ## Get data from LB Internal backend pool
 data "azurerm_lb_backend_address_pool" "internal_lb_backend_address_pool" {
   resource_group_name = "${var.shared_resource_group_name}"
-  loadbalancer_id     = "${azurerm_lb.internal_lb.id}"
+  loadbalancer_id     = "${data.azurerm_lb.internal_lb.id}"
   name                = "${var.internal_lb_backend_pool_name}"
 }
 
 ## Get data from Internal Public backend pool
 data "azurerm_lb_backend_address_pool" "internal_public_lb_backend_address_pool" {
   resource_group_name = "${var.shared_resource_group_name}"
-  loadbalancer_id     = "${azurerm_lb.internal_lb.id}"
+  loadbalancer_id     = "${data.azurerm_lb.internal_lb.id}"
   name                = "${var.internal_Public_lb_backend_pool_name}"
 }
 
 ## Get data from  LB VPN backend pool
 data "azurerm_lb_backend_address_pool" "vpn_lb_backend_address_pool" {
   resource_group_name = "${var.shared_resource_group_name}"
-  loadbalancer_id     = "${azurerm_lb.internal_lb.id}"
+  loadbalancer_id     = "${data.azurerm_lb.internal_lb.id}"
   name                = "${var.vpn_lb_backend_pool_name}"
 }
 
