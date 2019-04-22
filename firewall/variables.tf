@@ -76,22 +76,6 @@ variable "internal_lb_name" {
   default = "Unit-10-PAN-RefArch-Shared-Internal"
 }
 
-variable "public_lb_backend_pool_name" {
-  default = "Firewall-Layer"
-}
-
-variable "internal_lb_backend_pool_name" {
-  default = "Firewall-Layer-Private"
-}
-
-variable "internal_Public_lb_backend_pool_name" {
-  default = "Firewall-Layer-Public"
-}
-
-variable "vpn_lb_backend_pool_name" {
-  default = "Firewall-Layer-VPN"
-}
-
 ## Firewall vars
 variable "admin_username" {
   default = "xmrefarchadmin"
