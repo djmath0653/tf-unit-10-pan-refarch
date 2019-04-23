@@ -7,14 +7,14 @@ provider "azurerm" {
 }
 
 # Infrastructure
-# Create AzureRefArch-Shared Resource Group
-resource "azurerm_resource_group" "sharedrg" {
-  name     = "${var.shared_resource_group_name}"
-  location = "${var.shared_resource_group_location}"
+# Create Firewall Resource Group
+resource "azurerm_resource_group" "firewall_resource_group" {
+  name     = "${var.firewall_resource_group_name}"
+  location = "${var.firewall_resource_group_location}"
 }
 
-## Get data from resource
-data "azurerm_resource_group" "mgmtrg" {
+## Get data from shared resource group
+data "azurerm_resource_group" "shared_resource_group" {
   name = "${var.shared_resource_group_name}"
 }
 
@@ -55,56 +55,57 @@ data "azurerm_lb_backend_address_pool" "vpn_lb_backend_address_pool" {
 }
 
 ## get data from mgmt subnet
-data "azurerm_subnet" "mgmtsubnet" {
-  name                 = "${var.mgmt_subnet_name}"
+data "azurerm_subnet" "managment_subnet" {
+  name                 = "${var.managment_subnet_name}"
   virtual_network_name = "${var.refarch_vnet_name}"
   resource_group_name  = "${var.shared_resource_group_name}"
 }
 
 # get data from public subnet
-data "azurerm_subnet" "sharedpublicsubnet" {
+data "azurerm_subnet" "shared_public_subnet" {
   name                 = "${var.shared_public_subnet_name}"
   virtual_network_name = "${var.refarch_vnet_name}"
   resource_group_name  = "${var.shared_resource_group_name}"
 }
 
 # get data from private subnet
-data "azurerm_subnet" "sharedprivatesubnet" {
+data "azurerm_subnet" "shared_private_subnet" {
   name                 = "${var.shared_private_subnet_name}"
   virtual_network_name = "${var.refarch_vnet_name}"
   resource_group_name  = "${var.shared_resource_group_name}"
 }
 
-# get data from web subnet
-data "azurerm_subnet" "sharedwebsubnet" {
-  name                 = "${var.shared_web_subnet_name}"
-  virtual_network_name = "${var.refarch_vnet_name}"
-  resource_group_name  = "${var.shared_resource_group_name}"
-}
-
-# get data from business subnet
-data "azurerm_subnet" "sharedbusinesssubnet" {
-  name                 = "${var.shared_business_subnet_name}"
-  virtual_network_name = "${var.refarch_vnet_name}"
-  resource_group_name  = "${var.shared_resource_group_name}"
-}
-
-# get data from db subnet
-data "azurerm_subnet" "shareddbsubnet" {
-  name                 = "${var.shared_db_subnet_name}"
-  virtual_network_name = "${var.refarch_vnet_name}"
-  resource_group_name  = "${var.shared_resource_group_name}"
-}
+#
+# # get data from web subnet
+# data "azurerm_subnet" "shared_web_subnet" {
+#   name                 = "${var.shared_web_subnet_name}"
+#   virtual_network_name = "${var.refarch_vnet_name}"
+#   resource_group_name  = "${var.shared_resource_group_name}"
+# }
+#
+# # get data from business subnet
+# data "azurerm_subnet" "shared_business_subnet" {
+#   name                 = "${var.shared_business_subnet_name}"
+#   virtual_network_name = "${var.refarch_vnet_name}"
+#   resource_group_name  = "${var.shared_resource_group_name}"
+# }
+#
+# # get data from db subnet
+# data "azurerm_subnet" "shared_db_subnet" {
+#   name                 = "${var.shared_db_subnet_name}"
+#   virtual_network_name = "${var.refarch_vnet_name}"
+#   resource_group_name  = "${var.shared_resource_group_name}"
+# }
 
 # get data from vpn subnet
-data "azurerm_subnet" "sharedvpnsubnet" {
+data "azurerm_subnet" "shared_vpn_subnet" {
   name                 = "${var.shared_vpn_subnet_name}"
   virtual_network_name = "${var.refarch_vnet_name}"
   resource_group_name  = "${var.shared_resource_group_name}"
 }
 
 # Create the Firewall diagnostic storage account
-resource "azurerm_storage_account" "sharedstorage" {
+resource "azurerm_storage_account" "firewall_storage_acct" {
   name                     = "${var.firewall_storage_acct_name}"
   resource_group_name      = "${var.shared_resource_group_name}"
   location                 = "${var.shared_resource_group_location}"
@@ -118,7 +119,7 @@ resource "azurerm_storage_account" "sharedstorage" {
 }
 
 # Create the Firewall availability set
-resource "azurerm_availability_set" "sharedas" {
+resource "azurerm_availability_set" "firewall_as" {
   name                = "${var.shared_avail_set_name}"
   resource_group_name = "${var.shared_resource_group_name}"
   location            = "${var.shared_resource_group_location}"
@@ -158,7 +159,7 @@ resource "azurerm_public_ip" "firewall2_mgmt_publicip" {
 
 # Create Firewalls os disks
 resource "azurerm_storage_account" "firewall1osdisk" {
-  name                     = "${join("", list(var.firewall1_os_disk_account_name, substr(md5(azurerm_resource_group.sharedrg.id), 0, 4)))}"
+  name                     = "${join("", list(var.firewall1_os_disk_account_name, substr(md5(azurerm_resource_group.firewall_resource_group.id), 0, 4)))}"
   resource_group_name      = "${var.shared_resource_group_name}"
   location                 = "${var.shared_resource_group_location}"
   account_replication_type = "LRS"
@@ -166,7 +167,7 @@ resource "azurerm_storage_account" "firewall1osdisk" {
 }
 
 resource "azurerm_storage_account" "firewall2osdisk" {
-  name                     = "${join("", list(var.firewall2_os_disk_account_name, substr(md5(azurerm_resource_group.sharedrg.id), 0, 4)))}"
+  name                     = "${join("", list(var.firewall2_os_disk_account_name, substr(md5(azurerm_resource_group.firewall_resource_group.id), 0, 4)))}"
   resource_group_name      = "${var.shared_resource_group_name}"
   location                 = "${var.shared_resource_group_location}"
   account_replication_type = "LRS"
@@ -174,14 +175,14 @@ resource "azurerm_storage_account" "firewall2osdisk" {
 }
 
 ## Create network interfaces
-resource "azurerm_network_interface" "firewall1nic0" {
+resource "azurerm_network_interface" "firewall1_nic0" {
   name                = "${var.firewall1_vnic0_name}"
   resource_group_name = "${var.shared_resource_group_name}"
   location            = "${var.shared_resource_group_location}"
 
   ip_configuration {
     name                          = "firewall1-nic0-ipconfig"
-    subnet_id                     = "${data.azurerm_subnet.mgmtsubnet.id}"
+    subnet_id                     = "${data.azurerm_subnet.managment_subnet.id}"
     private_ip_address_allocation = "Static"
     private_ip_address            = "${var.firewall1_vnic0_private_ip}"
     public_ip_address_id          = "${azurerm_public_ip.firewall1_mgmt_publicip.id}"
@@ -193,14 +194,14 @@ resource "azurerm_network_interface" "firewall1nic0" {
 }
 
 ## Create network interfaces
-resource "azurerm_network_interface" "firewall1nic1" {
+resource "azurerm_network_interface" "firewall1_nic1" {
   name                = "${var.firewall1_vnic1_name}"
   resource_group_name = "${var.shared_resource_group_name}"
   location            = "${var.shared_resource_group_location}"
 
   ip_configuration {
     name                                    = "firewall1-nic1-ipconfig"
-    subnet_id                               = "${data.azurerm_subnet.sharedpublicsubnet.id}"
+    subnet_id                               = "${data.azurerm_subnet.shared_public_subnet.id}"
     private_ip_address_allocation           = "Static"
     private_ip_address                      = "${var.firewall1_vnic1_private_ip}"
     load_balancer_backend_address_pools_ids = ["${data.azurerm_lb_backend_address_pool.public_lb_backend_address_pool.id}"]
@@ -212,14 +213,14 @@ resource "azurerm_network_interface" "firewall1nic1" {
 }
 
 ## Create network interfaces
-resource "azurerm_network_interface" "firewall1nic2" {
+resource "azurerm_network_interface" "firewall1_nic2" {
   name                = "${var.firewall1_vnic2_name}"
   resource_group_name = "${var.shared_resource_group_name}"
   location            = "${var.shared_resource_group_location}"
 
   ip_configuration {
     name                          = "firewall1-nic2-ipconfig"
-    subnet_id                     = "${data.azurerm_subnet.sharedprivatesubnet.id}"
+    subnet_id                     = "${data.azurerm_subnet.shared_private_subnet.id}"
     private_ip_address_allocation = "Static"
     private_ip_address            = "${var.firewall1_vnic2_private_ip}"
   }
@@ -230,14 +231,14 @@ resource "azurerm_network_interface" "firewall1nic2" {
 }
 
 ## Create network interfaces
-resource "azurerm_network_interface" "firewall1nic3" {
+resource "azurerm_network_interface" "firewall1_nic3" {
   name                = "${var.firewall1_vnic3_name}"
   resource_group_name = "${var.shared_resource_group_name}"
   location            = "${var.shared_resource_group_location}"
 
   ip_configuration {
     name                          = "firewall1-nic3-ipconfig"
-    subnet_id                     = "${data.azurerm_subnet.sharedvpnsubnet.id}"
+    subnet_id                     = "${data.azurerm_subnet.shared_vpn_subnet.id}"
     private_ip_address_allocation = "Static"
     private_ip_address            = "${var.firewall1_vnic3_private_ip}"
   }
@@ -248,14 +249,14 @@ resource "azurerm_network_interface" "firewall1nic3" {
 }
 
 ## Create network interfaces
-resource "azurerm_network_interface" "firewall2nic0" {
+resource "azurerm_network_interface" "firewall2_nic0" {
   name                = "${var.firewall2_vnic0_name}"
   resource_group_name = "${var.shared_resource_group_name}"
   location            = "${var.shared_resource_group_location}"
 
   ip_configuration {
     name                          = "firewall2-nic0-ipconfig"
-    subnet_id                     = "${data.azurerm_subnet.mgmtsubnet.id}"
+    subnet_id                     = "${data.azurerm_subnet.managment_subnet.id}"
     private_ip_address_allocation = "Static"
     private_ip_address            = "${var.firewall2_vnic0_private_ip}"
     public_ip_address_id          = "${azurerm_public_ip.firewall2_mgmt_publicip.id}"
@@ -267,14 +268,14 @@ resource "azurerm_network_interface" "firewall2nic0" {
 }
 
 ## Create network interfaces
-resource "azurerm_network_interface" "firewall2nic1" {
+resource "azurerm_network_interface" "firewall2_nic1" {
   name                = "${var.firewall2_vnic1_name}"
   resource_group_name = "${var.shared_resource_group_name}"
   location            = "${var.shared_resource_group_location}"
 
   ip_configuration {
     name                                    = "firewall2-nic1-ipconfig"
-    subnet_id                               = "${data.azurerm_subnet.sharedpublicsubnet.id}"
+    subnet_id                               = "${data.azurerm_subnet.shared_public_subnet.id}"
     private_ip_address_allocation           = "Static"
     private_ip_address                      = "${var.firewall2_vnic1_private_ip}"
     load_balancer_backend_address_pools_ids = ["${data.azurerm_lb_backend_address_pool.public_lb_backend_address_pool.id}"]
@@ -286,14 +287,14 @@ resource "azurerm_network_interface" "firewall2nic1" {
 }
 
 ## Create network interfaces
-resource "azurerm_network_interface" "firewall2nic2" {
+resource "azurerm_network_interface" "firewall2_nic2" {
   name                = "${var.firewall2_vnic2_name}"
   resource_group_name = "${var.shared_resource_group_name}"
   location            = "${var.shared_resource_group_location}"
 
   ip_configuration {
     name                          = "firewall2-nic2-ipconfig"
-    subnet_id                     = "${data.azurerm_subnet.sharedprivatesubnet.id}"
+    subnet_id                     = "${data.azurerm_subnet.shared_private_subnet.id}"
     private_ip_address_allocation = "Static"
     private_ip_address            = "${var.firewall2_vnic2_private_ip}"
   }
@@ -304,14 +305,14 @@ resource "azurerm_network_interface" "firewall2nic2" {
 }
 
 ## Create network interfaces
-resource "azurerm_network_interface" "firewall2nic3" {
+resource "azurerm_network_interface" "firewall2_nic3" {
   name                = "${var.firewall2_vnic3_name}"
   resource_group_name = "${var.shared_resource_group_name}"
   location            = "${var.shared_resource_group_location}"
 
   ip_configuration {
     name                          = "firewall2-nic3-ipconfig"
-    subnet_id                     = "${data.azurerm_subnet.sharedvpnsubnet.id}"
+    subnet_id                     = "${data.azurerm_subnet.shared_vpn_subnet.id}"
     private_ip_address_allocation = "Static"
     private_ip_address            = "${var.firewall2_vnic3_private_ip}"
   }
@@ -323,18 +324,18 @@ resource "azurerm_network_interface" "firewall2nic3" {
 
 ## Create Firewall VMs
 # Firewall 1
-resource "azurerm_virtual_machine" "firewall1" {
+resource "azurerm_virtual_machine" "firewall1_vm" {
   name                          = "${var.firewall1_vm_name}"
   location                      = "${var.shared_resource_group_location}"
   resource_group_name           = "${var.shared_resource_group_name}"
   vm_size                       = "${var.firewall_vm_size}"
-  availability_set_id           = "${azurerm_availability_set.sharedas.id}"
+  availability_set_id           = "${azurerm_availability_set.firewall_as.id}"
   delete_os_disk_on_termination = "true"
 
-  depends_on = ["azurerm_network_interface.firewall1nic0",
-    "azurerm_network_interface.firewall1nic1",
-    "azurerm_network_interface.firewall1nic2",
-    "azurerm_network_interface.firewall1nic3",
+  depends_on = ["azurerm_network_interface.firewall1_nic0",
+    "azurerm_network_interface.firewall1_nic1",
+    "azurerm_network_interface.firewall1_nic2",
+    "azurerm_network_interface.firewall1_nic3",
   ]
 
   plan {
@@ -363,12 +364,12 @@ resource "azurerm_virtual_machine" "firewall1" {
     admin_password = "${var.admin_password}"
   }
 
-  primary_network_interface_id = "${azurerm_network_interface.firewall1nic0.id}"
+  primary_network_interface_id = "${azurerm_network_interface.firewall1_nic0.id}"
 
-  network_interface_ids = ["${azurerm_network_interface.firewall1nic0.id}",
-    "${azurerm_network_interface.firewall1nic1.id}",
-    "${azurerm_network_interface.firewall1nic2.id}",
-    "${azurerm_network_interface.firewall1nic3.id}",
+  network_interface_ids = ["${azurerm_network_interface.firewall1_nic0.id}",
+    "${azurerm_network_interface.firewall1_nic1.id}",
+    "${azurerm_network_interface.firewall1_nic2.id}",
+    "${azurerm_network_interface.firewall1_nic3.id}",
   ]
 
   os_profile_linux_config {
@@ -377,18 +378,18 @@ resource "azurerm_virtual_machine" "firewall1" {
 }
 
 # Firewall 2
-resource "azurerm_virtual_machine" "firewall2" {
+resource "azurerm_virtual_machine" "firewall2_vm" {
   name                          = "${var.firewall2_vm_name}"
   location                      = "${var.shared_resource_group_location}"
   resource_group_name           = "${var.shared_resource_group_name}"
   vm_size                       = "${var.firewall_vm_size}"
-  availability_set_id           = "${azurerm_availability_set.sharedas.id}"
+  availability_set_id           = "${azurerm_availability_set.firewall_as.id}"
   delete_os_disk_on_termination = "true"
 
-  depends_on = ["azurerm_network_interface.firewall2nic0",
-    "azurerm_network_interface.firewall2nic1",
-    "azurerm_network_interface.firewall2nic2",
-    "azurerm_network_interface.firewall2nic3",
+  depends_on = ["azurerm_network_interface.firewall2_nic0",
+    "azurerm_network_interface.firewall2_nic1",
+    "azurerm_network_interface.firewall2_nic2",
+    "azurerm_network_interface.firewall2_nic3",
   ]
 
   plan {
@@ -417,12 +418,12 @@ resource "azurerm_virtual_machine" "firewall2" {
     admin_password = "${var.admin_password}"
   }
 
-  primary_network_interface_id = "${azurerm_network_interface.firewall2nic0.id}"
+  primary_network_interface_id = "${azurerm_network_interface.firewall2_nic0.id}"
 
-  network_interface_ids = ["${azurerm_network_interface.firewall2nic0.id}",
-    "${azurerm_network_interface.firewall2nic1.id}",
-    "${azurerm_network_interface.firewall2nic2.id}",
-    "${azurerm_network_interface.firewall2nic3.id}",
+  network_interface_ids = ["${azurerm_network_interface.firewall2_nic0.id}",
+    "${azurerm_network_interface.firewall2_nic1.id}",
+    "${azurerm_network_interface.firewall2_nic2.id}",
+    "${azurerm_network_interface.firewall2_nic3.id}",
   ]
 
   os_profile_linux_config {
@@ -432,50 +433,50 @@ resource "azurerm_virtual_machine" "firewall2" {
 
 ## public lb pool associations
 resource "azurerm_network_interface_backend_address_pool_association" "public_lb_fw1_address_pool_association" {
-  network_interface_id    = "${azurerm_network_interface.firewall1nic1.id}"
+  network_interface_id    = "${azurerm_network_interface.firewall1_nic1.id}"
   ip_configuration_name   = "firewall1-nic1-ipconfig"
   backend_address_pool_id = "${data.azurerm_lb_backend_address_pool.public_lb_backend_address_pool.id}"
 }
 
 resource "azurerm_network_interface_backend_address_pool_association" "public_lb_fw2_address_pool_association" {
-  network_interface_id    = "${azurerm_network_interface.firewall2nic1.id}"
+  network_interface_id    = "${azurerm_network_interface.firewall2_nic1.id}"
   ip_configuration_name   = "firewall2-nic1-ipconfig"
   backend_address_pool_id = "${data.azurerm_lb_backend_address_pool.public_lb_backend_address_pool.id}"
 }
 
 ## private lb pool associations
 resource "azurerm_network_interface_backend_address_pool_association" "internal_lb_fw1_address_pool_association" {
-  network_interface_id    = "${azurerm_network_interface.firewall1nic2.id}"
+  network_interface_id    = "${azurerm_network_interface.firewall1_nic2.id}"
   ip_configuration_name   = "firewall1-nic2-ipconfig"
   backend_address_pool_id = "${data.azurerm_lb_backend_address_pool.internal_lb_backend_address_pool.id}"
 }
 
 resource "azurerm_network_interface_backend_address_pool_association" "internal_lb_fw2_address_pool_association" {
-  network_interface_id    = "${azurerm_network_interface.firewall2nic2.id}"
+  network_interface_id    = "${azurerm_network_interface.firewall2_nic2.id}"
   ip_configuration_name   = "firewall2-nic2-ipconfig"
   backend_address_pool_id = "${data.azurerm_lb_backend_address_pool.internal_lb_backend_address_pool.id}"
 }
 
 resource "azurerm_network_interface_backend_address_pool_association" "internal_public_lb_fw1_address_pool_association" {
-  network_interface_id    = "${azurerm_network_interface.firewall1nic1.id}"
+  network_interface_id    = "${azurerm_network_interface.firewall1_nic1.id}"
   ip_configuration_name   = "firewall1-nic1-ipconfig"
   backend_address_pool_id = "${data.azurerm_lb_backend_address_pool.public_lb_backend_address_pool.id}"
 }
 
 resource "azurerm_network_interface_backend_address_pool_association" "internal_public_lb_fw2_address_pool_association" {
-  network_interface_id    = "${azurerm_network_interface.firewall2nic1.id}"
+  network_interface_id    = "${azurerm_network_interface.firewall2_nic1.id}"
   ip_configuration_name   = "firewall2-nic1-ipconfig"
   backend_address_pool_id = "${data.azurerm_lb_backend_address_pool.public_lb_backend_address_pool.id}"
 }
 
 resource "azurerm_network_interface_backend_address_pool_association" "vpn_lb_fw1_address_pool_association" {
-  network_interface_id    = "${azurerm_network_interface.firewall1nic3.id}"
+  network_interface_id    = "${azurerm_network_interface.firewall1_nic3.id}"
   ip_configuration_name   = "firewall1-nic3-ipconfig"
   backend_address_pool_id = "${data.azurerm_lb_backend_address_pool.vpn_lb_backend_address_pool.id}"
 }
 
 resource "azurerm_network_interface_backend_address_pool_association" "vpn_lb_fw2_address_pool_association" {
-  network_interface_id    = "${azurerm_network_interface.firewall2nic3.id}"
+  network_interface_id    = "${azurerm_network_interface.firewall2_nic3.id}"
   ip_configuration_name   = "firewall2-nic3-ipconfig"
   backend_address_pool_id = "${data.azurerm_lb_backend_address_pool.vpn_lb_backend_address_pool.id}"
 }

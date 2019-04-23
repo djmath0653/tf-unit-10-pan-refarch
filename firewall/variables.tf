@@ -36,11 +36,11 @@ variable "firewall_resource_group_location" {
   default = "centralus"
 }
 
-variable "mgmt_nsg_name" {
+variable "management_subnet_name_nsg_name" {
   default = "AllowManagement-Subnet"
 }
 
-variable "mgmt_subnet_name" {
+variable "management_subnet_name" {
   default = "Management"
 }
 
