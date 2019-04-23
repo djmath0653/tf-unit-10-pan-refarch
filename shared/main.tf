@@ -91,7 +91,7 @@ resource "azurerm_subnet" "sharedgwsubnet" {
 
 # Create network securirty group
 resource "azurerm_network_security_group" "sharednsg" {
-  name                = "${var.shared_nsg_name}"
+  name                = "${var.management_nsg_name}"
   location            = "${var.shared_resource_group_location}"
   resource_group_name = "${azurerm_resource_group.shared_resource_group.name}"
 

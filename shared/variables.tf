@@ -48,7 +48,7 @@ variable "managment_subnet_prefix" {
   default = "10.255.255.0/24"
 }
 
-variable "shared_nsg_name" {
+variable "management_nsg_name" {
   default = "AllowManagement-Subnet"
 }
 
