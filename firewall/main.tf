@@ -56,7 +56,7 @@ data "azurerm_lb_backend_address_pool" "vpn_lb_backend_address_pool" {
 
 ## get data from mgmt subnet
 data "azurerm_subnet" "managment_subnet" {
-  name                 = "${var.managment_subnet_name}"
+  name                 = "${var.management_subnet_name}"
   virtual_network_name = "${var.refarch_vnet_name}"
   resource_group_name  = "${var.shared_resource_group_name}"
 }

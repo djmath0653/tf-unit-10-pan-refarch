@@ -213,3 +213,19 @@ variable "firewall2_vnic3_private_ip" {
 variable "firewall2_os_disk_account_name" {
   default = "firewall2osdisk"
 }
+
+variable "public_lb_backend_pool_name" {
+  default = "Firewall-Layer"
+}
+
+variable "internal_lb_backend_pool_name" {
+  default = "Firewall-Layer-Private"
+}
+
+variable "internal_Public_lb_backend_pool_name" {
+  default = "Firewall-Layer-Public"
+}
+
+variable "vpn_lb_backend_pool_name" {
+  default = "Firewall-Layer-VPN"
+}
