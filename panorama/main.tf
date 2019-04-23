@@ -81,7 +81,7 @@ resource "azurerm_storage_account" "panorama_storage_acct" {
 }
 
 # Create Panoram os disks
-resource "azurerm_storage_account" "panorama1_os_disk" {
+resource "azurerm_storage_account" "panorama1osdisk" {
   name                     = "${join("", list(var.panorama1_os_disk_account_name, substr(md5(azurerm_resource_group.panorama_resource_group.id), 0, 4)))}"
   resource_group_name      = "${azurerm_resource_group.panorama_resource_group.name}"
   location                 = "${azurerm_resource_group.panorama_resource_group.location}"
@@ -89,7 +89,7 @@ resource "azurerm_storage_account" "panorama1_os_disk" {
   account_tier             = "Standard"
 }
 
-resource "azurerm_storage_account" "panorama2_os_disk" {
+resource "azurerm_storage_account" "panorama2osdisk" {
   name                     = "${join("", list(var.panorama2_os_disk_account_name, substr(md5(azurerm_resource_group.panorama_resource_group.id), 0, 4)))}"
   resource_group_name      = "${azurerm_resource_group.panorama_resource_group.name}"
   location                 = "${azurerm_resource_group.panorama_resource_group.location}"
@@ -160,7 +160,7 @@ resource "azurerm_virtual_machine" "panorama1_vm" {
 
   storage_os_disk {
     name          = "${join("", list(var.panorama1_vm_name, "-osDisk"))}"
-    vhd_uri       = "${azurerm_storage_account.panorama1_os_disk.primary_blob_endpoint}vhds/${var.panorama1_vm_name}-${var.panoramaOffer}-${var.panoramaSku}.vhd"
+    vhd_uri       = "${azurerm_storage_account.panorama1osdisk.primary_blob_endpoint}vhds/${var.panorama1_vm_name}-${var.panoramaOffer}-${var.panoramaSku}.vhd"
     caching       = "ReadWrite"
     create_option = "FromImage"
   }
@@ -204,7 +204,7 @@ resource "azurerm_virtual_machine" "panorama2_vm" {
 
   storage_os_disk {
     name          = "${join("", list(var.panorama2_vm_name, "-osDisk"))}"
-    vhd_uri       = "${azurerm_storage_account.panorama2_os_disk.primary_blob_endpoint}vhds/${var.panorama2_vm_name}-${var.panoramaOffer}-${var.panoramaSku}.vhd"
+    vhd_uri       = "${azurerm_storage_account.panorama2osdisk.primary_blob_endpoint}vhds/${var.panorama2_vm_name}-${var.panoramaOffer}-${var.panoramaSku}.vhd"
     caching       = "ReadWrite"
     create_option = "FromImage"
   }
