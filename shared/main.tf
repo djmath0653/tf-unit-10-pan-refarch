@@ -90,7 +90,7 @@ resource "azurerm_subnet" "sharedgwsubnet" {
 }
 
 # Create network securirty group
-resource "azurerm_network_security_group" "sharednsg" {
+resource "azurerm_network_security_group" "management_nsg" {
   name                = "${var.management_nsg_name}"
   location            = "${var.shared_resource_group_location}"
   resource_group_name = "${azurerm_resource_group.shared_resource_group.name}"
@@ -125,7 +125,7 @@ resource "azurerm_network_security_group" "sharednsg" {
 }
 
 # Create network securirty group
-resource "azurerm_network_security_group" "sharedpublicnsg" {
+resource "azurerm_network_security_group" "shared_fw_pub_nsg" {
   name                = "${var.shared_fw_pub_nsg_name}"
   location            = "${var.shared_resource_group_location}"
   resource_group_name = "${azurerm_resource_group.shared_resource_group.name}"
@@ -172,7 +172,7 @@ resource "azurerm_network_security_group" "sharedpublicnsg" {
 }
 
 # Create network securirty group
-resource "azurerm_network_security_group" "sharedallowallnsg" {
+resource "azurerm_network_security_group" "shared_allow_all_nsg" {
   name                = "${var.shared_allow_all_nsg_name}"
   location            = "${var.shared_resource_group_location}"
   resource_group_name = "${azurerm_resource_group.shared_resource_group.name}"
@@ -197,43 +197,43 @@ resource "azurerm_network_security_group" "sharedallowallnsg" {
 # Associate the NSG to the subnet
 resource "azurerm_subnet_network_security_group_association" "managment_subnetnsgassoc" {
   subnet_id                 = "${azurerm_subnet.managment_subnet.id}"
-  network_security_group_id = "${azurerm_network_security_group.sharednsg.id}"
+  network_security_group_id = "${azurerm_network_security_group.management_nsg.id}"
 }
 
 # Associate the NSG to the subnet
 resource "azurerm_subnet_network_security_group_association" "sharedpublicsubnetnsgassoc" {
   subnet_id                 = "${azurerm_subnet.sharedpublicsubnet.id}"
-  network_security_group_id = "${azurerm_network_security_group.sharedpublicnsg.id}"
+  network_security_group_id = "${azurerm_network_security_group.shared_fw_pub_nsg.id}"
 }
 
 # Associate the NSG to the subnet
 resource "azurerm_subnet_network_security_group_association" "sharedprivatesubnetnsgassoc" {
   subnet_id                 = "${azurerm_subnet.sharedprivatesubnet.id}"
-  network_security_group_id = "${azurerm_network_security_group.sharedallowallnsg.id}"
+  network_security_group_id = "${azurerm_network_security_group.shared_allow_all_nsg.id}"
 }
 
 # Associate the NSG to the subnet
 resource "azurerm_subnet_network_security_group_association" "sharedwebsubnetnsgassoc" {
   subnet_id                 = "${azurerm_subnet.sharedwebsubnet.id}"
-  network_security_group_id = "${azurerm_network_security_group.sharedallowallnsg.id}"
+  network_security_group_id = "${azurerm_network_security_group.shared_allow_all_nsg.id}"
 }
 
 # Associate the NSG to the subnet
 resource "azurerm_subnet_network_security_group_association" "sharedbusinesssubnetnsgassoc" {
   subnet_id                 = "${azurerm_subnet.sharedbusinesssubnet.id}"
-  network_security_group_id = "${azurerm_network_security_group.sharedallowallnsg.id}"
+  network_security_group_id = "${azurerm_network_security_group.shared_allow_all_nsg.id}"
 }
 
 # Associate the NSG to the subnet
 resource "azurerm_subnet_network_security_group_association" "shareddbsubnetnsgassoc" {
   subnet_id                 = "${azurerm_subnet.shareddbsubnet.id}"
-  network_security_group_id = "${azurerm_network_security_group.sharedallowallnsg.id}"
+  network_security_group_id = "${azurerm_network_security_group.shared_allow_all_nsg.id}"
 }
 
 # Associate the NSG to the subnet
 resource "azurerm_subnet_network_security_group_association" "sharedvpnsubnetnsgassoc" {
   subnet_id                 = "${azurerm_subnet.sharedvpnsubnet.id}"
-  network_security_group_id = "${azurerm_network_security_group.sharedallowallnsg.id}"
+  network_security_group_id = "${azurerm_network_security_group.shared_allow_all_nsg.id}"
 }
 
 ## Create route tables
