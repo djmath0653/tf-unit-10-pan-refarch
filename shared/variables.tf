@@ -155,3 +155,19 @@ variable "vpn_lb_frontend_ip_name" {
 variable "vpn_lb_frontend_ip" {
   default = "10.5.15.21"
 }
+
+variable "public_lb_backend_pool_name" {
+  default = "Firewall-Layer"
+}
+
+variable "internal_lb_backend_pool_name" {
+  default = "Firewall-Layer-Private"
+}
+
+variable "internal_Public_lb_backend_pool_name" {
+  default = "Firewall-Layer-Public"
+}
+
+variable "vpn_lb_backend_pool_name" {
+  default = "Firewall-Layer-VPN"
+}
