@@ -34,7 +34,7 @@ resource "azurerm_subnet" "managment_subnet" {
 }
 
 # Create subnet within the vnet
-resource "azurerm_subnet" "sharedpublicsubnet" {
+resource "azurerm_subnet" "shared_public_subnet" {
   name                 = "${var.shared_public_subnet_name}"
   resource_group_name  = "${azurerm_resource_group.shared_resource_group.name}"
   virtual_network_name = "${azurerm_virtual_network.refarch_vnet.name}"
@@ -42,7 +42,7 @@ resource "azurerm_subnet" "sharedpublicsubnet" {
 }
 
 # Create subnet within the vnet
-resource "azurerm_subnet" "sharedprivatesubnet" {
+resource "azurerm_subnet" "shared_private_subnet" {
   name                 = "${var.shared_private_subnet_name}"
   resource_group_name  = "${azurerm_resource_group.shared_resource_group.name}"
   virtual_network_name = "${azurerm_virtual_network.refarch_vnet.name}"
@@ -50,7 +50,7 @@ resource "azurerm_subnet" "sharedprivatesubnet" {
 }
 
 # Create subnet within the vnet
-resource "azurerm_subnet" "sharedwebsubnet" {
+resource "azurerm_subnet" "shared_web_subnet" {
   name                 = "${var.shared_web_subnet_name}"
   resource_group_name  = "${azurerm_resource_group.shared_resource_group.name}"
   virtual_network_name = "${azurerm_virtual_network.refarch_vnet.name}"
@@ -58,7 +58,7 @@ resource "azurerm_subnet" "sharedwebsubnet" {
 }
 
 # Create subnet within the vnet
-resource "azurerm_subnet" "sharedbusinesssubnet" {
+resource "azurerm_subnet" "shared_business_subnet" {
   name                 = "${var.shared_business_subnet_name}"
   resource_group_name  = "${azurerm_resource_group.shared_resource_group.name}"
   virtual_network_name = "${azurerm_virtual_network.refarch_vnet.name}"
@@ -66,7 +66,7 @@ resource "azurerm_subnet" "sharedbusinesssubnet" {
 }
 
 # Create subnet within the vnet
-resource "azurerm_subnet" "shareddbsubnet" {
+resource "azurerm_subnet" "shared_db_subnet" {
   name                 = "${var.shared_db_subnet_name}"
   resource_group_name  = "${azurerm_resource_group.shared_resource_group.name}"
   virtual_network_name = "${azurerm_virtual_network.refarch_vnet.name}"
@@ -74,7 +74,7 @@ resource "azurerm_subnet" "shareddbsubnet" {
 }
 
 # Create subnet within the vnet
-resource "azurerm_subnet" "sharedvpnsubnet" {
+resource "azurerm_subnet" "shared_vpn_subnet" {
   name                 = "${var.shared_vpn_subnet_name}"
   resource_group_name  = "${azurerm_resource_group.shared_resource_group.name}"
   virtual_network_name = "${azurerm_virtual_network.refarch_vnet.name}"
@@ -195,50 +195,50 @@ resource "azurerm_network_security_group" "shared_allow_all_nsg" {
 }
 
 # Associate the NSG to the subnet
-resource "azurerm_subnet_network_security_group_association" "managment_subnetnsgassoc" {
+resource "azurerm_subnet_network_security_group_association" "managment_subnet_nsg_assoc" {
   subnet_id                 = "${azurerm_subnet.managment_subnet.id}"
   network_security_group_id = "${azurerm_network_security_group.management_nsg.id}"
 }
 
 # Associate the NSG to the subnet
-resource "azurerm_subnet_network_security_group_association" "sharedpublicsubnetnsgassoc" {
-  subnet_id                 = "${azurerm_subnet.sharedpublicsubnet.id}"
+resource "azurerm_subnet_network_security_group_association" "shared_public_subnet_nsg_assoc" {
+  subnet_id                 = "${azurerm_subnet.shared_public_subnet.id}"
   network_security_group_id = "${azurerm_network_security_group.shared_fw_pub_nsg.id}"
 }
 
 # Associate the NSG to the subnet
-resource "azurerm_subnet_network_security_group_association" "sharedprivatesubnetnsgassoc" {
-  subnet_id                 = "${azurerm_subnet.sharedprivatesubnet.id}"
+resource "azurerm_subnet_network_security_group_association" "shared_private_subnet_nsg_assoc" {
+  subnet_id                 = "${azurerm_subnet.shared_private_subnet.id}"
   network_security_group_id = "${azurerm_network_security_group.shared_allow_all_nsg.id}"
 }
 
 # Associate the NSG to the subnet
-resource "azurerm_subnet_network_security_group_association" "sharedwebsubnetnsgassoc" {
-  subnet_id                 = "${azurerm_subnet.sharedwebsubnet.id}"
+resource "azurerm_subnet_network_security_group_association" "shared_web_subnet_nsg_assoc" {
+  subnet_id                 = "${azurerm_subnet.shared_web_subnet.id}"
   network_security_group_id = "${azurerm_network_security_group.shared_allow_all_nsg.id}"
 }
 
 # Associate the NSG to the subnet
-resource "azurerm_subnet_network_security_group_association" "sharedbusinesssubnetnsgassoc" {
-  subnet_id                 = "${azurerm_subnet.sharedbusinesssubnet.id}"
+resource "azurerm_subnet_network_security_group_association" "shared_business_subnet_nsg_assoc" {
+  subnet_id                 = "${azurerm_subnet.shared_business_subnet.id}"
   network_security_group_id = "${azurerm_network_security_group.shared_allow_all_nsg.id}"
 }
 
 # Associate the NSG to the subnet
-resource "azurerm_subnet_network_security_group_association" "shareddbsubnetnsgassoc" {
-  subnet_id                 = "${azurerm_subnet.shareddbsubnet.id}"
+resource "azurerm_subnet_network_security_group_association" "shared_db_subnet_nsg_assoc" {
+  subnet_id                 = "${azurerm_subnet.shared_db_subnet.id}"
   network_security_group_id = "${azurerm_network_security_group.shared_allow_all_nsg.id}"
 }
 
 # Associate the NSG to the subnet
-resource "azurerm_subnet_network_security_group_association" "sharedvpnsubnetnsgassoc" {
-  subnet_id                 = "${azurerm_subnet.sharedvpnsubnet.id}"
+resource "azurerm_subnet_network_security_group_association" "shared_vpn_subnet_nsg_assoc" {
+  subnet_id                 = "${azurerm_subnet.shared_vpn_subnet.id}"
   network_security_group_id = "${azurerm_network_security_group.shared_allow_all_nsg.id}"
 }
 
 ## Create route tables
-resource "azurerm_route_table" "AzureRefArch-Management" {
-  name                          = "AzureRefArch-Management"
+resource "azurerm_route_table" "management_route_table" {
+  name                          = "management_route_table"
   location                      = "${azurerm_resource_group.shared_resource_group.location}"
   resource_group_name           = "${azurerm_resource_group.shared_resource_group.name}"
   disable_bgp_route_propagation = false
@@ -267,13 +267,13 @@ resource "azurerm_route_table" "AzureRefArch-Management" {
   }
 }
 
-resource "azurerm_subnet_route_table_association" "AzureRefArch-Management-Assoc" {
+resource "azurerm_subnet_route_table_association" "management_route_table_Assoc" {
   subnet_id      = "${azurerm_subnet.managment_subnet.id}"
-  route_table_id = "${azurerm_route_table.AzureRefArch-Management.id}"
+  route_table_id = "${azurerm_route_table.management_route_table.id}"
 }
 
-resource "azurerm_route_table" "AzureRefArch-Shared-Business" {
-  name                          = "AzureRefArch-Shared-Business"
+resource "azurerm_route_table" "business_route_table" {
+  name                          = "business_route_table"
   location                      = "${azurerm_resource_group.shared_resource_group.location}"
   resource_group_name           = "${azurerm_resource_group.shared_resource_group.name}"
   disable_bgp_route_propagation = false
@@ -316,13 +316,13 @@ resource "azurerm_route_table" "AzureRefArch-Shared-Business" {
   }
 }
 
-resource "azurerm_subnet_route_table_association" "AzureRefArch-Shared-Business-Assoc" {
-  subnet_id      = "${azurerm_subnet.sharedbusinesssubnet.id}"
-  route_table_id = "${azurerm_route_table.AzureRefArch-Shared-Business.id}"
+resource "azurerm_subnet_route_table_association" "business_route_table_assoc" {
+  subnet_id      = "${azurerm_subnet.shared_business_subnet.id}"
+  route_table_id = "${azurerm_route_table.business_route_table.id}"
 }
 
-resource "azurerm_route_table" "AzureRefArch-Shared-DB" {
-  name                          = "AzureRefArch-Shared-DB"
+resource "azurerm_route_table" "db_route_table" {
+  name                          = "db_route_table"
   location                      = "${azurerm_resource_group.shared_resource_group.location}"
   resource_group_name           = "${azurerm_resource_group.shared_resource_group.name}"
   disable_bgp_route_propagation = false
@@ -365,13 +365,13 @@ resource "azurerm_route_table" "AzureRefArch-Shared-DB" {
   }
 }
 
-resource "azurerm_subnet_route_table_association" "AzureRefArch-Shared-DB-Assoc" {
-  subnet_id      = "${azurerm_subnet.shareddbsubnet.id}"
-  route_table_id = "${azurerm_route_table.AzureRefArch-Shared-DB.id}"
+resource "azurerm_subnet_route_table_association" "db_route_table_assoc" {
+  subnet_id      = "${azurerm_subnet.shared_db_subnet.id}"
+  route_table_id = "${azurerm_route_table.db_route_table.id}"
 }
 
-resource "azurerm_route_table" "AzureRefArch-Shared-Web" {
-  name                          = "AzureRefArch-Shared-Web"
+resource "azurerm_route_table" "web_route_table" {
+  name                          = "web_route_table"
   location                      = "${azurerm_resource_group.shared_resource_group.location}"
   resource_group_name           = "${azurerm_resource_group.shared_resource_group.name}"
   disable_bgp_route_propagation = false
@@ -414,13 +414,13 @@ resource "azurerm_route_table" "AzureRefArch-Shared-Web" {
   }
 }
 
-resource "azurerm_subnet_route_table_association" "AzureRefArch-Shared-Web-Assoc" {
-  subnet_id      = "${azurerm_subnet.sharedwebsubnet.id}"
-  route_table_id = "${azurerm_route_table.AzureRefArch-Shared-Web.id}"
+resource "azurerm_subnet_route_table_association" "web_route_table_assoc" {
+  subnet_id      = "${azurerm_subnet.shared_web_subnet.id}"
+  route_table_id = "${azurerm_route_table.web_route_table.id}"
 }
 
-resource "azurerm_route_table" "AzureRefArch-Shared-Private" {
-  name                          = "AzureRefArch-Shared-Private"
+resource "azurerm_route_table" "private_route_table" {
+  name                          = "private_route_table"
   location                      = "${azurerm_resource_group.shared_resource_group.location}"
   resource_group_name           = "${azurerm_resource_group.shared_resource_group.name}"
   disable_bgp_route_propagation = false
@@ -463,13 +463,13 @@ resource "azurerm_route_table" "AzureRefArch-Shared-Private" {
   }
 }
 
-resource "azurerm_subnet_route_table_association" "AzureRefArch-Shared-Private-Assoc" {
-  subnet_id      = "${azurerm_subnet.sharedprivatesubnet.id}"
-  route_table_id = "${azurerm_route_table.AzureRefArch-Shared-Private.id}"
+resource "azurerm_subnet_route_table_association" "private_route_table_assoc" {
+  subnet_id      = "${azurerm_subnet.shared_private_subnet.id}"
+  route_table_id = "${azurerm_route_table.private_route_table.id}"
 }
 
-resource "azurerm_route_table" "AzureRefArch-Shared-Public" {
-  name                          = "AzureRefArch-Shared-Public"
+resource "azurerm_route_table" "public_route_table" {
+  name                          = "public_route_table"
   location                      = "${azurerm_resource_group.shared_resource_group.location}"
   resource_group_name           = "${azurerm_resource_group.shared_resource_group.name}"
   disable_bgp_route_propagation = false
@@ -498,9 +498,9 @@ resource "azurerm_route_table" "AzureRefArch-Shared-Public" {
   }
 }
 
-resource "azurerm_subnet_route_table_association" "AzureRefArch-Shared-Public-Assoc" {
-  subnet_id      = "${azurerm_subnet.sharedpublicsubnet.id}"
-  route_table_id = "${azurerm_route_table.AzureRefArch-Shared-Public.id}"
+resource "azurerm_subnet_route_table_association" "public_route_table_assoc" {
+  subnet_id      = "${azurerm_subnet.shared_public_subnet.id}"
+  route_table_id = "${azurerm_route_table.public_route_table.id}"
 }
 
 ## Load Balancers
@@ -616,21 +616,21 @@ resource "azurerm_lb" "internal_lb" {
     name                          = "${var.internal_lb_frontend_ip_name}"
     private_ip_address            = "${var.internal_lb_frontend_ip}"
     private_ip_address_allocation = "Static"
-    subnet_id                     = "${azurerm_subnet.sharedprivatesubnet.id}"
+    subnet_id                     = "${azurerm_subnet.shared_private_subnet.id}"
   }
 
   frontend_ip_configuration {
     name                          = "${var.internal_public_lb_frontend_ip_name}"
     private_ip_address            = "${var.internal_public_lb_frontend_ip}"
     private_ip_address_allocation = "Static"
-    subnet_id                     = "${azurerm_subnet.sharedpublicsubnet.id}"
+    subnet_id                     = "${azurerm_subnet.shared_public_subnet.id}"
   }
 
   frontend_ip_configuration {
     name                          = "${var.vpn_lb_frontend_ip_name}"
     private_ip_address            = "${var.vpn_lb_frontend_ip}"
     private_ip_address_allocation = "Static"
-    subnet_id                     = "${azurerm_subnet.sharedvpnsubnet.id}"
+    subnet_id                     = "${azurerm_subnet.shared_vpn_subnet.id}"
   }
 }
 
