@@ -67,7 +67,7 @@ resource "azurerm_availability_set" "panorama_as" {
 }
 
 # Create the Panorama diagnostic storage account
-resource "azurerm_storage_account" "panoramadiagstor" {
+resource "azurerm_storage_account" "panorama_storage_acct" {
   name                     = "${var.panorama_storage_acct_name}"
   resource_group_name      = "${azurerm_resource_group.panorama_resource_group.name}"
   location                 = "${azurerm_resource_group.panorama_resource_group.location}"
@@ -81,7 +81,7 @@ resource "azurerm_storage_account" "panoramadiagstor" {
 }
 
 # Create Panoram os disks
-resource "azurerm_storage_account" "panorama1osdisk" {
+resource "azurerm_storage_account" "panorama1_os_disk" {
   name                     = "${join("", list(var.panorama1_os_disk_account_name, substr(md5(azurerm_resource_group.panorama_resource_group.id), 0, 4)))}"
   resource_group_name      = "${azurerm_resource_group.panorama_resource_group.name}"
   location                 = "${azurerm_resource_group.panorama_resource_group.location}"
@@ -89,7 +89,7 @@ resource "azurerm_storage_account" "panorama1osdisk" {
   account_tier             = "Standard"
 }
 
-resource "azurerm_storage_account" "panorama2osdisk" {
+resource "azurerm_storage_account" "panorama2_os_disk" {
   name                     = "${join("", list(var.panorama2_os_disk_account_name, substr(md5(azurerm_resource_group.panorama_resource_group.id), 0, 4)))}"
   resource_group_name      = "${azurerm_resource_group.panorama_resource_group.name}"
   location                 = "${azurerm_resource_group.panorama_resource_group.location}"
@@ -98,7 +98,7 @@ resource "azurerm_storage_account" "panorama2osdisk" {
 }
 
 ## Create network interfaces
-resource "azurerm_network_interface" "panoram1nic0" {
+resource "azurerm_network_interface" "panorama1_vnic0" {
   name                = "${var.panorama1_vnic0_name}"
   resource_group_name = "${azurerm_resource_group.panorama_resource_group.name}"
   location            = "${azurerm_resource_group.panorama_resource_group.location}"
@@ -116,7 +116,7 @@ resource "azurerm_network_interface" "panoram1nic0" {
   }
 }
 
-resource "azurerm_network_interface" "panoram2nic0" {
+resource "azurerm_network_interface" "panorama2_vnic0" {
   name                = "${var.panorama2_vnic0_name}"
   resource_group_name = "${azurerm_resource_group.panorama_resource_group.name}"
   location            = "${azurerm_resource_group.panorama_resource_group.location}"
@@ -136,14 +136,14 @@ resource "azurerm_network_interface" "panoram2nic0" {
 
 ## Create Panroama VMs
 # Panorama 1
-resource "azurerm_virtual_machine" "panorama1" {
+resource "azurerm_virtual_machine" "panorama1_vm" {
   name                          = "${var.panorama1_vm_name}"
   location                      = "${azurerm_resource_group.panorama_resource_group.location}"
   resource_group_name           = "${azurerm_resource_group.panorama_resource_group.name}"
   vm_size                       = "${var.panorama_vm_size}"
   availability_set_id           = "${azurerm_availability_set.panorama_as.id}"
   delete_os_disk_on_termination = "true"
-  depends_on                    = ["azurerm_network_interface.panoram1nic0"]
+  depends_on                    = ["azurerm_network_interface.panorama1_vnic0"]
 
   plan {
     name      = "${var.panoramaSku}"
@@ -160,7 +160,7 @@ resource "azurerm_virtual_machine" "panorama1" {
 
   storage_os_disk {
     name          = "${join("", list(var.panorama1_vm_name, "-osDisk"))}"
-    vhd_uri       = "${azurerm_storage_account.panorama1osdisk.primary_blob_endpoint}vhds/${var.panorama1_vm_name}-${var.panoramaOffer}-${var.panoramaSku}.vhd"
+    vhd_uri       = "${azurerm_storage_account.panorama1_os_disk.primary_blob_endpoint}vhds/${var.panorama1_vm_name}-${var.panoramaOffer}-${var.panoramaSku}.vhd"
     caching       = "ReadWrite"
     create_option = "FromImage"
   }
@@ -171,8 +171,8 @@ resource "azurerm_virtual_machine" "panorama1" {
     admin_password = "${var.admin_password}"
   }
 
-  primary_network_interface_id = "${azurerm_network_interface.panoram1nic0.id}"
-  network_interface_ids        = ["${azurerm_network_interface.panoram1nic0.id}"]
+  primary_network_interface_id = "${azurerm_network_interface.panorama1_vnic0.id}"
+  network_interface_ids        = ["${azurerm_network_interface.panorama1_vnic0.id}"]
 
   os_profile_linux_config {
     disable_password_authentication = false
@@ -180,14 +180,14 @@ resource "azurerm_virtual_machine" "panorama1" {
 }
 
 # Panorama 2
-resource "azurerm_virtual_machine" "panorama2" {
+resource "azurerm_virtual_machine" "panorama2_vm" {
   name                          = "${var.panorama2_vm_name}"
   location                      = "${azurerm_resource_group.panorama_resource_group.location}"
   resource_group_name           = "${azurerm_resource_group.panorama_resource_group.name}"
   vm_size                       = "${var.panorama_vm_size}"
   availability_set_id           = "${azurerm_availability_set.panorama_as.id}"
   delete_os_disk_on_termination = "true"
-  depends_on                    = ["azurerm_network_interface.panoram2nic0"]
+  depends_on                    = ["azurerm_network_interface.panorama2_vnic0"]
 
   plan {
     name      = "${var.panoramaSku}"
@@ -204,7 +204,7 @@ resource "azurerm_virtual_machine" "panorama2" {
 
   storage_os_disk {
     name          = "${join("", list(var.panorama2_vm_name, "-osDisk"))}"
-    vhd_uri       = "${azurerm_storage_account.panorama2osdisk.primary_blob_endpoint}vhds/${var.panorama2_vm_name}-${var.panoramaOffer}-${var.panoramaSku}.vhd"
+    vhd_uri       = "${azurerm_storage_account.panorama2_os_disk.primary_blob_endpoint}vhds/${var.panorama2_vm_name}-${var.panoramaOffer}-${var.panoramaSku}.vhd"
     caching       = "ReadWrite"
     create_option = "FromImage"
   }
@@ -215,8 +215,8 @@ resource "azurerm_virtual_machine" "panorama2" {
     admin_password = "${var.admin_password}"
   }
 
-  primary_network_interface_id = "${azurerm_network_interface.panoram2nic0.id}"
-  network_interface_ids        = ["${azurerm_network_interface.panoram2nic0.id}"]
+  primary_network_interface_id = "${azurerm_network_interface.panorama2_vnic0.id}"
+  network_interface_ids        = ["${azurerm_network_interface.panorama2_vnic0.id}"]
 
   os_profile_linux_config {
     disable_password_authentication = false
