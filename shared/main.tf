@@ -521,8 +521,8 @@ resource "azurerm_subnet_route_table_association" "public_route_table_assoc" {
 
 resource "azurerm_route_table" "vpn_route_table" {
   name                          = "vpn_route_table"
-  location                      = "${azurerm_resource_group.vpn_resource_group.location}"
-  resource_group_name           = "${azurerm_resource_group.vpn_resource_group.name}"
+  location                      = "${azurerm_resource_group.shared_resource_group.location}"
+  resource_group_name           = "${azurerm_resource_group.shared_resource_group.name}"
   disable_bgp_route_propagation = false
 
   route {
@@ -549,8 +549,8 @@ resource "azurerm_subnet_route_table_association" "vpn_route_table_assoc" {
 
 resource "azurerm_route_table" "gateway_route_table" {
   name                          = "gateway_route_table"
-  location                      = "${azurerm_resource_group.vpn_resource_group.location}"
-  resource_group_name           = "${azurerm_resource_group.vpn_resource_group.name}"
+  location                      = "${azurerm_resource_group.shared_resource_group.location}"
+  resource_group_name           = "${azurerm_resource_group.shared_resource_group.name}"
   disable_bgp_route_propagation = false
 
   route {

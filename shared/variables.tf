@@ -12,6 +12,10 @@ variable "subscription_id" {
   default = "7ef81faa-9186-4af3-b97c-71f4e517266f"
 }
 
+variable "azure_refarch_vnet_name" {
+  default = "Unit-10-PAN-RefArch-VNET"
+}
+
 variable "environment_tag_name" {
   default = "Unit 10 PAN Referece Architecture"
 }
