@@ -176,8 +176,8 @@ resource "azurerm_storage_account" "firewall2osdisk" {
 ## Create network interfaces
 resource "azurerm_network_interface" "firewall1_nic0" {
   name                = "${var.firewall1_vnic0_name}"
-  resource_group_name = "${azurerm_resource_group.firewall_resource_group.name}"
-  location            = "${azurerm_resource_group.firewall_resource_group.location}"
+  resource_group_name = "${data.azurerm_resource_group.shared_resource_group.name}"
+  location            = "${data.azurerm_resource_group.shared_resource_group.location}"
 
   ip_configuration {
     name                          = "firewall1-nic0-ipconfig"
@@ -195,8 +195,8 @@ resource "azurerm_network_interface" "firewall1_nic0" {
 ## Create network interfaces
 resource "azurerm_network_interface" "firewall1_nic1" {
   name                = "${var.firewall1_vnic1_name}"
-  resource_group_name = "${azurerm_resource_group.firewall_resource_group.name}"
-  location            = "${azurerm_resource_group.firewall_resource_group.location}"
+  resource_group_name = "${data.azurerm_resource_group.shared_resource_group.name}"
+  location            = "${data.azurerm_resource_group.shared_resource_group.location}"
 
   ip_configuration {
     name                          = "firewall1-nic1-ipconfig"
@@ -217,8 +217,8 @@ resource "azurerm_network_interface" "firewall1_nic1" {
 ## Create network interfaces
 resource "azurerm_network_interface" "firewall1_nic2" {
   name                = "${var.firewall1_vnic2_name}"
-  resource_group_name = "${azurerm_resource_group.firewall_resource_group.name}"
-  location            = "${azurerm_resource_group.firewall_resource_group.location}"
+  resource_group_name = "${data.azurerm_resource_group.shared_resource_group.name}"
+  location            = "${data.azurerm_resource_group.shared_resource_group.location}"
 
   ip_configuration {
     name                                    = "firewall1-nic2-ipconfig"
@@ -236,8 +236,8 @@ resource "azurerm_network_interface" "firewall1_nic2" {
 ## Create network interfaces
 resource "azurerm_network_interface" "firewall1_nic3" {
   name                = "${var.firewall1_vnic3_name}"
-  resource_group_name = "${azurerm_resource_group.firewall_resource_group.name}"
-  location            = "${azurerm_resource_group.firewall_resource_group.location}"
+  resource_group_name = "${data.azurerm_resource_group.shared_resource_group.name}"
+  location            = "${data.azurerm_resource_group.shared_resource_group.location}"
 
   ip_configuration {
     name                                    = "firewall1-nic3-ipconfig"
@@ -255,8 +255,8 @@ resource "azurerm_network_interface" "firewall1_nic3" {
 ## Create network interfaces
 resource "azurerm_network_interface" "firewall2_nic0" {
   name                = "${var.firewall2_vnic0_name}"
-  resource_group_name = "${azurerm_resource_group.firewall_resource_group.name}"
-  location            = "${azurerm_resource_group.firewall_resource_group.location}"
+  resource_group_name = "${data.azurerm_resource_group.shared_resource_group.name}"
+  location            = "${data.azurerm_resource_group.shared_resource_group.location}"
 
   ip_configuration {
     name                          = "firewall2-nic0-ipconfig"
@@ -274,8 +274,8 @@ resource "azurerm_network_interface" "firewall2_nic0" {
 ## Create network interfaces
 resource "azurerm_network_interface" "firewall2_nic1" {
   name                = "${var.firewall2_vnic1_name}"
-  resource_group_name = "${azurerm_resource_group.firewall_resource_group.name}"
-  location            = "${azurerm_resource_group.firewall_resource_group.location}"
+  resource_group_name = "${data.azurerm_resource_group.shared_resource_group.name}"
+  location            = "${data.azurerm_resource_group.shared_resource_group.location}"
 
   ip_configuration {
     name                          = "firewall2-nic1-ipconfig"
@@ -296,8 +296,8 @@ resource "azurerm_network_interface" "firewall2_nic1" {
 ## Create network interfaces
 resource "azurerm_network_interface" "firewall2_nic2" {
   name                = "${var.firewall2_vnic2_name}"
-  resource_group_name = "${azurerm_resource_group.firewall_resource_group.name}"
-  location            = "${azurerm_resource_group.firewall_resource_group.location}"
+  resource_group_name = "${data.azurerm_resource_group.shared_resource_group.name}"
+  location            = "${data.azurerm_resource_group.shared_resource_group.location}"
 
   ip_configuration {
     name                                    = "firewall2-nic2-ipconfig"
@@ -315,8 +315,8 @@ resource "azurerm_network_interface" "firewall2_nic2" {
 ## Create network interfaces
 resource "azurerm_network_interface" "firewall2_nic3" {
   name                = "${var.firewall2_vnic3_name}"
-  resource_group_name = "${azurerm_resource_group.firewall_resource_group.name}"
-  location            = "${azurerm_resource_group.firewall_resource_group.location}"
+  resource_group_name = "${data.azurerm_resource_group.shared_resource_group.name}"
+  location            = "${data.azurerm_resource_group.shared_resource_group.location}"
 
   ip_configuration {
     name                                    = "firewall2-nic3-ipconfig"
