@@ -93,7 +93,7 @@ resource "azurerm_subnet_route_table_association" "AzureRefArch-Shared-GW-Assoc"
 resource "azurerm_public_ip" "vpn_gw_public_ip" {
   name                = "${var.vpn_gw_public_ip_name}"
   location            = "${var.vpn_resource_group_location}"
-  resource_group_name = "${data.azurerm_resource_group.management_resource_group.name}"
+  resource_group_name = "${data.azurerm_resource_group.shared_resource_group.name}"
   sku                 = "Basic"
   allocation_method   = "Dynamic"
 
@@ -104,8 +104,8 @@ resource "azurerm_public_ip" "vpn_gw_public_ip" {
 
 resource "azurerm_virtual_network_gateway" "vng" {
   name                = "${var.vng_name}"
-  location            = "${data.azurerm_resource_group.management_resource_group.location}"
-  resource_group_name = "${data.azurerm_resource_group.management_resource_group.name}"
+  location            = "${data.azurerm_resource_group.shared_resource_group.location}"
+  resource_group_name = "${data.azurerm_resource_group.shared_resource_group.name}"
   type                = "Vpn"
   vpn_type            = "RouteBased"
   enable_bgp          = true
