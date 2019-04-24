@@ -614,19 +614,6 @@ resource "azurerm_lb_probe" "public_https_probe" {
   port                = 443
 }
 
-resource "azurerm_lb_rule" "shared_public_web_22" {
-  resource_group_name            = "${azurerm_resource_group.shared_resource_group.name}"
-  loadbalancer_id                = "${azurerm_lb.public_lb.id}"
-  name                           = "Shared-Public-Web-80"
-  protocol                       = "Tcp"
-  frontend_port                  = 80
-  backend_port                   = 80
-  frontend_ip_configuration_name = "${var.public_lb_frontend_ip_name}"
-  backend_address_pool_id        = "${azurerm_lb_backend_address_pool.public_lb_backend_address_pool.id}"
-  probe_id                       = "${azurerm_lb_probe.public_https_probe.id}"
-  enable_floating_ip             = "True"
-}
-
 resource "azurerm_lb_rule" "shared_public_web_80" {
   resource_group_name            = "${azurerm_resource_group.shared_resource_group.name}"
   loadbalancer_id                = "${azurerm_lb.public_lb.id}"
