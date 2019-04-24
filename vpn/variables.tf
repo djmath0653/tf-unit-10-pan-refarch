@@ -24,7 +24,7 @@ variable "admin_password" {
   default = "s0wqLK0N5f0!"
 }
 
-variable "management_resource_group" {
+variable "management_resource_group_name" {
   default = "Unit-10-PAN-RefArch-Management"
 }
 
