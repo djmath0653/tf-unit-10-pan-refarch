@@ -238,7 +238,7 @@ resource "azurerm_subnet_network_security_group_association" "shared_vpn_subnet_
 
 ## Create route tables
 resource "azurerm_route_table" "management_route_table" {
-  name                          = "management_route_table"
+  name                          = "AzureRefArch-Management"
   location                      = "${azurerm_resource_group.shared_resource_group.location}"
   resource_group_name           = "${azurerm_resource_group.shared_resource_group.name}"
   disable_bgp_route_propagation = false
@@ -273,7 +273,7 @@ resource "azurerm_subnet_route_table_association" "management_route_table_Assoc"
 }
 
 resource "azurerm_route_table" "business_route_table" {
-  name                          = "business_route_table"
+  name                          = "AzureRefArch-Shared-Business"
   location                      = "${azurerm_resource_group.shared_resource_group.location}"
   resource_group_name           = "${azurerm_resource_group.shared_resource_group.name}"
   disable_bgp_route_propagation = false
@@ -322,7 +322,7 @@ resource "azurerm_subnet_route_table_association" "business_route_table_assoc" {
 }
 
 resource "azurerm_route_table" "db_route_table" {
-  name                          = "db_route_table"
+  name                          = "AzureRefArch-Shared-DB"
   location                      = "${azurerm_resource_group.shared_resource_group.location}"
   resource_group_name           = "${azurerm_resource_group.shared_resource_group.name}"
   disable_bgp_route_propagation = false
@@ -371,7 +371,7 @@ resource "azurerm_subnet_route_table_association" "db_route_table_assoc" {
 }
 
 resource "azurerm_route_table" "web_route_table" {
-  name                          = "web_route_table"
+  name                          = "AzureRefArch-Shared-Web"
   location                      = "${azurerm_resource_group.shared_resource_group.location}"
   resource_group_name           = "${azurerm_resource_group.shared_resource_group.name}"
   disable_bgp_route_propagation = false
@@ -420,7 +420,7 @@ resource "azurerm_subnet_route_table_association" "web_route_table_assoc" {
 }
 
 resource "azurerm_route_table" "private_route_table" {
-  name                          = "private_route_table"
+  name                          = "AzureRefArch-Shared-Private"
   location                      = "${azurerm_resource_group.shared_resource_group.location}"
   resource_group_name           = "${azurerm_resource_group.shared_resource_group.name}"
   disable_bgp_route_propagation = false
@@ -469,7 +469,7 @@ resource "azurerm_subnet_route_table_association" "private_route_table_assoc" {
 }
 
 resource "azurerm_route_table" "public_route_table" {
-  name                          = "public_route_table"
+  name                          = "AzureRefArch-Shared-Public"
   location                      = "${azurerm_resource_group.shared_resource_group.location}"
   resource_group_name           = "${azurerm_resource_group.shared_resource_group.name}"
   disable_bgp_route_propagation = false
@@ -504,7 +504,7 @@ resource "azurerm_subnet_route_table_association" "public_route_table_assoc" {
 }
 
 resource "azurerm_route_table" "vpn_route_table" {
-  name                          = "vpn_route_table"
+  name                          = "AzureRefArch-Shared-VPN"
   location                      = "${azurerm_resource_group.shared_resource_group.location}"
   resource_group_name           = "${azurerm_resource_group.shared_resource_group.name}"
   disable_bgp_route_propagation = false
@@ -532,7 +532,7 @@ resource "azurerm_subnet_route_table_association" "vpn_route_table_assoc" {
 }
 
 resource "azurerm_route_table" "gateway_route_table" {
-  name                          = "gateway_route_table"
+  name                          = "AzureRefArch-Shared-Gateway"
   location                      = "${azurerm_resource_group.shared_resource_group.location}"
   resource_group_name           = "${azurerm_resource_group.shared_resource_group.name}"
   disable_bgp_route_propagation = false
