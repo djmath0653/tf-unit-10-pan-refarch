@@ -27,36 +27,6 @@ data "azurerm_subnet" "management_subnet" {
   resource_group_name  = "${var.shared_resource_group_name}"
 }
 
-# Create the public ip for Panorama 1
-resource "azurerm_public_ip" "panorama1_public_ip" {
-  name                = "${var.panorama1_public_ip_name}"
-  location            = "${var.panorama_resource_group_location}"
-  resource_group_name = "${var.panorama_resource_group_name}"
-  sku                 = "Standard"
-  allocation_method   = "Static"
-  domain_name_label   = "${var.panorama1_domain_name_label}"
-  depends_on          = ["panorama_resource_group"]
-
-  tags = {
-    environment = "${var.environment_tag_name}"
-  }
-}
-
-# Create the public ip for Panorama 2
-resource "azurerm_public_ip" "panorama2_public_ip" {
-  name                = "${var.panorama2_public_ip_name}"
-  location            = "${var.panorama_resource_group_location}"
-  resource_group_name = "${var.panorama_resource_group_name}"
-  sku                 = "Standard"
-  allocation_method   = "Static"
-  domain_name_label   = "${var.panorama2_domain_name_label}"
-  depends_on          = ["panorama_resource_group"]
-
-  tags = {
-    environment = "${var.environment_tag_name}"
-  }
-}
-
 # Create the Panorama availability set
 resource "azurerm_availability_set" "panorama_as" {
   name                = "${var.panorama_avail_set_name}"
@@ -97,6 +67,34 @@ resource "azurerm_storage_account" "panorama2osdisk" {
   location                 = "${azurerm_resource_group.panorama_resource_group.location}"
   account_replication_type = "LRS"
   account_tier             = "Standard"
+}
+
+# Create the public ip for Panorama 1
+resource "azurerm_public_ip" "panorama1_public_ip" {
+  name                = "${var.panorama1_public_ip_name}"
+  location            = "${var.panorama_resource_group_location}"
+  resource_group_name = "${var.panorama_resource_group_name}"
+  sku                 = "Standard"
+  allocation_method   = "Static"
+  domain_name_label   = "${var.panorama1_domain_name_label}"
+
+  tags = {
+    environment = "${var.environment_tag_name}"
+  }
+}
+
+# Create the public ip for Panorama 2
+resource "azurerm_public_ip" "panorama2_public_ip" {
+  name                = "${var.panorama2_public_ip_name}"
+  location            = "${var.panorama_resource_group_location}"
+  resource_group_name = "${var.panorama_resource_group_name}"
+  sku                 = "Standard"
+  allocation_method   = "Static"
+  domain_name_label   = "${var.panorama2_domain_name_label}"
+
+  tags = {
+    environment = "${var.environment_tag_name}"
+  }
 }
 
 ## Create network interfaces
