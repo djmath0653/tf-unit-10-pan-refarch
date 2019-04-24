@@ -53,7 +53,7 @@ variable "azure_refarch_vnet_name" {
 }
 
 variable "vpn_gw_public_ip_name" {
-  default = "10M-Azure-vpn-gw-PIP"
+  default = "Unit-10-PAN-RefArch-vpn-gw-PIP"
 }
 
 variable "vng_name" {
