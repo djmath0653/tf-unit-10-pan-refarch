@@ -199,11 +199,14 @@ resource "azurerm_network_interface" "firewall1_nic1" {
   location            = "${azurerm_resource_group.firewall_resource_group.location}"
 
   ip_configuration {
-    name                                    = "firewall1-nic1-ipconfig"
-    subnet_id                               = "${data.azurerm_subnet.shared_public_subnet.id}"
-    private_ip_address_allocation           = "Static"
-    private_ip_address                      = "${var.firewall1_vnic1_private_ip}"
-    load_balancer_backend_address_pools_ids = ["${data.azurerm_lb_backend_address_pool.public_lb_backend_address_pool.id}"]
+    name                          = "firewall1-nic1-ipconfig"
+    subnet_id                     = "${data.azurerm_subnet.shared_public_subnet.id}"
+    private_ip_address_allocation = "Static"
+    private_ip_address            = "${var.firewall1_vnic1_private_ip}"
+
+    load_balancer_backend_address_pools_ids = ["${data.azurerm_lb_backend_address_pool.public_lb_backend_address_pool.id}",
+      "${data.azurerm_lb_backend_address_pool.internal_public_lb_backend_address_pool.id}",
+    ]
   }
 
   tags = {
@@ -218,10 +221,11 @@ resource "azurerm_network_interface" "firewall1_nic2" {
   location            = "${azurerm_resource_group.firewall_resource_group.location}"
 
   ip_configuration {
-    name                          = "firewall1-nic2-ipconfig"
-    subnet_id                     = "${data.azurerm_subnet.shared_private_subnet.id}"
-    private_ip_address_allocation = "Static"
-    private_ip_address            = "${var.firewall1_vnic2_private_ip}"
+    name                                    = "firewall1-nic2-ipconfig"
+    subnet_id                               = "${data.azurerm_subnet.shared_private_subnet.id}"
+    private_ip_address_allocation           = "Static"
+    private_ip_address                      = "${var.firewall1_vnic2_private_ip}"
+    load_balancer_backend_address_pools_ids = ["${data.azurerm_lb_backend_address_pool.internal_lb_backend_address_pool.id}"]
   }
 
   tags = {
@@ -236,10 +240,11 @@ resource "azurerm_network_interface" "firewall1_nic3" {
   location            = "${azurerm_resource_group.firewall_resource_group.location}"
 
   ip_configuration {
-    name                          = "firewall1-nic3-ipconfig"
-    subnet_id                     = "${data.azurerm_subnet.shared_vpn_subnet.id}"
-    private_ip_address_allocation = "Static"
-    private_ip_address            = "${var.firewall1_vnic3_private_ip}"
+    name                                    = "firewall1-nic3-ipconfig"
+    subnet_id                               = "${data.azurerm_subnet.shared_vpn_subnet.id}"
+    private_ip_address_allocation           = "Static"
+    private_ip_address                      = "${var.firewall1_vnic3_private_ip}"
+    load_balancer_backend_address_pools_ids = ["${data.azurerm_lb_backend_address_pool.vpn_lb_backend_address_pool.id}"]
   }
 
   tags = {
@@ -273,11 +278,14 @@ resource "azurerm_network_interface" "firewall2_nic1" {
   location            = "${azurerm_resource_group.firewall_resource_group.location}"
 
   ip_configuration {
-    name                                    = "firewall2-nic1-ipconfig"
-    subnet_id                               = "${data.azurerm_subnet.shared_public_subnet.id}"
-    private_ip_address_allocation           = "Static"
-    private_ip_address                      = "${var.firewall2_vnic1_private_ip}"
-    load_balancer_backend_address_pools_ids = ["${data.azurerm_lb_backend_address_pool.public_lb_backend_address_pool.id}"]
+    name                          = "firewall2-nic1-ipconfig"
+    subnet_id                     = "${data.azurerm_subnet.shared_public_subnet.id}"
+    private_ip_address_allocation = "Static"
+    private_ip_address            = "${var.firewall2_vnic1_private_ip}"
+
+    load_balancer_backend_address_pools_ids = ["${data.azurerm_lb_backend_address_pool.public_lb_backend_address_pool.id}",
+      "${data.azurerm_lb_backend_address_pool.internal_public_lb_backend_address_pool.id}",
+    ]
   }
 
   tags = {
@@ -292,10 +300,11 @@ resource "azurerm_network_interface" "firewall2_nic2" {
   location            = "${azurerm_resource_group.firewall_resource_group.location}"
 
   ip_configuration {
-    name                          = "firewall2-nic2-ipconfig"
-    subnet_id                     = "${data.azurerm_subnet.shared_private_subnet.id}"
-    private_ip_address_allocation = "Static"
-    private_ip_address            = "${var.firewall2_vnic2_private_ip}"
+    name                                    = "firewall2-nic2-ipconfig"
+    subnet_id                               = "${data.azurerm_subnet.shared_private_subnet.id}"
+    private_ip_address_allocation           = "Static"
+    private_ip_address                      = "${var.firewall2_vnic2_private_ip}"
+    load_balancer_backend_address_pools_ids = ["${data.azurerm_lb_backend_address_pool.internal_lb_backend_address_pool.id}"]
   }
 
   tags = {
@@ -310,10 +319,11 @@ resource "azurerm_network_interface" "firewall2_nic3" {
   location            = "${azurerm_resource_group.firewall_resource_group.location}"
 
   ip_configuration {
-    name                          = "firewall2-nic3-ipconfig"
-    subnet_id                     = "${data.azurerm_subnet.shared_vpn_subnet.id}"
-    private_ip_address_allocation = "Static"
-    private_ip_address            = "${var.firewall2_vnic3_private_ip}"
+    name                                    = "firewall2-nic3-ipconfig"
+    subnet_id                               = "${data.azurerm_subnet.shared_vpn_subnet.id}"
+    private_ip_address_allocation           = "Static"
+    private_ip_address                      = "${var.firewall2_vnic3_private_ip}"
+    load_balancer_backend_address_pools_ids = ["${data.azurerm_lb_backend_address_pool.vpn_lb_backend_address_pool.id}"]
   }
 
   tags = {
