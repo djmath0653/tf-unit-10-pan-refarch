@@ -35,6 +35,7 @@ resource "azurerm_public_ip" "panorama1_public_ip" {
   sku                 = "Standard"
   allocation_method   = "Static"
   domain_name_label   = "${var.panorama1_domain_name_label}"
+  depends_on          = ["panorama_resource_group"]
 
   tags = {
     environment = "${var.environment_tag_name}"
@@ -49,6 +50,7 @@ resource "azurerm_public_ip" "panorama2_public_ip" {
   sku                 = "Standard"
   allocation_method   = "Static"
   domain_name_label   = "${var.panorama2_domain_name_label}"
+  depends_on          = ["panorama_resource_group"]
 
   tags = {
     environment = "${var.environment_tag_name}"
