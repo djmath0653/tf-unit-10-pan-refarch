@@ -431,19 +431,30 @@ resource "azurerm_virtual_machine" "firewall2_vm" {
   }
 }
 
-# 
-# ## public lb pool associations
-# resource "azurerm_network_interface_backend_address_pool_association" "public_lb_fw1_address_pool_association" {
-#   network_interface_id    = "${azurerm_network_interface.firewall1_nic1.id}"
-#   ip_configuration_name   = "firewall1-nic1-ipconfig"
-#   backend_address_pool_id = "${data.azurerm_lb_backend_address_pool.public_lb_backend_address_pool.id}"
-# }
-#
-# resource "azurerm_network_interface_backend_address_pool_association" "public_lb_fw2_address_pool_association" {
-#   network_interface_id    = "${azurerm_network_interface.firewall2_nic1.id}"
-#   ip_configuration_name   = "firewall2-nic1-ipconfig"
-#   backend_address_pool_id = "${data.azurerm_lb_backend_address_pool.public_lb_backend_address_pool.id}"
-# }
+## public lb pool associations
+resource "azurerm_network_interface_backend_address_pool_association" "public_lb_fw1_address_pool_association" {
+  network_interface_id    = "${azurerm_network_interface.firewall1_nic1.id}"
+  ip_configuration_name   = "firewall1-nic1-ipconfig"
+  backend_address_pool_id = "${data.azurerm_lb_backend_address_pool.public_lb_backend_address_pool.id}"
+
+  depends_on = ["azurerm_network_interface.firewall2_nic0",
+    "azurerm_network_interface.firewall2_nic1",
+    "azurerm_network_interface.firewall2_nic2",
+    "azurerm_network_interface.firewall2_nic3",
+  ]
+}
+
+resource "azurerm_network_interface_backend_address_pool_association" "public_lb_fw2_address_pool_association" {
+  network_interface_id    = "${azurerm_network_interface.firewall2_nic1.id}"
+  ip_configuration_name   = "firewall2-nic1-ipconfig"
+  backend_address_pool_id = "${data.azurerm_lb_backend_address_pool.public_lb_backend_address_pool.id}"
+
+  depends_on = ["azurerm_network_interface.firewall2_nic0",
+    "azurerm_network_interface.firewall2_nic1",
+    "azurerm_network_interface.firewall2_nic2",
+    "azurerm_network_interface.firewall2_nic3",
+  ]
+}
 
 ## private lb pool associations
 resource "azurerm_network_interface_backend_address_pool_association" "internal_lb_fw1_address_pool_association" {
