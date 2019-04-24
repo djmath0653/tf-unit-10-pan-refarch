@@ -503,6 +503,63 @@ resource "azurerm_subnet_route_table_association" "public_route_table_assoc" {
   route_table_id = "${azurerm_route_table.public_route_table.id}"
 }
 
+resource "azurerm_route_table" "vpn_route_table" {
+  name                          = "vpn_route_table"
+  location                      = "${azurerm_resource_group.vpn_resource_group.location}"
+  resource_group_name           = "${azurerm_resource_group.vpn_resource_group.name}"
+  disable_bgp_route_propagation = false
+
+  route {
+    name           = "Blackhole-Management"
+    address_prefix = "192.168.1.0/24"
+    next_hop_type  = "None"
+  }
+
+  route {
+    name           = "Blackhole-Public"
+    address_prefix = "172.16.0.0/23"
+    next_hop_type  = "None"
+  }
+
+  tags = {
+    environment = "${var.environment_tag_name}"
+  }
+}
+
+resource "azurerm_subnet_route_table_association" "vpn_route_table_assoc" {
+  subnet_id      = "${azurerm_subnet.shared_vpn_subnet.id}"
+  route_table_id = "${azurerm_route_table.vpn_route_table.id}"
+}
+
+resource "azurerm_route_table" "gateway_route_table" {
+  name                          = "gateway_route_table"
+  location                      = "${azurerm_resource_group.vpn_resource_group.location}"
+  resource_group_name           = "${azurerm_resource_group.vpn_resource_group.name}"
+  disable_bgp_route_propagation = false
+
+  route {
+    name           = "Blackhole-Public"
+    address_prefix = "172.16.0.0/23"
+    next_hop_type  = "None"
+  }
+
+  route {
+    name                   = "Net-10.5.0.0"
+    address_prefix         = "10.5.0.0/20"
+    next_hop_type          = "VirtualAppliance"
+    next_hop_in_ip_address = "10.5.15.21"
+  }
+
+  tags = {
+    environment = "${var.environment_tag_name}"
+  }
+}
+
+resource "azurerm_subnet_route_table_association" "gateway_route_table-assoc" {
+  subnet_id      = "${azurerm_subnet.shared_gw_subnet.id}"
+  route_table_id = "${azurerm_route_table.gateway_route_table.id}"
+}
+
 ## Load Balancers
 # Create the Public IP Address for the frontend IP address for Azure Public Load-Balancer
 resource "azurerm_public_ip" "public_lb_frontend_ip" {

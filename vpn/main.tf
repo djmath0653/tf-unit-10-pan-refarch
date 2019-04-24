@@ -32,63 +32,6 @@ data "azurerm_subnet" "shared_gw_subnet" {
   resource_group_name  = "${var.shared_resource_group_name}"
 }
 
-resource "azurerm_route_table" "AzureRefArch-Shared-VPN" {
-  name                          = "AzureRefArch-Shared-VPN"
-  location                      = "${azurerm_resource_group.vpn_resource_group.location}"
-  resource_group_name           = "${azurerm_resource_group.vpn_resource_group.name}"
-  disable_bgp_route_propagation = false
-
-  route {
-    name           = "Blackhole-Management"
-    address_prefix = "192.168.1.0/24"
-    next_hop_type  = "None"
-  }
-
-  route {
-    name           = "Blackhole-Public"
-    address_prefix = "172.16.0.0/23"
-    next_hop_type  = "None"
-  }
-
-  tags = {
-    environment = "${var.environment_tag_name}"
-  }
-}
-
-resource "azurerm_subnet_route_table_association" "AzureRefArch-Shared-VPN-Assoc" {
-  subnet_id      = "${data.azurerm_subnet.shared_vpn_subnet.id}"
-  route_table_id = "${azurerm_route_table.AzureRefArch-Shared-VPN.id}"
-}
-
-resource "azurerm_route_table" "AzureRefArch-Shared-Gateway" {
-  name                          = "AzureRefArch-Shared-Gateway"
-  location                      = "${azurerm_resource_group.vpn_resource_group.location}"
-  resource_group_name           = "${azurerm_resource_group.vpn_resource_group.name}"
-  disable_bgp_route_propagation = false
-
-  route {
-    name           = "Blackhole-Public"
-    address_prefix = "172.16.0.0/23"
-    next_hop_type  = "None"
-  }
-
-  route {
-    name                   = "Net-10.5.0.0"
-    address_prefix         = "10.5.0.0/20"
-    next_hop_type          = "VirtualAppliance"
-    next_hop_in_ip_address = "10.5.15.21"
-  }
-
-  tags = {
-    environment = "${var.environment_tag_name}"
-  }
-}
-
-resource "azurerm_subnet_route_table_association" "AzureRefArch-Shared-GW-Assoc" {
-  subnet_id      = "${data.azurerm_subnet.shared_gw_subnet.id}"
-  route_table_id = "${azurerm_route_table.AzureRefArch-Shared-Gateway.id}"
-}
-
 # Create the public ip for VPN GW
 resource "azurerm_public_ip" "vpn_gw_public_ip" {
   name                = "${var.vpn_gw_public_ip_name}"
