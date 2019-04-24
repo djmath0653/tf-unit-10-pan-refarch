@@ -45,7 +45,7 @@ variable "vpn_resource_group_name" {
 }
 
 variable "vpn_resource_group_location" {
-  default = "westus"
+  default = "centralus"
 }
 
 variable "azure_refarch_vnet_name" {
