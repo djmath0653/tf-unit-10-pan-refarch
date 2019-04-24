@@ -21,7 +21,7 @@ data "azurerm_resource_group" "shared_resource_group" {
 ## Get data from Public LB
 data "azurerm_lb" "public_lb" {
   name                = "${var.public_lb_name}"
-  resource_group_name = "${var.shared_resource_group_name}"
+  resource_group_name = "${azurerm_resource_group.shared_resource_group.name}"
 }
 
 ## Get data from LB backend pool
@@ -33,7 +33,7 @@ data "azurerm_lb_backend_address_pool" "public_lb_backend_address_pool" {
 ## Get data from Internal LB
 data "azurerm_lb" "internal_lb" {
   name                = "${var.internal_lb_name}"
-  resource_group_name = "${var.shared_resource_group_name}"
+  resource_group_name = "${azurerm_resource_group.shared_resource_group.name}"
 }
 
 ## Get data from LB Internal backend pool
@@ -75,27 +75,26 @@ data "azurerm_subnet" "shared_private_subnet" {
   resource_group_name  = "${var.shared_resource_group_name}"
 }
 
-#
-# # get data from web subnet
-# data "azurerm_subnet" "shared_web_subnet" {
-#   name                 = "${var.shared_web_subnet_name}"
-#   virtual_network_name = "${var.refarch_vnet_name}"
-#   resource_group_name  = "${var.shared_resource_group_name}"
-# }
-#
-# # get data from business subnet
-# data "azurerm_subnet" "shared_business_subnet" {
-#   name                 = "${var.shared_business_subnet_name}"
-#   virtual_network_name = "${var.refarch_vnet_name}"
-#   resource_group_name  = "${var.shared_resource_group_name}"
-# }
-#
-# # get data from db subnet
-# data "azurerm_subnet" "shared_db_subnet" {
-#   name                 = "${var.shared_db_subnet_name}"
-#   virtual_network_name = "${var.refarch_vnet_name}"
-#   resource_group_name  = "${var.shared_resource_group_name}"
-# }
+# get data from web subnet
+data "azurerm_subnet" "shared_web_subnet" {
+  name                 = "${var.shared_web_subnet_name}"
+  virtual_network_name = "${var.refarch_vnet_name}"
+  resource_group_name  = "${var.shared_resource_group_name}"
+}
+
+# get data from business subnet
+data "azurerm_subnet" "shared_business_subnet" {
+  name                 = "${var.shared_business_subnet_name}"
+  virtual_network_name = "${var.refarch_vnet_name}"
+  resource_group_name  = "${var.shared_resource_group_name}"
+}
+
+# get data from db subnet
+data "azurerm_subnet" "shared_db_subnet" {
+  name                 = "${var.shared_db_subnet_name}"
+  virtual_network_name = "${var.refarch_vnet_name}"
+  resource_group_name  = "${var.shared_resource_group_name}"
+}
 
 # get data from vpn subnet
 data "azurerm_subnet" "shared_vpn_subnet" {
