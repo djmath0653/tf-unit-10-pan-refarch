@@ -119,6 +119,18 @@ resource "azurerm_network_security_group" "management_nsg" {
     destination_address_prefix = "*"
   }
 
+  security_rule {
+    name                       = "AllowPANLogs-Inbound"
+    priority                   = 120
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "3978"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+
   tags {
     environment = "${var.environment_tag_name}"
   }
