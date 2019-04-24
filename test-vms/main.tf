@@ -9,7 +9,7 @@ provider "azurerm" {
 ## Test VM Infrastructure
 # Create AzureRefArch Resource Group
 
-resource "azurerm_resource_group" "testvmrg" {
+resource "azurerm_resource_group" "test_vm_resource_group" {
   name     = "${var.testvm_resource_group_name}"
   location = "${var.testvm_resource_group_location}"
 }
@@ -39,7 +39,7 @@ data "azurerm_subnet" "shared_business_subnet" {
 resource "azurerm_public_ip" "web_test_publicip" {
   name                = "${var.web_test_publicip_name}"
   location            = "${var.testvm_resource_group_location}"
-  resource_group_name = "${azurerm_resource_group.testvmrg.name}"
+  resource_group_name = "${azurerm_resource_group.test_vm_resource_group.name}"
   sku                 = "Standard"
   allocation_method   = "Static"
   domain_name_label   = "${var.web_test_domain_name_label}"
@@ -53,7 +53,7 @@ resource "azurerm_public_ip" "web_test_publicip" {
 resource "azurerm_public_ip" "db_test_publicip" {
   name                = "${var.db_test_publicip_name}"
   location            = "${var.testvm_resource_group_location}"
-  resource_group_name = "${azurerm_resource_group.testvmrg.name}"
+  resource_group_name = "${azurerm_resource_group.test_vm_resource_group.name}"
   sku                 = "Standard"
   allocation_method   = "Static"
   domain_name_label   = "${var.db_test_domain_name_label}"
@@ -67,7 +67,7 @@ resource "azurerm_public_ip" "db_test_publicip" {
 resource "azurerm_public_ip" "business_test_publicip" {
   name                = "${var.business_test_publicip_name}"
   location            = "${var.testvm_resource_group_location}"
-  resource_group_name = "${azurerm_resource_group.testvmrg.name}"
+  resource_group_name = "${azurerm_resource_group.test_vm_resource_group.name}"
   sku                 = "Standard"
   allocation_method   = "Static"
   domain_name_label   = "${var.business_test_domain_name_label}"
