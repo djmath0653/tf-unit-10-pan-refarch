@@ -15,7 +15,7 @@ resource "azurerm_resource_group" "vpn_resource_group" {
 }
 
 data "azurerm_resource_group" "management_resource_group" {
-  name = "${var.mgmt_resource_group_name}"
+  name = "${var.management_resource_group_name}"
 }
 
 data "azurerm_resource_group" "shared_resource_group" {
@@ -26,14 +26,14 @@ data "azurerm_resource_group" "shared_resource_group" {
 data "azurerm_subnet" "shared_vpn_subnet" {
   name                 = "${var.shared_vpn_subnet_name}"
   virtual_network_name = "${var.azure_refarch_vnet_name}"
-  resource_group_name  = "${var.mgmt_resource_group_name}"
+  resource_group_name  = "${var.management_resource_group_name}"
 }
 
 # get data from gw subnet
 data "azurerm_subnet" "shared_gw_subnet" {
   name                 = "${var.shared_gw_subnet_name}"
   virtual_network_name = "${var.azure_refarch_vnet_name}"
-  resource_group_name  = "${var.mgmt_resource_group_name}"
+  resource_group_name  = "${var.management_resource_group_name}"
 }
 
 resource "azurerm_route_table" "AzureRefArch-Shared-VPN" {
