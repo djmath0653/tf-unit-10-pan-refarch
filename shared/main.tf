@@ -60,16 +60,16 @@ resource "azurerm_subnet" "shared_web_subnet" {
 # get data from vpn subnet
 resource "azurerm_subnet" "shared_vpn_subnet" {
   name                 = "${var.shared_vpn_subnet_name}"
-  virtual_network_name = "${var.azure_refarch_vnet_name}"
-  resource_group_name  = "${var.shared_resource_group_name}"
+  resource_group_name  = "${azurerm_resource_group.shared_resource_group.name}"
+  virtual_network_name = "${azurerm_virtual_network.refarch_vnet.name}"
   address_prefix       = "${var.shared_vpn_subnet_prefix}"
 }
 
 # get data from gw subnet
 resource "azurerm_subnet" "shared_gw_subnet" {
   name                 = "${var.shared_gw_subnet_name}"
-  virtual_network_name = "${var.azure_refarch_vnet_name}"
-  resource_group_name  = "${var.shared_resource_group_name}"
+  resource_group_name  = "${azurerm_resource_group.shared_resource_group.name}"
+  virtual_network_name = "${azurerm_virtual_network.refarch_vnet.name}"
   address_prefix       = "${var.shared_gw_subnet_prefix}"
 }
 
