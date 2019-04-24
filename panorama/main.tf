@@ -72,8 +72,8 @@ resource "azurerm_storage_account" "panorama2osdisk" {
 # Create the public ip for Panorama 1
 resource "azurerm_public_ip" "panorama1_public_ip" {
   name                = "${var.panorama1_public_ip_name}"
-  location            = "${var.panorama_resource_group_location}"
-  resource_group_name = "${var.panorama_resource_group_name}"
+  location            = "${azurerm_resource_group.panorama_resource_group.location}"
+  resource_group_name = "${azurerm_resource_group.panorama_resource_group.name}"
   sku                 = "Standard"
   allocation_method   = "Static"
   domain_name_label   = "${var.panorama1_domain_name_label}"
@@ -86,8 +86,8 @@ resource "azurerm_public_ip" "panorama1_public_ip" {
 # Create the public ip for Panorama 2
 resource "azurerm_public_ip" "panorama2_public_ip" {
   name                = "${var.panorama2_public_ip_name}"
-  location            = "${var.panorama_resource_group_location}"
-  resource_group_name = "${var.panorama_resource_group_name}"
+  location            = "${azurerm_resource_group.panorama_resource_group.location}"
+  resource_group_name = "${azurerm_resource_group.panorama_resource_group.name}"
   sku                 = "Standard"
   allocation_method   = "Static"
   domain_name_label   = "${var.panorama2_domain_name_label}"
