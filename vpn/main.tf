@@ -66,10 +66,10 @@ resource "azurerm_virtual_network_gateway" "vng" {
     peering_address = "192.168.255.255"
   }
 
-#   vpn_client_configuration {
-#     address_space = ["10.6.0.0/24"]
-#   }
-# }
+  #   vpn_client_configuration {
+  #     address_space = ["10.6.0.0/24"]
+  #   }
+}
 
 resource "azurerm_local_network_gateway" "lng" {
   name                = "${var.lng_name}"
