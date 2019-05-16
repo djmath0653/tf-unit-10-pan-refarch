@@ -63,20 +63,20 @@ resource "azurerm_virtual_network_gateway" "vng" {
 
   bgp_settings {
     asn             = "65515"
-    peering_address = "10.6.1.255"
+    peering_address = "192.168.255.255"
   }
 
-  vpn_client_configuration {
-    address_space = ["10.6.0.0/24"]
-  }
-}
+#   vpn_client_configuration {
+#     address_space = ["10.6.0.0/24"]
+#   }
+# }
 
 resource "azurerm_local_network_gateway" "lng" {
   name                = "${var.lng_name}"
   location            = "${var.shared_resource_group_location}"
   resource_group_name = "${data.azurerm_resource_group.shared_resource_group.name}"
   gateway_address     = "${var.lng_ip}"
-  address_space       = ["10.6.1.255/32"]
+  address_space       = ["192.168.255.255/32"]
 }
 
 resource "azurerm_virtual_network_gateway_connection" "onpremise" {

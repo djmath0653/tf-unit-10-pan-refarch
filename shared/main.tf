@@ -268,8 +268,15 @@ resource "azurerm_route_table" "management_route_table" {
   }
 
   route {
-    name                   = "Net-10.6.0.0"
-    address_prefix         = "10.6.0.0/16"
+    name                   = "Net-192.168.0.0"
+    address_prefix         = "192.168.0.0/16"
+    next_hop_type          = "VirtualAppliance"
+    next_hop_in_ip_address = "10.5.0.21"
+  }
+
+  route {
+    name                   = "Net-192.168.0.0"
+    address_prefix         = "192.168.0.0/16"
     next_hop_type          = "VirtualAppliance"
     next_hop_in_ip_address = "10.5.0.21"
   }
@@ -303,8 +310,8 @@ resource "azurerm_route_table" "business_route_table" {
   }
 
   route {
-    name                   = "Net-10.6.0.0"
-    address_prefix         = "10.6.0.0/16"
+    name                   = "Net-192.168.0.0"
+    address_prefix         = "192.168.0.0/16"
     next_hop_type          = "VirtualAppliance"
     next_hop_in_ip_address = "10.5.0.21"
   }
@@ -352,8 +359,8 @@ resource "azurerm_route_table" "db_route_table" {
   }
 
   route {
-    name                   = "Net-10.6.0.0"
-    address_prefix         = "10.6.0.0/16"
+    name                   = "Net-192.168.0.0"
+    address_prefix         = "192.168.0.0/16"
     next_hop_type          = "VirtualAppliance"
     next_hop_in_ip_address = "10.5.0.21"
   }
@@ -401,8 +408,8 @@ resource "azurerm_route_table" "web_route_table" {
   }
 
   route {
-    name                   = "Net-10.6.0.0"
-    address_prefix         = "10.6.0.0/16"
+    name                   = "Net-192.168.0.0"
+    address_prefix         = "192.168.0.0/16"
     next_hop_type          = "VirtualAppliance"
     next_hop_in_ip_address = "10.5.0.21"
   }
@@ -450,8 +457,8 @@ resource "azurerm_route_table" "private_route_table" {
   }
 
   route {
-    name                   = "Net-10.6.0.0"
-    address_prefix         = "10.6.0.0/16"
+    name                   = "Net-192.168.0.0"
+    address_prefix         = "192.168.0.0/16"
     next_hop_type          = "VirtualAppliance"
     next_hop_in_ip_address = "10.5.0.21"
   }
@@ -488,7 +495,7 @@ resource "azurerm_route_table" "public_route_table" {
 
   route {
     name           = "Blackhole-OnSite"
-    address_prefix = "10.6.0.0/16"
+    address_prefix = "192.168.0.0/16"
     next_hop_type  = "None"
   }
 
