@@ -46,6 +46,8 @@ resource "azurerm_public_ip" "vpn_gw_public_ip" {
 }
 
 ## this is the Azure IPSEC tunnel configuration
+## rebuilding the VNG will release/renew the pubic IP
+## if rebuilt, adjust the IKE gateway on client
 resource "azurerm_virtual_network_gateway" "vng" {
   name                = "${var.vng_name}"
   location            = "${data.azurerm_resource_group.shared_resource_group.location}"
@@ -82,7 +84,7 @@ resource "azurerm_local_network_gateway" "lng" {
 
   ## this is the local IKE gateway
   gateway_address = "${var.lng_ip}"
-  address_space   = ["10.6.1.255/32"]
+  address_space   = ["192.168.0.0/16"]
 
   ## this is the local IPSEC tunnel interface
   bgp_settings {
