@@ -79,7 +79,7 @@ resource "azurerm_local_network_gateway" "lng" {
   address_space       = ["10.6.1.255/32"]
 
   bgp_settings {
-    asn                 = "65515"
+    asn                 = "65501"
     bgp_peering_address = "10.6.1.255"
   }
 }
