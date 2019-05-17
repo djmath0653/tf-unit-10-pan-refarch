@@ -66,10 +66,10 @@ resource "azurerm_virtual_network_gateway" "vng" {
     peering_address = "10.6.1.255"
   }
 
-  vpn_client_configuration {
-    address_space = ["10.6.0.0/24"]
-  }
-}
+#   vpn_client_configuration {
+#     address_space = ["10.6.0.0/24"]
+#   }
+# }
 
 resource "azurerm_local_network_gateway" "lng" {
   name                = "${var.lng_name}"
@@ -77,6 +77,11 @@ resource "azurerm_local_network_gateway" "lng" {
   resource_group_name = "${data.azurerm_resource_group.shared_resource_group.name}"
   gateway_address     = "${var.lng_ip}"
   address_space       = ["10.6.1.255/32"]
+
+  bgp_settings {
+    asn             = "65515"
+    peering_address = "10.6.1.255"
+  }
 }
 
 resource "azurerm_virtual_network_gateway_connection" "onpremise" {
@@ -87,4 +92,5 @@ resource "azurerm_virtual_network_gateway_connection" "onpremise" {
   virtual_network_gateway_id = "${azurerm_virtual_network_gateway.vng.id}"
   local_network_gateway_id   = "${azurerm_local_network_gateway.lng.id}"
   shared_key                 = "xGc2Uz9oE&4q"
+  enable_bgp          = true
 }
