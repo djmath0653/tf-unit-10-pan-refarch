@@ -61,10 +61,10 @@ resource "azurerm_virtual_network_gateway" "vng" {
     subnet_id                     = "${data.azurerm_subnet.shared_gw_subnet.id}"
   }
 
-  bgp_settings {
-    asn             = "65515"
-    peering_address = "10.6.1.255"
-  }
+  # bgp_settings {
+  #   asn             = "65515"
+  #   peering_address = "10.6.1.255"
+  # }
 
   #   vpn_client_configuration {
   #     address_space = ["10.6.0.0/24"]
