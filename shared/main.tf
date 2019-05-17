@@ -562,6 +562,13 @@ resource "azurerm_route_table" "gateway_route_table" {
     next_hop_in_ip_address = "10.5.15.21"
   }
 
+  route {
+    name                   = "Net-192.168.0.0/16"
+    address_prefix         = "192.168.0.0/16"
+    next_hop_type          = "VirtualAppliance"
+    next_hop_in_ip_address = "10.5.15.21"
+  }
+
   tags = {
     environment = "${var.environment_tag_name}"
   }
