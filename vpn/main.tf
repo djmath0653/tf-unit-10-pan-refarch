@@ -63,7 +63,7 @@ resource "azurerm_virtual_network_gateway" "vng" {
 
   bgp_settings {
     asn             = "65515"
-    peering_address = "10.6.1.255"
+    peering_address = "10.5.40.254"
   }
 
   #   vpn_client_configuration {
