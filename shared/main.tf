@@ -298,7 +298,7 @@ resource "azurerm_route_table" "business_route_table" {
 
   route {
     name           = "Blackhole-Management"
-    address_prefix = "192.168.255.0/24"
+    address_prefix = "10.255.255.0/24"
     next_hop_type  = "None"
   }
 
@@ -347,7 +347,7 @@ resource "azurerm_route_table" "db_route_table" {
 
   route {
     name           = "Blackhole-Management"
-    address_prefix = "192.168.255.0/24"
+    address_prefix = "10.255.255.0/24"
     next_hop_type  = "None"
   }
 
@@ -396,7 +396,7 @@ resource "azurerm_route_table" "web_route_table" {
 
   route {
     name           = "Blackhole-Management"
-    address_prefix = "192.168.255.0/24"
+    address_prefix = "10.255.255.0/24"
     next_hop_type  = "None"
   }
 
@@ -445,7 +445,7 @@ resource "azurerm_route_table" "private_route_table" {
 
   route {
     name           = "Blackhole-Management"
-    address_prefix = "192.168.255.0/24"
+    address_prefix = "10.255.255.0/24"
     next_hop_type  = "None"
   }
 
@@ -494,7 +494,7 @@ resource "azurerm_route_table" "public_route_table" {
 
   route {
     name           = "Blackhole-Management"
-    address_prefix = "192.168.255.0/24"
+    address_prefix = "10.255.255.0/24"
     next_hop_type  = "None"
   }
 
@@ -523,7 +523,7 @@ resource "azurerm_route_table" "vpn_route_table" {
 
   route {
     name           = "Blackhole-Management"
-    address_prefix = "192.168.1.0/24"
+    address_prefix = "10.255.255.0/24"
     next_hop_type  = "None"
   }
 
