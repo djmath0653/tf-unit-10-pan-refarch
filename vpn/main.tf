@@ -45,6 +45,7 @@ resource "azurerm_public_ip" "vpn_gw_public_ip" {
   }
 }
 
+## this is the Azure IPSEC tunnel configuration
 resource "azurerm_virtual_network_gateway" "vng" {
   name                = "${var.vng_name}"
   location            = "${data.azurerm_resource_group.shared_resource_group.location}"
@@ -54,6 +55,7 @@ resource "azurerm_virtual_network_gateway" "vng" {
   enable_bgp          = true
   sku                 = "VpnGw1"
 
+  ## this is the Azure IKE gateway
   ip_configuration {
     name                          = "vnetGatewayConfig"
     public_ip_address_id          = "${azurerm_public_ip.vpn_gw_public_ip.id}"
@@ -61,6 +63,7 @@ resource "azurerm_virtual_network_gateway" "vng" {
     subnet_id                     = "${data.azurerm_subnet.shared_gw_subnet.id}"
   }
 
+  ## this is the Azure IPSEC tunnel interface
   bgp_settings {
     asn             = "65515"
     peering_address = "10.5.40.254"
@@ -71,13 +74,17 @@ resource "azurerm_virtual_network_gateway" "vng" {
   #   }
 }
 
+## this is the local IPSEC tunnel configuration
 resource "azurerm_local_network_gateway" "lng" {
   name                = "${var.lng_name}"
   location            = "${var.shared_resource_group_location}"
   resource_group_name = "${data.azurerm_resource_group.shared_resource_group.name}"
-  gateway_address     = "${var.lng_ip}"
-  address_space       = ["10.6.1.255/32"]
 
+  ## this is the local IKE gateway
+  gateway_address = "${var.lng_ip}"
+  address_space   = ["10.6.1.255/32"]
+
+  ## this is the local IPSEC tunnel interface
   bgp_settings {
     asn                 = "65501"
     bgp_peering_address = "10.6.1.255"
