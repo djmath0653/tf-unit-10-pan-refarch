@@ -84,7 +84,7 @@ resource "azurerm_local_network_gateway" "lng" {
 
   ## this is the local IKE gateway
   gateway_address = "${var.lng_ip}"
-  address_space   = ["192.168.1.0/24"]
+  address_space   = ["10.6.1.255/32"]
 
   ## local IPSEC tunnel interface
   bgp_settings {
