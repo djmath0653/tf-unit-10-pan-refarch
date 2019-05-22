@@ -547,6 +547,13 @@ resource "azurerm_route_table" "gateway_route_table" {
   }
 
   route {
+    name                   = "Net-10.5.1.0"
+    address_prefix         = "10.5.1.0/24"
+    next_hop_type          = "VirtualAppliance"
+    next_hop_in_ip_address = "10.5.15.21"
+  }
+
+  route {
     name                   = "Net-10.5.0.0"
     address_prefix         = "10.5.0.0/20"
     next_hop_type          = "VirtualAppliance"
