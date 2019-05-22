@@ -267,13 +267,6 @@ resource "azurerm_route_table" "management_route_table" {
     next_hop_type  = "None"
   }
 
-  route {
-    name                   = "Net-192.168.1.0"
-    address_prefix         = "192.168.1.0/24"
-    next_hop_type          = "VirtualAppliance"
-    next_hop_in_ip_address = "10.5.0.21"
-  }
-
   tags = {
     environment = "${var.environment_tag_name}"
   }
@@ -303,10 +296,9 @@ resource "azurerm_route_table" "business_route_table" {
   }
 
   route {
-    name                   = "Net-192.168.1.0"
-    address_prefix         = "192.168.1.0/24"
-    next_hop_type          = "VirtualAppliance"
-    next_hop_in_ip_address = "10.5.0.21"
+    name           = "Net-192.168.1.0"
+    address_prefix = "192.168.1.0/24"
+    next_hop_type  = "VnetLocal"
   }
 
   route {
@@ -352,10 +344,9 @@ resource "azurerm_route_table" "db_route_table" {
   }
 
   route {
-    name                   = "Net-192.168.1.0"
-    address_prefix         = "192.168.1.0/24"
-    next_hop_type          = "VirtualAppliance"
-    next_hop_in_ip_address = "10.5.0.21"
+    name           = "Net-192.168.1.0"
+    address_prefix = "192.168.1.0/24"
+    next_hop_type  = "VnetLocal"
   }
 
   route {
@@ -531,12 +522,6 @@ resource "azurerm_route_table" "vpn_route_table" {
     name           = "Blackhole-Public"
     address_prefix = "172.16.0.0/23"
     next_hop_type  = "None"
-  }
-
-  route {
-    name           = "Net-192.168.1.0"
-    address_prefix = "192.168.1.0/24"
-    next_hop_type  = "VirtualNetworkGateway"
   }
 
   tags = {
