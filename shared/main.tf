@@ -302,6 +302,12 @@ resource "azurerm_route_table" "business_route_table" {
   # }
 
   route {
+    name                   = "Net-10.5.1.0"
+    address_prefix         = "10.5.1.0/24"
+    next_hop_type          = "VirtualAppliance"
+    next_hop_in_ip_address = "10.5.0.21"
+  }
+  route {
     name                   = "Net-172.16.0.0"
     address_prefix         = "172.16.0.0/23"
     next_hop_type          = "VirtualAppliance"
@@ -348,6 +354,12 @@ resource "azurerm_route_table" "db_route_table" {
   # }
 
   route {
+    name                   = "Net-10.5.1.0"
+    address_prefix         = "10.5.1.0/24"
+    next_hop_type          = "VirtualAppliance"
+    next_hop_in_ip_address = "10.5.0.21"
+  }
+  route {
     name                   = "Net-172.16.0.0"
     address_prefix         = "172.16.0.0/23"
     next_hop_type          = "VirtualAppliance"
@@ -385,6 +397,20 @@ resource "azurerm_route_table" "web_route_table" {
     name           = "Blackhole-Management"
     address_prefix = "10.255.255.0/24"
     next_hop_type  = "None"
+  }
+
+  route {
+    name                   = "Net-10.5.2.0"
+    address_prefix         = "10.5.2.0/24"
+    next_hop_type          = "VirtualAppliance"
+    next_hop_in_ip_address = "10.5.0.21"
+  }
+
+  route {
+    name                   = "Net-10.5.3.0"
+    address_prefix         = "10.5.3.0/24"
+    next_hop_type          = "VirtualAppliance"
+    next_hop_in_ip_address = "10.5.0.21"
   }
 
   route {
