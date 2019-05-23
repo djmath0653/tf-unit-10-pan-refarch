@@ -881,16 +881,16 @@ resource "azurerm_network_interface" "firewall1_nic0" {
 
 ## Create network interfaces
 resource "azurerm_network_interface" "firewall1_nic1" {
-  name                = "${var.firewall1_vnic1_name}"
-  resource_group_name = "${azurerm_resource_group.shared_resource_group.name}"
-  location            = "${azurerm_resource_group.shared_resource_group.location}"
+  name                 = "${var.firewall1_vnic1_name}"
+  resource_group_name  = "${azurerm_resource_group.shared_resource_group.name}"
+  location             = "${azurerm_resource_group.shared_resource_group.location}"
+  enable_ip_forwarding = true
 
   ip_configuration {
     name                          = "firewall1-nic1-ipconfig"
     subnet_id                     = "${azurerm_subnet.shared_public_subnet.id}"
     private_ip_address_allocation = "Static"
     private_ip_address            = "${var.firewall1_vnic1_private_ip}"
-    enable_ip_forwarding          = true
 
     load_balancer_backend_address_pools_ids = ["${azurerm_lb_backend_address_pool.public_lb_backend_address_pool.id}",
       "${azurerm_lb_backend_address_pool.internal_public_lb_backend_address_pool.id}",
@@ -904,16 +904,16 @@ resource "azurerm_network_interface" "firewall1_nic1" {
 
 ## Create network interfaces
 resource "azurerm_network_interface" "firewall1_nic2" {
-  name                = "${var.firewall1_vnic2_name}"
-  resource_group_name = "${azurerm_resource_group.shared_resource_group.name}"
-  location            = "${azurerm_resource_group.shared_resource_group.location}"
+  name                 = "${var.firewall1_vnic2_name}"
+  resource_group_name  = "${azurerm_resource_group.shared_resource_group.name}"
+  location             = "${azurerm_resource_group.shared_resource_group.location}"
+  enable_ip_forwarding = true
 
   ip_configuration {
     name                                    = "firewall1-nic2-ipconfig"
     subnet_id                               = "${azurerm_subnet.shared_private_subnet.id}"
     private_ip_address_allocation           = "Static"
     private_ip_address                      = "${var.firewall1_vnic2_private_ip}"
-    enable_ip_forwarding                    = true
     load_balancer_backend_address_pools_ids = ["${azurerm_lb_backend_address_pool.internal_lb_backend_address_pool.id}"]
   }
 
@@ -924,16 +924,16 @@ resource "azurerm_network_interface" "firewall1_nic2" {
 
 ## Create network interfaces
 resource "azurerm_network_interface" "firewall1_nic3" {
-  name                = "${var.firewall1_vnic3_name}"
-  resource_group_name = "${azurerm_resource_group.shared_resource_group.name}"
-  location            = "${azurerm_resource_group.shared_resource_group.location}"
+  name                 = "${var.firewall1_vnic3_name}"
+  resource_group_name  = "${azurerm_resource_group.shared_resource_group.name}"
+  location             = "${azurerm_resource_group.shared_resource_group.location}"
+  enable_ip_forwarding = true
 
   ip_configuration {
     name                                    = "firewall1-nic3-ipconfig"
     subnet_id                               = "${azurerm_subnet.shared_vpn_subnet.id}"
     private_ip_address_allocation           = "Static"
     private_ip_address                      = "${var.firewall1_vnic3_private_ip}"
-    enable_ip_forwarding                    = true
     load_balancer_backend_address_pools_ids = ["${azurerm_lb_backend_address_pool.vpn_lb_backend_address_pool.id}"]
   }
 
@@ -963,16 +963,16 @@ resource "azurerm_network_interface" "firewall2_nic0" {
 
 ## Create network interfaces
 resource "azurerm_network_interface" "firewall2_nic1" {
-  name                = "${var.firewall2_vnic1_name}"
-  resource_group_name = "${azurerm_resource_group.shared_resource_group.name}"
-  location            = "${azurerm_resource_group.shared_resource_group.location}"
+  name                 = "${var.firewall2_vnic1_name}"
+  resource_group_name  = "${azurerm_resource_group.shared_resource_group.name}"
+  location             = "${azurerm_resource_group.shared_resource_group.location}"
+  enable_ip_forwarding = true
 
   ip_configuration {
     name                          = "firewall2-nic1-ipconfig"
     subnet_id                     = "${azurerm_subnet.shared_public_subnet.id}"
     private_ip_address_allocation = "Static"
     private_ip_address            = "${var.firewall2_vnic1_private_ip}"
-    enable_ip_forwarding          = true
 
     load_balancer_backend_address_pools_ids = ["${azurerm_lb_backend_address_pool.public_lb_backend_address_pool.id}",
       "${azurerm_lb_backend_address_pool.internal_public_lb_backend_address_pool.id}",
@@ -986,16 +986,16 @@ resource "azurerm_network_interface" "firewall2_nic1" {
 
 ## Create network interfaces
 resource "azurerm_network_interface" "firewall2_nic2" {
-  name                = "${var.firewall2_vnic2_name}"
-  resource_group_name = "${azurerm_resource_group.shared_resource_group.name}"
-  location            = "${azurerm_resource_group.shared_resource_group.location}"
+  name                 = "${var.firewall2_vnic2_name}"
+  resource_group_name  = "${azurerm_resource_group.shared_resource_group.name}"
+  location             = "${azurerm_resource_group.shared_resource_group.location}"
+  enable_ip_forwarding = true
 
   ip_configuration {
     name                                    = "firewall2-nic2-ipconfig"
     subnet_id                               = "${azurerm_subnet.shared_private_subnet.id}"
     private_ip_address_allocation           = "Static"
     private_ip_address                      = "${var.firewall2_vnic2_private_ip}"
-    enable_ip_forwarding                    = true
     load_balancer_backend_address_pools_ids = ["${azurerm_lb_backend_address_pool.internal_lb_backend_address_pool.id}"]
   }
 
@@ -1006,16 +1006,16 @@ resource "azurerm_network_interface" "firewall2_nic2" {
 
 ## Create network interfaces
 resource "azurerm_network_interface" "firewall2_nic3" {
-  name                = "${var.firewall2_vnic3_name}"
-  resource_group_name = "${azurerm_resource_group.shared_resource_group.name}"
-  location            = "${azurerm_resource_group.shared_resource_group.location}"
+  name                 = "${var.firewall2_vnic3_name}"
+  resource_group_name  = "${azurerm_resource_group.shared_resource_group.name}"
+  location             = "${azurerm_resource_group.shared_resource_group.location}"
+  enable_ip_forwarding = true
 
   ip_configuration {
     name                                    = "firewall2-nic3-ipconfig"
     subnet_id                               = "${azurerm_subnet.shared_vpn_subnet.id}"
     private_ip_address_allocation           = "Static"
     private_ip_address                      = "${var.firewall2_vnic3_private_ip}"
-    enable_ip_forwarding                    = true
     load_balancer_backend_address_pools_ids = ["${azurerm_lb_backend_address_pool.vpn_lb_backend_address_pool.id}"]
   }
 
