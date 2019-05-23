@@ -868,6 +868,7 @@ resource "azurerm_network_interface" "firewall1_nic1" {
     subnet_id                     = "${azurerm_subnet.shared_public_subnet.id}"
     private_ip_address_allocation = "Static"
     private_ip_address            = "${var.firewall1_vnic1_private_ip}"
+    enable_ip_forwarding          = true
 
     load_balancer_backend_address_pools_ids = ["${azurerm_lb_backend_address_pool.public_lb_backend_address_pool.id}",
       "${azurerm_lb_backend_address_pool.internal_public_lb_backend_address_pool.id}",
@@ -890,6 +891,7 @@ resource "azurerm_network_interface" "firewall1_nic2" {
     subnet_id                               = "${azurerm_subnet.shared_private_subnet.id}"
     private_ip_address_allocation           = "Static"
     private_ip_address                      = "${var.firewall1_vnic2_private_ip}"
+    enable_ip_forwarding                    = true
     load_balancer_backend_address_pools_ids = ["${azurerm_lb_backend_address_pool.internal_lb_backend_address_pool.id}"]
   }
 
@@ -909,6 +911,7 @@ resource "azurerm_network_interface" "firewall1_nic3" {
     subnet_id                               = "${azurerm_subnet.shared_vpn_subnet.id}"
     private_ip_address_allocation           = "Static"
     private_ip_address                      = "${var.firewall1_vnic3_private_ip}"
+    enable_ip_forwarding                    = true
     load_balancer_backend_address_pools_ids = ["${azurerm_lb_backend_address_pool.vpn_lb_backend_address_pool.id}"]
   }
 
@@ -947,6 +950,7 @@ resource "azurerm_network_interface" "firewall2_nic1" {
     subnet_id                     = "${azurerm_subnet.shared_public_subnet.id}"
     private_ip_address_allocation = "Static"
     private_ip_address            = "${var.firewall2_vnic1_private_ip}"
+    enable_ip_forwarding          = true
 
     load_balancer_backend_address_pools_ids = ["${azurerm_lb_backend_address_pool.public_lb_backend_address_pool.id}",
       "${azurerm_lb_backend_address_pool.internal_public_lb_backend_address_pool.id}",
@@ -969,6 +973,7 @@ resource "azurerm_network_interface" "firewall2_nic2" {
     subnet_id                               = "${azurerm_subnet.shared_private_subnet.id}"
     private_ip_address_allocation           = "Static"
     private_ip_address                      = "${var.firewall2_vnic2_private_ip}"
+    enable_ip_forwarding                    = true
     load_balancer_backend_address_pools_ids = ["${azurerm_lb_backend_address_pool.internal_lb_backend_address_pool.id}"]
   }
 
@@ -988,6 +993,7 @@ resource "azurerm_network_interface" "firewall2_nic3" {
     subnet_id                               = "${azurerm_subnet.shared_vpn_subnet.id}"
     private_ip_address_allocation           = "Static"
     private_ip_address                      = "${var.firewall2_vnic3_private_ip}"
+    enable_ip_forwarding                    = true
     load_balancer_backend_address_pools_ids = ["${azurerm_lb_backend_address_pool.vpn_lb_backend_address_pool.id}"]
   }
 
