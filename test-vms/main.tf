@@ -14,26 +14,228 @@ resource "azurerm_resource_group" "test_vm_resource_group" {
   location = "${var.testvm_resource_group_location}"
 }
 
-## get the id of web subnet
-data "azurerm_subnet" "shared_web_subnet" {
-  name                 = "${var.shared_web_subnet_name}"
-  virtual_network_name = "${var.azure_refarch_vnet_name}"
-  resource_group_name  = "${var.shared_resource_group_name}"
-}
+##Subnets
+# # Create subnet within the vnet
+# resource "azurerm_subnet" "web_subnet" {
+#   name                 = "${var.web_subnet_name}"
+#   resource_group_name  = "${azurerm_resource_group.transit_resource_group.name}"
+#   virtual_network_name = "${azurerm_virtual_network.transit_vnet.name}"
+#   address_prefix       = "${var.web_subnet_prefix}"
+# }
+#
+# # Create subnet within the vnet
+# resource "azurerm_subnet" "business_subnet" {
+#   name                 = "${var.business_subnet_name}"
+#   resource_group_name  = "${azurerm_resource_group.transit_resource_group.name}"
+#   virtual_network_name = "${azurerm_virtual_network.transit_vnet.name}"
+#   address_prefix       = "${var.business_subnet_prefix}"
+# }
+#
+# # Create subnet within the vnet
+# resource "azurerm_subnet" "db_subnet" {
+#   name                 = "${var.db_subnet_name}"
+#   resource_group_name  = "${azurerm_resource_group.transit_resource_group.name}"
+#   virtual_network_name = "${azurerm_virtual_network.transit_vnet.name}"
+#   address_prefix       = "${var.db_subnet_prefix}"
+# }
 
-## get the id of db subnet
-data "azurerm_subnet" "shared_db_subnet" {
-  name                 = "${var.shared_db_subnet_name}"
-  virtual_network_name = "${var.azure_refarch_vnet_name}"
-  resource_group_name  = "${var.shared_resource_group_name}"
-}
+##NSGs
+# # Associate the NSG to the subnet
+# resource "azurerm_subnet_network_security_group_association" "web_subnet_nsg_assoc" {
+#   subnet_id                 = "${azurerm_subnet.web_subnet.id}"
+#   network_security_group_id = "${azurerm_network_security_group.fw_private_nsg.id}"
+# }
+#
+# # Associate the NSG to the subnet
+# resource "azurerm_subnet_network_security_group_association" "business_subnet_nsg_assoc" {
+#   subnet_id                 = "${azurerm_subnet.business_subnet.id}"
+#   network_security_group_id = "${azurerm_network_security_group.fw_private_nsg.id}"
+# }
+#
+# # Associate the NSG to the subnet
+# resource "azurerm_subnet_network_security_group_association" "db_subnet_nsg_assoc" {
+#   subnet_id                 = "${azurerm_subnet.db_subnet.id}"
+#   network_security_group_id = "${azurerm_network_security_group.fw_private_nsg.id}"
+# }
+#
 
-## get the id of buisiness subnet
-data "azurerm_subnet" "shared_business_subnet" {
-  name                 = "${var.shared_business_subnet_name}"
-  virtual_network_name = "${var.azure_refarch_vnet_name}"
-  resource_group_name  = "${var.shared_resource_group_name}"
-}
+## Route Tables
+# resource "azurerm_route_table" "business_route_table" {
+#   name                          = "AzureRefArch-transit-Business"
+#   location                      = "${azurerm_resource_group.transit_resource_group.location}"
+#   resource_group_name           = "${azurerm_resource_group.transit_resource_group.name}"
+#   disable_bgp_route_propagation = true
+#
+#   route {
+#     name           = "Backdoor"
+#     address_prefix = "73.229.177.164/32"
+#     next_hop_type  = "Internet"
+#   }
+#
+#   route {
+#     name           = "Blackhole-Management"
+#     address_prefix = "10.255.255.0/24"
+#     next_hop_type  = "None"
+#   }
+#
+#   route {
+#     name                   = "Net-10.5.1.0"
+#     address_prefix         = "10.5.1.0/24"
+#     next_hop_type          = "VirtualAppliance"
+#     next_hop_in_ip_address = "10.5.0.21"
+#   }
+#
+#   route {
+#     name                   = "Net-10.5.3.0"
+#     address_prefix         = "10.5.3.0/24"
+#     next_hop_type          = "VirtualAppliance"
+#     next_hop_in_ip_address = "10.5.0.21"
+#   }
+#
+#   route {
+#     name                   = "Net-192.168.1.0"
+#     address_prefix         = "192.168.1.0/24"
+#     next_hop_type          = "VirtualAppliance"
+#     next_hop_in_ip_address = "10.5.0.21"
+#   }
+#
+#   route {
+#     name                   = "Net-172.16.0.0"
+#     address_prefix         = "172.16.0.0/23"
+#     next_hop_type          = "VirtualAppliance"
+#     next_hop_in_ip_address = "10.5.0.21"
+#   }
+#
+#   route {
+#     name                   = "UDR-default"
+#     address_prefix         = "0.0.0.0/0"
+#     next_hop_type          = "VirtualAppliance"
+#     next_hop_in_ip_address = "10.5.0.21"
+#   }
+# }
+#
+# resource "azurerm_subnet_route_table_association" "business_route_table_assoc" {
+#   subnet_id      = "${azurerm_subnet.business_subnet.id}"
+#   route_table_id = "${azurerm_route_table.business_route_table.id}"
+# }
+#
+# resource "azurerm_route_table" "db_route_table" {
+#   name                          = "AzureRefArch-transit-DB"
+#   location                      = "${azurerm_resource_group.transit_resource_group.location}"
+#   resource_group_name           = "${azurerm_resource_group.transit_resource_group.name}"
+#   disable_bgp_route_propagation = true
+#
+#   route {
+#     name           = "Backdoor"
+#     address_prefix = "73.229.177.164/32"
+#     next_hop_type  = "Internet"
+#   }
+#
+#   route {
+#     name           = "Blackhole-Management"
+#     address_prefix = "10.255.255.0/24"
+#     next_hop_type  = "None"
+#   }
+#
+#   route {
+#     name                   = "Net-10.5.1.0"
+#     address_prefix         = "10.5.1.0/24"
+#     next_hop_type          = "VirtualAppliance"
+#     next_hop_in_ip_address = "10.5.0.21"
+#   }
+#
+#   route {
+#     name                   = "Net-10.5.2.0"
+#     address_prefix         = "10.5.2.0/24"
+#     next_hop_type          = "VirtualAppliance"
+#     next_hop_in_ip_address = "10.5.0.21"
+#   }
+#
+#   route {
+#     name                   = "Net-192.168.1.0"
+#     address_prefix         = "192.168.1.0/24"
+#     next_hop_type          = "VirtualAppliance"
+#     next_hop_in_ip_address = "10.5.0.21"
+#   }
+#
+#   route {
+#     name                   = "Net-172.16.0.0"
+#     address_prefix         = "172.16.0.0/23"
+#     next_hop_type          = "VirtualAppliance"
+#     next_hop_in_ip_address = "10.5.0.21"
+#   }
+#
+#   route {
+#     name                   = "UDR-default"
+#     address_prefix         = "0.0.0.0/0"
+#     next_hop_type          = "VirtualAppliance"
+#     next_hop_in_ip_address = "10.5.0.21"
+#   }
+# }
+#
+# resource "azurerm_subnet_route_table_association" "db_route_table_assoc" {
+#   subnet_id      = "${azurerm_subnet.db_subnet.id}"
+#   route_table_id = "${azurerm_route_table.db_route_table.id}"
+# }
+#
+# resource "azurerm_route_table" "web_route_table" {
+#   name                          = "AzureRefArch-transit-Web"
+#   location                      = "${azurerm_resource_group.transit_resource_group.location}"
+#   resource_group_name           = "${azurerm_resource_group.transit_resource_group.name}"
+#   disable_bgp_route_propagation = false
+#
+#   route {
+#     name           = "Backdoor"
+#     address_prefix = "73.229.177.164/32"
+#     next_hop_type  = "Internet"
+#   }
+#
+#   route {
+#     name           = "Blackhole-Management"
+#     address_prefix = "10.255.255.0/24"
+#     next_hop_type  = "None"
+#   }
+#
+#   route {
+#     name                   = "Net-10.5.2.0"
+#     address_prefix         = "10.5.2.0/24"
+#     next_hop_type          = "VirtualAppliance"
+#     next_hop_in_ip_address = "10.5.0.21"
+#   }
+#
+#   route {
+#     name                   = "Net-10.5.3.0"
+#     address_prefix         = "10.5.3.0/24"
+#     next_hop_type          = "VirtualAppliance"
+#     next_hop_in_ip_address = "10.5.0.21"
+#   }
+#
+#   route {
+#     name                   = "Net-192.168.1.0"
+#     address_prefix         = "192.168.1.0/24"
+#     next_hop_type          = "VirtualAppliance"
+#     next_hop_in_ip_address = "10.5.0.21"
+#   }
+#
+#   route {
+#     name                   = "Net-172.16.0.0"
+#     address_prefix         = "172.16.0.0/23"
+#     next_hop_type          = "VirtualAppliance"
+#     next_hop_in_ip_address = "10.5.0.21"
+#   }
+#
+#   route {
+#     name                   = "UDR-default"
+#     address_prefix         = "0.0.0.0/0"
+#     next_hop_type          = "VirtualAppliance"
+#     next_hop_in_ip_address = "10.5.0.21"
+#   }
+# }
+#
+# resource "azurerm_subnet_route_table_association" "web_route_table_assoc" {
+#   subnet_id      = "${azurerm_subnet.web_subnet.id}"
+#   route_table_id = "${azurerm_route_table.web_web_route_table.id}"
+# }
 
 # Create the public ip for web test vm
 resource "azurerm_public_ip" "web_test_publicip" {
@@ -85,7 +287,7 @@ resource "azurerm_network_interface" "web_test_nic0" {
 
   ip_configuration {
     name                          = "web-test-nic0-ipconfig"
-    subnet_id                     = "${data.azurerm_subnet.shared_web_subnet.id}"
+    subnet_id                     = "${azurerm_subnet.shared_web_subnet.id}"
     private_ip_address_allocation = "Dynamic"
 
     # private_ip_address            = "${var.panorama1_vnic0_private_ip}"
@@ -105,7 +307,7 @@ resource "azurerm_network_interface" "db_test_nic0" {
 
   ip_configuration {
     name                          = "db-test-nic0-ipconfig"
-    subnet_id                     = "${data.azurerm_subnet.shared_db_subnet.id}"
+    subnet_id                     = "${azurerm_subnet.shared_db_subnet.id}"
     private_ip_address_allocation = "Dynamic"
 
     # private_ip_address            = "${var.panorama2_vnic0_private_ip}"
@@ -125,7 +327,7 @@ resource "azurerm_network_interface" "business_test_nic0" {
 
   ip_configuration {
     name                          = "business-test-nic0-ipconfig"
-    subnet_id                     = "${data.azurerm_subnet.shared_business_subnet.id}"
+    subnet_id                     = "${azurerm_subnet.shared_business_subnet.id}"
     private_ip_address_allocation = "Dynamic"
 
     # private_ip_address            = "${var.panorama2_vnic0_private_ip}"
