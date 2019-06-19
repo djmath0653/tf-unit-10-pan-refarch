@@ -29,7 +29,7 @@ variable "shared_resource_group_name" {
 }
 
 variable "refarch_vnet_name" {
-  default = "Unit-10-PAN-RefArch-VNET"
+  default = "Unit-10-PAN-RefArch"
 }
 
 variable "panorama_resource_group_name" {
@@ -46,7 +46,7 @@ variable "management_subnet_name" {
 
 ## Panorama vars
 variable "panorama1_public_ip_name" {
-  default = "Unit-10-PAN-RefArch-1-PIP"
+  default = "Unit-10-PAN-RefArch-1"
 }
 
 variable "panorama1_domain_name_label" {
@@ -70,7 +70,7 @@ variable "panorama1_os_disk_account_name" {
 }
 
 variable "panorama2_public_ip_name" {
-  default = "Unit-10-PAN-RefArch-2-PIP"
+  default = "Unit-10-PAN-RefArch-2"
 }
 
 variable "panorama2_domain_name_label" {

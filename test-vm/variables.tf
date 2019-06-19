@@ -25,7 +25,7 @@ variable "admin_password" {
 }
 
 variable "shared_resource_group_name" {
-  default = "Unit-10-PAN-ARA-Shared-RG"
+  default = "Unit-10-PAN-ARA-Shared"
 }
 
 variable "testvm_resource_group_name" {
@@ -37,7 +37,7 @@ variable "testvm_resource_group_location" {
 }
 
 variable "azure_refarch_vnet_name" {
-  default = "Unit-10-PAN-ARA-Shared-VNET"
+  default = "Unit-10-PAN-ARA-Shared"
 }
 
 variable "shared_web_subnet_name" {
@@ -53,7 +53,7 @@ variable "shared_business_subnet_name" {
 }
 
 variable "web_test_publicip_name" {
-  default = "Unit-10-PAN-ARA-Shared-Web-VM-PIP"
+  default = "Unit-10-PAN-ARA-Shared-Web-VM"
 }
 
 variable "web_test_domain_name_label" {
@@ -61,7 +61,7 @@ variable "web_test_domain_name_label" {
 }
 
 variable "db_test_publicip_name" {
-  default = "Unit-10-PAN-ARA-Shared-DB-VM-PIP"
+  default = "Unit-10-PAN-ARA-Shared-DB-VM"
 }
 
 variable "db_test_domain_name_label" {
@@ -69,7 +69,7 @@ variable "db_test_domain_name_label" {
 }
 
 variable "business_test_publicip_name" {
-  default = "Unit-10-PAN-ARA-Shared-Business-VM-PIP"
+  default = "Unit-10-PAN-ARA-Shared-Business-VM"
 }
 
 variable "business_test_domain_name_label" {

@@ -13,11 +13,11 @@ variable "subscription_id" {
 }
 
 variable "refarch_vnet_name" {
-  default = "Unit-10-PAN-ARA-Shared-VNET"
+  default = "Unit-10-PAN-ARA-Shared"
 }
 
 variable "shared_resource_group_name" {
-  default = "Unit-10-PAN-ARA-Shared-RG"
+  default = "Unit-10-PAN-ARA-Shared"
 }
 
 variable "shared_resource_group_location" {
@@ -113,11 +113,11 @@ variable "shared_gw_subnet_prefix" {
 }
 
 variable "public_lb_frontend_ip_name" {
-  default = "Unit-10-PAN-ARA-Shared-Public-LB-IP"
+  default = "Unit-10-PAN-ARA-Shared-Public-LB"
 }
 
 variable "public_lb_domain_name_label" {
-  default = "unit-10-pan-refarch-public-lb-ip"
+  default = "unit-10-pan-refarch-public-lb"
 }
 
 variable "public_lb_name" {
@@ -178,7 +178,7 @@ variable "admin_password" {
 }
 
 variable "shared_avail_set_name" {
-  default = "Unit-10-PAN-ARA-Shared-Firewall-AS"
+  default = "Unit-10-PAN-ARA-Shared-Firewall"
 }
 
 variable "firewall_storage_acct_name" {
@@ -203,7 +203,7 @@ variable "firewallPublisher" {
 }
 
 variable "firewall1_mgmt_public_ip_name" {
-  default = "Unit-10-PAN-ARA-Shared-Firewall-1-PIP"
+  default = "Unit-10-PAN-ARA-Shared-Firewall-1"
 }
 
 variable "firewall1_mgmt_domain_name_label" {
@@ -259,7 +259,7 @@ variable "firewall1_os_disk_account_name" {
 }
 
 variable "firewall2_mgmt_public_ip_name" {
-  default = "Unit-10-PAN-ARA-Shared-Firewall-2-PIP"
+  default = "Unit-10-PAN-ARA-Shared-Firewall-2"
 }
 
 variable "firewall2_mgmt_domain_name_label" {
