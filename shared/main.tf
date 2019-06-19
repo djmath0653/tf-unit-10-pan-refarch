@@ -19,10 +19,6 @@ resource "azurerm_virtual_network" "refarch_vnet" {
   address_space       = ["${var.refarch_shared_address_space}", "${var.refarch_shrd_ext_address_space}", "${var.refarch_shrd_address_space}"]
   location            = "${azurerm_resource_group.shared_resource_group.location}"
   resource_group_name = "${azurerm_resource_group.shared_resource_group.name}"
-
-  tags {
-    environment = "${var.environment_tag_name}"
-  }
 }
 
 # Create subnet within the vnet
@@ -130,10 +126,6 @@ resource "azurerm_network_security_group" "management_nsg" {
     source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
-
-  tags {
-    environment = "${var.environment_tag_name}"
-  }
 }
 
 # Create network securirty group
@@ -177,10 +169,6 @@ resource "azurerm_network_security_group" "shared_fw_pub_nsg" {
     source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
-
-  tags {
-    environment = "${var.environment_tag_name}"
-  }
 }
 
 # Create network securirty group
@@ -199,10 +187,6 @@ resource "azurerm_network_security_group" "shared_allow_all_nsg" {
     destination_port_range     = "*"
     source_address_prefix      = "*"
     destination_address_prefix = "*"
-  }
-
-  tags {
-    environment = "${var.environment_tag_name}"
   }
 }
 
@@ -266,10 +250,6 @@ resource "azurerm_route_table" "management_route_table" {
     address_prefix = "172.16.0.0/23"
     next_hop_type  = "None"
   }
-
-  tags = {
-    environment = "${var.environment_tag_name}"
-  }
 }
 
 resource "azurerm_subnet_route_table_association" "management_route_table_Assoc" {
@@ -328,10 +308,6 @@ resource "azurerm_route_table" "business_route_table" {
     address_prefix         = "0.0.0.0/0"
     next_hop_type          = "VirtualAppliance"
     next_hop_in_ip_address = "10.5.0.21"
-  }
-
-  tags = {
-    environment = "${var.environment_tag_name}"
   }
 }
 
@@ -392,10 +368,6 @@ resource "azurerm_route_table" "db_route_table" {
     next_hop_type          = "VirtualAppliance"
     next_hop_in_ip_address = "10.5.0.21"
   }
-
-  tags = {
-    environment = "${var.environment_tag_name}"
-  }
 }
 
 resource "azurerm_subnet_route_table_association" "db_route_table_assoc" {
@@ -455,10 +427,6 @@ resource "azurerm_route_table" "web_route_table" {
     next_hop_type          = "VirtualAppliance"
     next_hop_in_ip_address = "10.5.0.21"
   }
-
-  tags = {
-    environment = "${var.environment_tag_name}"
-  }
 }
 
 resource "azurerm_subnet_route_table_association" "web_route_table_assoc" {
@@ -504,10 +472,6 @@ resource "azurerm_route_table" "private_route_table" {
     next_hop_type          = "VirtualAppliance"
     next_hop_in_ip_address = "10.5.0.21"
   }
-
-  tags = {
-    environment = "${var.environment_tag_name}"
-  }
 }
 
 resource "azurerm_subnet_route_table_association" "private_route_table_assoc" {
@@ -539,10 +503,6 @@ resource "azurerm_route_table" "public_route_table" {
     next_hop_type          = "VirtualAppliance"
     next_hop_in_ip_address = "172.16.1.21"
   }
-
-  tags = {
-    environment = "${var.environment_tag_name}"
-  }
 }
 
 resource "azurerm_subnet_route_table_association" "public_route_table_assoc" {
@@ -566,10 +526,6 @@ resource "azurerm_route_table" "vpn_route_table" {
     name           = "Blackhole-Public"
     address_prefix = "172.16.0.0/23"
     next_hop_type  = "None"
-  }
-
-  tags = {
-    environment = "${var.environment_tag_name}"
   }
 }
 
@@ -602,10 +558,6 @@ resource "azurerm_route_table" "gateway_route_table" {
     address_prefix = "10.5.0.0/20"
     next_hop_type  = "VnetLocal"
   }
-
-  tags = {
-    environment = "${var.environment_tag_name}"
-  }
 }
 
 resource "azurerm_subnet_route_table_association" "gateway_route_table-assoc" {
@@ -622,10 +574,6 @@ resource "azurerm_public_ip" "public_lb_frontend_ip" {
   sku                 = "Standard"
   allocation_method   = "Static"
   domain_name_label   = "${var.public_lb_domain_name_label}"
-
-  tags = {
-    environment = "${var.environment_tag_name}"
-  }
 }
 
 ## Create LB backend pool
@@ -798,10 +746,6 @@ resource "azurerm_storage_account" "firewall_storage_acct" {
   account_tier             = "Standard"
   account_kind             = "StorageV2"
   account_replication_type = "LRS"
-
-  tags = {
-    environment = "${var.environment_tag_name}"
-  }
 }
 
 # Create the Firewall availability set
@@ -809,10 +753,6 @@ resource "azurerm_availability_set" "firewall_as" {
   name                = "${var.shared_avail_set_name}"
   resource_group_name = "${azurerm_resource_group.shared_resource_group.name}"
   location            = "${azurerm_resource_group.shared_resource_group.location}"
-
-  tags = {
-    environment = "${var.environment_tag_name}"
-  }
 }
 
 # Create the public ip for Firewall 1
@@ -823,10 +763,6 @@ resource "azurerm_public_ip" "firewall1_mgmt_publicip" {
   sku                 = "Standard"
   allocation_method   = "Static"
   domain_name_label   = "${var.firewall1_mgmt_domain_name_label}"
-
-  tags = {
-    environment = "${var.environment_tag_name}"
-  }
 }
 
 # Create the public ip for Firewall 2
@@ -837,10 +773,6 @@ resource "azurerm_public_ip" "firewall2_mgmt_publicip" {
   sku                 = "Standard"
   allocation_method   = "Static"
   domain_name_label   = "${var.firewall2_mgmt_domain_name_label}"
-
-  tags = {
-    environment = "${var.environment_tag_name}"
-  }
 }
 
 # Create Firewalls os disks
@@ -873,10 +805,6 @@ resource "azurerm_network_interface" "firewall1_nic0" {
     private_ip_address            = "${var.firewall1_vnic0_private_ip}"
     public_ip_address_id          = "${azurerm_public_ip.firewall1_mgmt_publicip.id}"
   }
-
-  tags = {
-    environment = "${var.environment_tag_name}"
-  }
 }
 
 ## Create network interfaces
@@ -892,13 +820,10 @@ resource "azurerm_network_interface" "firewall1_nic1" {
     private_ip_address_allocation = "Static"
     private_ip_address            = "${var.firewall1_vnic1_private_ip}"
 
-    load_balancer_backend_address_pools_ids = ["${azurerm_lb_backend_address_pool.public_lb_backend_address_pool.id}",
-      "${azurerm_lb_backend_address_pool.internal_public_lb_backend_address_pool.id}",
-    ]
-  }
-
-  tags = {
-    environment = "${var.environment_tag_name}"
+    #
+    # load_balancer_backend_address_pools_ids = ["${azurerm_lb_backend_address_pool.public_lb_backend_address_pool.id}",
+    #   "${azurerm_lb_backend_address_pool.internal_public_lb_backend_address_pool.id}",
+    # ]
   }
 }
 
@@ -910,15 +835,12 @@ resource "azurerm_network_interface" "firewall1_nic2" {
   enable_ip_forwarding = true
 
   ip_configuration {
-    name                                    = "firewall1-nic2-ipconfig"
-    subnet_id                               = "${azurerm_subnet.shared_private_subnet.id}"
-    private_ip_address_allocation           = "Static"
-    private_ip_address                      = "${var.firewall1_vnic2_private_ip}"
-    load_balancer_backend_address_pools_ids = ["${azurerm_lb_backend_address_pool.internal_lb_backend_address_pool.id}"]
-  }
+    name                          = "firewall1-nic2-ipconfig"
+    subnet_id                     = "${azurerm_subnet.shared_private_subnet.id}"
+    private_ip_address_allocation = "Static"
+    private_ip_address            = "${var.firewall1_vnic2_private_ip}"
 
-  tags = {
-    environment = "${var.environment_tag_name}"
+    # load_balancer_backend_address_pools_ids = ["${azurerm_lb_backend_address_pool.internal_lb_backend_address_pool.id}"]
   }
 }
 
@@ -930,15 +852,12 @@ resource "azurerm_network_interface" "firewall1_nic3" {
   enable_ip_forwarding = true
 
   ip_configuration {
-    name                                    = "firewall1-nic3-ipconfig"
-    subnet_id                               = "${azurerm_subnet.shared_vpn_subnet.id}"
-    private_ip_address_allocation           = "Static"
-    private_ip_address                      = "${var.firewall1_vnic3_private_ip}"
-    load_balancer_backend_address_pools_ids = ["${azurerm_lb_backend_address_pool.vpn_lb_backend_address_pool.id}"]
-  }
+    name                          = "firewall1-nic3-ipconfig"
+    subnet_id                     = "${azurerm_subnet.shared_vpn_subnet.id}"
+    private_ip_address_allocation = "Static"
+    private_ip_address            = "${var.firewall1_vnic3_private_ip}"
 
-  tags = {
-    environment = "${var.environment_tag_name}"
+    #   load_balancer_backend_address_pools_ids = ["${azurerm_lb_backend_address_pool.vpn_lb_backend_address_pool.id}"]
   }
 }
 
@@ -955,10 +874,6 @@ resource "azurerm_network_interface" "firewall2_nic0" {
     private_ip_address            = "${var.firewall2_vnic0_private_ip}"
     public_ip_address_id          = "${azurerm_public_ip.firewall2_mgmt_publicip.id}"
   }
-
-  tags = {
-    environment = "${var.environment_tag_name}"
-  }
 }
 
 ## Create network interfaces
@@ -974,13 +889,9 @@ resource "azurerm_network_interface" "firewall2_nic1" {
     private_ip_address_allocation = "Static"
     private_ip_address            = "${var.firewall2_vnic1_private_ip}"
 
-    load_balancer_backend_address_pools_ids = ["${azurerm_lb_backend_address_pool.public_lb_backend_address_pool.id}",
-      "${azurerm_lb_backend_address_pool.internal_public_lb_backend_address_pool.id}",
-    ]
-  }
-
-  tags = {
-    environment = "${var.environment_tag_name}"
+    # load_balancer_backend_address_pools_ids = ["${azurerm_lb_backend_address_pool.public_lb_backend_address_pool.id}",
+    #   "${azurerm_lb_backend_address_pool.internal_public_lb_backend_address_pool.id}",
+    # ]
   }
 }
 
@@ -992,15 +903,12 @@ resource "azurerm_network_interface" "firewall2_nic2" {
   enable_ip_forwarding = true
 
   ip_configuration {
-    name                                    = "firewall2-nic2-ipconfig"
-    subnet_id                               = "${azurerm_subnet.shared_private_subnet.id}"
-    private_ip_address_allocation           = "Static"
-    private_ip_address                      = "${var.firewall2_vnic2_private_ip}"
-    load_balancer_backend_address_pools_ids = ["${azurerm_lb_backend_address_pool.internal_lb_backend_address_pool.id}"]
-  }
+    name                          = "firewall2-nic2-ipconfig"
+    subnet_id                     = "${azurerm_subnet.shared_private_subnet.id}"
+    private_ip_address_allocation = "Static"
+    private_ip_address            = "${var.firewall2_vnic2_private_ip}"
 
-  tags = {
-    environment = "${var.environment_tag_name}"
+    # load_balancer_backend_address_pools_ids = ["${azurerm_lb_backend_address_pool.internal_lb_backend_address_pool.id}"]
   }
 }
 
@@ -1012,15 +920,12 @@ resource "azurerm_network_interface" "firewall2_nic3" {
   enable_ip_forwarding = true
 
   ip_configuration {
-    name                                    = "firewall2-nic3-ipconfig"
-    subnet_id                               = "${azurerm_subnet.shared_vpn_subnet.id}"
-    private_ip_address_allocation           = "Static"
-    private_ip_address                      = "${var.firewall2_vnic3_private_ip}"
-    load_balancer_backend_address_pools_ids = ["${azurerm_lb_backend_address_pool.vpn_lb_backend_address_pool.id}"]
-  }
+    name                          = "firewall2-nic3-ipconfig"
+    subnet_id                     = "${azurerm_subnet.shared_vpn_subnet.id}"
+    private_ip_address_allocation = "Static"
+    private_ip_address            = "${var.firewall2_vnic3_private_ip}"
 
-  tags = {
-    environment = "${var.environment_tag_name}"
+    # load_balancer_backend_address_pools_ids = ["${azurerm_lb_backend_address_pool.vpn_lb_backend_address_pool.id}"]
   }
 }
 

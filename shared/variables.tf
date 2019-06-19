@@ -16,10 +16,6 @@ variable "refarch_vnet_name" {
   default = "Unit-10-PAN-ARA-Shared-VNET"
 }
 
-variable "environment_tag_name" {
-  default = "Unit 10 PAN Referece Architecture"
-}
-
 variable "shared_resource_group_name" {
   default = "Unit-10-PAN-ARA-Shared-RG"
 }
