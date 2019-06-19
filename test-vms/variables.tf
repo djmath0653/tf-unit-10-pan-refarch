@@ -4,12 +4,28 @@ variable "provider_version" {
   default = "1.23.0"
 }
 
-# variable "subscription_id" {
-#   default = "8a8c41b2-759f-44cd-8b34-0fbb900b0301"
-# }
-
 variable "subscription_id" {
   default = "7ef81faa-9186-4af3-b97c-71f4e517266f"
+}
+
+variable "shared_vnet_name" {
+  default = "Unit-10-PAN-RefArch-VNET"
+}
+
+variable "shared_resource_group_name" {
+  default = "Unit-10-PAN-RefArch-Shared"
+}
+
+variable "testvm_resource_group_name" {
+  default = "Unit-10-PAN-RefArch-TestVMs"
+}
+
+variable "testvm_resource_group_location" {
+  default = "centralus"
+}
+
+variable "azure_refarch_vnet_name" {
+  default = "Unit-10-PAN-RefArch-VNET"
 }
 
 variable "environment_tag_name" {
@@ -48,33 +64,18 @@ variable "admin_password" {
   default = "s0wqLK0N5f0!"
 }
 
-variable "shared_resource_group_name" {
-  default = "Unit-10-PAN-RefArch-Shared"
-}
-
-variable "testvm_resource_group_name" {
-  default = "Unit-10-PAN-RefArch-TestVMs"
-}
-
-variable "testvm_resource_group_location" {
-  default = "centralus"
-}
-
-variable "azure_refarch_vnet_name" {
-  default = "Unit-10-PAN-RefArch-VNET"
-}
-
-variable "shared_web_subnet_name" {
-  default = "Shared-Web"
-}
-
-variable "shared_db_subnet_name" {
-  default = "Shared-DB"
-}
-
-variable "shared_business_subnet_name" {
-  default = "Shared-Business"
-}
+#
+# variable "shared_web_subnet_name" {
+#   default = "Shared-Web"
+# }
+#
+# variable "shared_db_subnet_name" {
+#   default = "Shared-DB"
+# }
+#
+# variable "shared_business_subnet_name" {
+#   default = "Shared-Business"
+# }
 
 variable "web_test_publicip_name" {
   default = "Unit-10-PAN-RefArch-Web-VM-PIP"
