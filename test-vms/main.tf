@@ -286,7 +286,7 @@ resource "azurerm_network_interface" "web_test_nic0" {
 
   ip_configuration {
     name                          = "web-test-nic0-ipconfig"
-    subnet_id                     = "${azurerm_subnet.shared_web_subnet.id}"
+    subnet_id                     = "${azurerm_subnet.web_subnet.id}"
     private_ip_address_allocation = "Dynamic"
 
     # private_ip_address            = "${var.panorama1_vnic0_private_ip}"
@@ -306,7 +306,7 @@ resource "azurerm_network_interface" "db_test_nic0" {
 
   ip_configuration {
     name                          = "db-test-nic0-ipconfig"
-    subnet_id                     = "${azurerm_subnet.shared_db_subnet.id}"
+    subnet_id                     = "${azurerm_subnet.db_subnet.id}"
     private_ip_address_allocation = "Dynamic"
 
     # private_ip_address            = "${var.panorama2_vnic0_private_ip}"
@@ -326,7 +326,7 @@ resource "azurerm_network_interface" "business_test_nic0" {
 
   ip_configuration {
     name                          = "business-test-nic0-ipconfig"
-    subnet_id                     = "${azurerm_subnet.shared_business_subnet.id}"
+    subnet_id                     = "${azurerm_subnet.business_subnet.id}"
     private_ip_address_allocation = "Dynamic"
 
     # private_ip_address            = "${var.panorama2_vnic0_private_ip}"
