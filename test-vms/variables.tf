@@ -1,4 +1,4 @@
-## Variables used to deploy PAN Unit-10-PAN-RefArch
+## Variables used to deploy PAN Unit-10-PAN-ARA-Shared
 # Environment vars
 variable "provider_version" {
   default = "1.23.0"
@@ -25,11 +25,11 @@ variable "admin_password" {
 }
 
 variable "shared_resource_group_name" {
-  default = "Unit-10-PAN-RefArch-Shared"
+  default = "Unit-10-PAN-ARA-Shared-RG"
 }
 
 variable "testvm_resource_group_name" {
-  default = "Unit-10-PAN-RefArch-TestVMs"
+  default = "Unit-10-PAN-ARA-Shared-TestVMs"
 }
 
 variable "testvm_resource_group_location" {
@@ -37,7 +37,7 @@ variable "testvm_resource_group_location" {
 }
 
 variable "azure_refarch_vnet_name" {
-  default = "Unit-10-PAN-RefArch-VNET"
+  default = "Unit-10-PAN-ARA-Shared-VNET"
 }
 
 variable "shared_web_subnet_name" {
@@ -53,7 +53,7 @@ variable "shared_business_subnet_name" {
 }
 
 variable "web_test_publicip_name" {
-  default = "Unit-10-PAN-RefArch-Web-VM-PIP"
+  default = "Unit-10-PAN-ARA-Shared-Web-VM-PIP"
 }
 
 variable "web_test_domain_name_label" {
@@ -61,7 +61,7 @@ variable "web_test_domain_name_label" {
 }
 
 variable "db_test_publicip_name" {
-  default = "Unit-10-PAN-RefArch-DB-VM-PIP"
+  default = "Unit-10-PAN-ARA-Shared-DB-VM-PIP"
 }
 
 variable "db_test_domain_name_label" {
@@ -69,7 +69,7 @@ variable "db_test_domain_name_label" {
 }
 
 variable "business_test_publicip_name" {
-  default = "Unit-10-PAN-RefArch-Business-VM-PIP"
+  default = "Unit-10-PAN-ARA-Shared-Business-VM-PIP"
 }
 
 variable "business_test_domain_name_label" {
@@ -77,13 +77,13 @@ variable "business_test_domain_name_label" {
 }
 
 variable "web_test_1vm_name" {
-  default = "Unit-10-PAN-RefArch-Web-Test"
+  default = "Unit-10-PAN-ARA-Shared-Web-Test"
 }
 
 variable "db_test_1vm_name" {
-  default = "Unit-10-PAN-RefArch-DB-Testvm"
+  default = "Unit-10-PAN-ARA-Shared-DB-Testvm"
 }
 
 variable "business_test_1vm_name" {
-  default = "Unit-10-PAN-RefArch-Business-Test"
+  default = "Unit-10-PAN-ARA-Shared-Business-Test"
 }

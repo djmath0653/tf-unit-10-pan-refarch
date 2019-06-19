@@ -1,4 +1,4 @@
-## Variables used to deploy PAN DevAzureRefArch
+## Variables used to deploy PAN DevAzureARA-Shared
 # Environment vars
 variable "provider_version" {
   default = "1.23.0"
@@ -25,7 +25,7 @@ variable "admin_password" {
 }
 
 variable "shared_resource_group_name" {
-  default = "Unit-10-PAN-RefArch-Shared"
+  default = "Unit-10-PAN-ARA-Shared"
 }
 
 variable "shared_resource_group_location" {
@@ -41,7 +41,7 @@ variable "shared_gw_subnet_name" {
 }
 
 variable "vpn_resource_group_name" {
-  default = "Unit-10-PAN-RefArch-VPN"
+  default = "Unit-10-PAN-ARA-Shared-VPN"
 }
 
 variable "vpn_resource_group_location" {
@@ -49,19 +49,19 @@ variable "vpn_resource_group_location" {
 }
 
 variable "azure_refarch_vnet_name" {
-  default = "Unit-10-PAN-RefArch-VNET"
+  default = "Unit-10-PAN-ARA-Shared-VNET"
 }
 
 variable "vpn_gw_public_ip_name" {
-  default = "Unit-10-PAN-RefArch-vpn-gw-PIP"
+  default = "Unit-10-PAN-ARA-Shared-vpn-gw-PIP"
 }
 
 variable "vng_name" {
-  default = "Unit-10-PAN-RefArch-VNG"
+  default = "Unit-10-PAN-ARA-Shared-VNG"
 }
 
 variable "lng_name" {
-  default = "Unit-10-PAN-RefArch-LNG-OnPrem"
+  default = "Unit-10-PAN-ARA-Shared-LNG-OnPrem"
 }
 
 variable "lng_ip" {
@@ -69,5 +69,5 @@ variable "lng_ip" {
 }
 
 variable "vpn_connection_name" {
-  default = "Unit-10-PAN-RefArch-LNG-OnPrem"
+  default = "Unit-10-PAN-ARA-Shared-LNG-OnPrem"
 }
