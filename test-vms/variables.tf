@@ -77,13 +77,13 @@ variable "business_test_domain_name_label" {
 }
 
 variable "web_test_1vm_name" {
-  default = "Unit-10-PAN-RefArch-webtestvm"
+  default = "Unit-10-PAN-RefArch-Web-Test"
 }
 
 variable "db_test_1vm_name" {
-  default = "Unit-10-PAN-RefArch-dbtestvm"
+  default = "Unit-10-PAN-RefArch-DB-Testvm"
 }
 
 variable "business_test_1vm_name" {
-  default = "Unit-10-PAN-RefArch-businesstestvm"
+  default = "Unit-10-PAN-RefArch-Business-Test"
 }

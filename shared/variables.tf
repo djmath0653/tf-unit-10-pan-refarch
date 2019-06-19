@@ -211,7 +211,7 @@ variable "firewallPublisher" {
 }
 
 variable "firewall1_mgmt_public_ip_name" {
-  default = "Unit-10-PAN-RefArch-firewall-1-PIP"
+  default = "Unit-10-PAN-RefArch-Firewall-1-PIP"
 }
 
 variable "firewall1_mgmt_domain_name_label" {
