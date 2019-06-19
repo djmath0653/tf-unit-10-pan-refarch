@@ -234,7 +234,7 @@ resource "azurerm_subnet_network_security_group_association" "shared_vpn_subnet_
 
 ## Create route tables
 resource "azurerm_route_table" "management_route_table" {
-  name                          = "AzureRefArch-Management"
+  name                          = "AzureRefArch-Management-RT"
   location                      = "${azurerm_resource_group.shared_resource_group.location}"
   resource_group_name           = "${azurerm_resource_group.shared_resource_group.name}"
   disable_bgp_route_propagation = false
@@ -258,7 +258,7 @@ resource "azurerm_subnet_route_table_association" "management_route_table_Assoc"
 }
 
 resource "azurerm_route_table" "business_route_table" {
-  name                          = "AzureRefArch-Shared-Business"
+  name                          = "AzureRefArch-Shared-Business-RT"
   location                      = "${azurerm_resource_group.shared_resource_group.location}"
   resource_group_name           = "${azurerm_resource_group.shared_resource_group.name}"
   disable_bgp_route_propagation = true
@@ -317,7 +317,7 @@ resource "azurerm_subnet_route_table_association" "business_route_table_assoc" {
 }
 
 resource "azurerm_route_table" "db_route_table" {
-  name                          = "AzureRefArch-Shared-DB"
+  name                          = "AzureRefArch-Shared-DB-RT"
   location                      = "${azurerm_resource_group.shared_resource_group.location}"
   resource_group_name           = "${azurerm_resource_group.shared_resource_group.name}"
   disable_bgp_route_propagation = true
@@ -376,7 +376,7 @@ resource "azurerm_subnet_route_table_association" "db_route_table_assoc" {
 }
 
 resource "azurerm_route_table" "web_route_table" {
-  name                          = "AzureRefArch-Shared-Web"
+  name                          = "AzureRefArch-Shared-Web-RT"
   location                      = "${azurerm_resource_group.shared_resource_group.location}"
   resource_group_name           = "${azurerm_resource_group.shared_resource_group.name}"
   disable_bgp_route_propagation = false
@@ -435,7 +435,7 @@ resource "azurerm_subnet_route_table_association" "web_route_table_assoc" {
 }
 
 resource "azurerm_route_table" "private_route_table" {
-  name                          = "AzureRefArch-Shared-Private"
+  name                          = "AzureRefArch-Shared-Private-RT"
   location                      = "${azurerm_resource_group.shared_resource_group.location}"
   resource_group_name           = "${azurerm_resource_group.shared_resource_group.name}"
   disable_bgp_route_propagation = false
@@ -480,7 +480,7 @@ resource "azurerm_subnet_route_table_association" "private_route_table_assoc" {
 }
 
 resource "azurerm_route_table" "public_route_table" {
-  name                          = "AzureRefArch-Shared-Public"
+  name                          = "AzureRefArch-Shared-Public-RT"
   location                      = "${azurerm_resource_group.shared_resource_group.location}"
   resource_group_name           = "${azurerm_resource_group.shared_resource_group.name}"
   disable_bgp_route_propagation = false
@@ -511,7 +511,7 @@ resource "azurerm_subnet_route_table_association" "public_route_table_assoc" {
 }
 
 resource "azurerm_route_table" "vpn_route_table" {
-  name                          = "AzureRefArch-Shared-VPN"
+  name                          = "AzureRefArch-Shared-VPN-RT"
   location                      = "${azurerm_resource_group.shared_resource_group.location}"
   resource_group_name           = "${azurerm_resource_group.shared_resource_group.name}"
   disable_bgp_route_propagation = false
@@ -535,7 +535,7 @@ resource "azurerm_subnet_route_table_association" "vpn_route_table_assoc" {
 }
 
 resource "azurerm_route_table" "gateway_route_table" {
-  name                          = "AzureRefArch-Shared-Gateway"
+  name                          = "AzureRefArch-Shared-Gateway-RT"
   location                      = "${azurerm_resource_group.shared_resource_group.location}"
   resource_group_name           = "${azurerm_resource_group.shared_resource_group.name}"
   disable_bgp_route_propagation = false
