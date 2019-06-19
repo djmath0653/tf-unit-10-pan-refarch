@@ -43,19 +43,19 @@ resource "azurerm_subnet" "db_subnet" {
 # Associate the NSG to the subnet
 resource "azurerm_subnet_network_security_group_association" "web_subnet_nsg_assoc" {
   subnet_id                 = "${azurerm_subnet.web_subnet.id}"
-  network_security_group_id = "${azurerm_network_security_group.fw_private_nsg.id}"
+  network_security_group_id = "${azurerm_network_security_group.shared_allow_all_nsg.id}"
 }
 
 # Associate the NSG to the subnet
 resource "azurerm_subnet_network_security_group_association" "business_subnet_nsg_assoc" {
   subnet_id                 = "${azurerm_subnet.business_subnet.id}"
-  network_security_group_id = "${azurerm_network_security_group.fw_private_nsg.id}"
+  network_security_group_id = "${azurerm_network_security_group.shared_allow_all_nsg.id}"
 }
 
 # Associate the NSG to the subnet
 resource "azurerm_subnet_network_security_group_association" "db_subnet_nsg_assoc" {
   subnet_id                 = "${azurerm_subnet.db_subnet.id}"
-  network_security_group_id = "${azurerm_network_security_group.fw_private_nsg.id}"
+  network_security_group_id = "${azurerm_network_security_group.shared_allow_all_nsg.id}"
 }
 
 # Route Tables
