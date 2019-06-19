@@ -501,7 +501,7 @@ resource "azurerm_route_table" "public_route_table" {
     name                   = "Net-10.5.0.0"
     address_prefix         = "10.5.0.0/20"
     next_hop_type          = "VirtualAppliance"
-    next_hop_in_ip_address = "172.16.1.21"
+    next_hop_in_ip_address = "172.16.3.21"
   }
 }
 

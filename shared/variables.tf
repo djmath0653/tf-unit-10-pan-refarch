@@ -29,7 +29,7 @@ variable "refarch_shared_address_space" {
 }
 
 variable "refarch_shrd_ext_address_space" {
-  default = "172.16.0.0/23"
+  default = "172.16.2.0/23"
 }
 
 variable "refarch_shrd_address_space" {
@@ -61,7 +61,7 @@ variable "shared_public_subnet_name" {
 }
 
 variable "shared_public_subnet_prefix" {
-  default = "172.16.1.0/24"
+  default = "172.16.3.0/24"
 }
 
 variable "shared_private_subnet_name" {
@@ -141,7 +141,7 @@ variable "internal_public_lb_frontend_ip_name" {
 }
 
 variable "internal_public_lb_frontend_ip" {
-  default = "172.16.1.21"
+  default = "172.16.3.21"
 }
 
 variable "vpn_lb_frontend_ip_name" {
@@ -231,7 +231,7 @@ variable "firewall1_vnic1_name" {
 
 variable "firewall1_vnic1_private_ip" {
   description = "firewall 1 Public private ip"
-  default     = "172.16.1.6"
+  default     = "172.16.3.6"
 }
 
 variable "firewall1_vnic2_name" {
@@ -283,7 +283,7 @@ variable "firewall2_vnic1_name" {
 }
 
 variable "firewall2_vnic1_private_ip" {
-  default = "172.16.1.7"
+  default = "172.16.3.7"
 }
 
 variable "firewall2_vnic2_name" {
