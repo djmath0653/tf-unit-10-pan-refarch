@@ -25,7 +25,7 @@ variable "admin_password" {
 }
 
 variable "shared_resource_group_name" {
-  default = "Unit-10-PAN-ARA-Shared-RG"
+  default = "Unit-10-PAN-ARA-Shared"
 }
 
 variable "shared_resource_group_location" {
@@ -49,11 +49,11 @@ variable "vpn_resource_group_location" {
 }
 
 variable "azure_refarch_vnet_name" {
-  default = "Unit-10-PAN-ARA-Shared-VNET"
+  default = "Unit-10-PAN-ARA-Shared"
 }
 
 variable "vpn_gw_public_ip_name" {
-  default = "Unit-10-PAN-ARA-Shared-vpn-gw-PIP"
+  default = "Unit-10-PAN-ARA-Shared-vpn-gw"
 }
 
 variable "vng_name" {
