@@ -305,3 +305,23 @@ variable "firewall2_vnic3_private_ip" {
 variable "firewall2_os_disk_account_name" {
   default = "firewall2osdisk"
 }
+
+variable "vpn_gw_public_ip_name" {
+  default = "Unit-10-PAN-ARA-Shared-vpn-gw"
+}
+
+variable "vng_name" {
+  default = "Unit-10-PAN-ARA-Shared-VNG"
+}
+
+variable "lng_name" {
+  default = "Unit-10-PAN-ARA-Shared-LNG-OnPrem"
+}
+
+variable "lng_ip" {
+  default = "73.229.177.164"
+}
+
+variable "vpn_connection_name" {
+  default = "Unit-10-PAN-ARA-Shared-LNG-OnPrem"
+}
