@@ -33,7 +33,7 @@ variable "refarch_vnet_name" {
 }
 
 variable "refarch_shared_address_space" {
-  default = "10.255.255.0/24"
+  default = "10.255.255.64/26"
 }
 
 variable "refarch_shrd_ext_address_space" {
@@ -49,7 +49,7 @@ variable "managment_subnet_name" {
 }
 
 variable "managment_subnet_prefix" {
-  default = "10.255.255.0/24"
+  default = "10.255.255.64/26"
 }
 
 variable "management_nsg_name" {
@@ -229,7 +229,7 @@ variable "firewall1_vnic0_name" {
 
 variable "firewall1_vnic0_private_ip" {
   description = "firewall 1 Manamagement private ip"
-  default     = "10.255.255.6"
+  default     = "10.255.255.68"
 }
 
 variable "firewall1_vnic1_name" {
@@ -283,7 +283,7 @@ variable "firewall2_vnic0_name" {
 }
 
 variable "firewall2_vnic0_private_ip" {
-  default = "10.255.255.7"
+  default = "10.255.255.69"
 }
 
 variable "firewall2_vnic1_name" {
