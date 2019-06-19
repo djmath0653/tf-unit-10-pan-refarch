@@ -18,24 +18,24 @@ resource "azurerm_resource_group" "test_vm_resource_group" {
 # Create subnet within the vnet
 resource "azurerm_subnet" "web_subnet" {
   name                 = "${var.web_subnet_name}"
-  resource_group_name  = "${azurerm_resource_group.transit_resource_group.name}"
-  virtual_network_name = "${azurerm_virtual_network.transit_vnet.name}"
+  resource_group_name  = "${azurerm_resource_group.shared_resource_group.name}"
+  virtual_network_name = "${azurerm_virtual_network.shared_vnet.name}"
   address_prefix       = "${var.web_subnet_prefix}"
 }
 
 # Create subnet within the vnet
 resource "azurerm_subnet" "business_subnet" {
   name                 = "${var.business_subnet_name}"
-  resource_group_name  = "${azurerm_resource_group.transit_resource_group.name}"
-  virtual_network_name = "${azurerm_virtual_network.transit_vnet.name}"
+  resource_group_name  = "${azurerm_resource_group.shared_resource_group.name}"
+  virtual_network_name = "${azurerm_virtual_network.shared_vnet.name}"
   address_prefix       = "${var.business_subnet_prefix}"
 }
 
 # Create subnet within the vnet
 resource "azurerm_subnet" "db_subnet" {
   name                 = "${var.db_subnet_name}"
-  resource_group_name  = "${azurerm_resource_group.transit_resource_group.name}"
-  virtual_network_name = "${azurerm_virtual_network.transit_vnet.name}"
+  resource_group_name  = "${azurerm_resource_group.shared_resource_group.name}"
+  virtual_network_name = "${azurerm_virtual_network.shared_vnet.name}"
   address_prefix       = "${var.db_subnet_prefix}"
 }
 
@@ -61,8 +61,8 @@ resource "azurerm_subnet_network_security_group_association" "db_subnet_nsg_asso
 # Route Tables
 resource "azurerm_route_table" "business_route_table" {
   name                          = "AzureRefArch-transit-Business"
-  location                      = "${azurerm_resource_group.transit_resource_group.location}"
-  resource_group_name           = "${azurerm_resource_group.transit_resource_group.name}"
+  location                      = "${azurerm_resource_group.shared_resource_group.location}"
+  resource_group_name           = "${azurerm_resource_group.shared_resource_group.name}"
   disable_bgp_route_propagation = true
 
   route {
@@ -120,8 +120,8 @@ resource "azurerm_subnet_route_table_association" "business_route_table_assoc" {
 
 resource "azurerm_route_table" "db_route_table" {
   name                          = "AzureRefArch-transit-DB"
-  location                      = "${azurerm_resource_group.transit_resource_group.location}"
-  resource_group_name           = "${azurerm_resource_group.transit_resource_group.name}"
+  location                      = "${azurerm_resource_group.shared_resource_group.location}"
+  resource_group_name           = "${azurerm_resource_group.shared_resource_group.name}"
   disable_bgp_route_propagation = true
 
   route {
@@ -179,8 +179,8 @@ resource "azurerm_subnet_route_table_association" "db_route_table_assoc" {
 
 resource "azurerm_route_table" "web_route_table" {
   name                          = "AzureRefArch-transit-Web"
-  location                      = "${azurerm_resource_group.transit_resource_group.location}"
-  resource_group_name           = "${azurerm_resource_group.transit_resource_group.name}"
+  location                      = "${azurerm_resource_group.shared_resource_group.location}"
+  resource_group_name           = "${azurerm_resource_group.shared_resource_group.name}"
   disable_bgp_route_propagation = false
 
   route {
