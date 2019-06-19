@@ -1,4 +1,4 @@
-## Variables used to deploy PAN Unit-10-PAN-RefArch
+## Variables used to deploy PAN Unit-10-PAN-ARA-Shared
 # Environment vars
 variable "provider_version" {
   default = "1.23.0"
@@ -13,7 +13,7 @@ variable "subscription_id" {
 }
 
 variable "azure_refarch_vnet_name" {
-  default = "Unit-10-PAN-RefArch-VNET"
+  default = "Unit-10-PAN-ARA-Shared-VNET"
 }
 
 variable "environment_tag_name" {
@@ -21,19 +21,11 @@ variable "environment_tag_name" {
 }
 
 variable "shared_resource_group_name" {
-  default = "Unit-10-PAN-RefArch-Shared"
+  default = "Unit-10-PAN-ARA-Shared"
 }
 
 variable "shared_resource_group_location" {
   default = "centralus"
-}
-
-variable "refarch_vnet_name" {
-  default = "Unit-10-PAN-RefArch-VNET"
-}
-
-variable "refarch_shared_address_space" {
-  default = "10.255.255.64/26"
 }
 
 variable "refarch_shrd_ext_address_space" {
@@ -121,7 +113,7 @@ variable "shared_gw_subnet_prefix" {
 }
 
 variable "public_lb_frontend_ip_name" {
-  default = "Unit-10-PAN-RefArch-Public-LB-IP"
+  default = "Unit-10-PAN-ARA-Shared-Public-LB-IP"
 }
 
 variable "public_lb_domain_name_label" {
@@ -129,11 +121,11 @@ variable "public_lb_domain_name_label" {
 }
 
 variable "public_lb_name" {
-  default = "Unit-10-PAN-RefArch-Shared-Public"
+  default = "Unit-10-PAN-ARA-Shared-Public"
 }
 
 variable "internal_lb_name" {
-  default = "Unit-10-PAN-RefArch-Shared-Internal"
+  default = "Unit-10-PAN-ARA-Shared-Internal"
 }
 
 variable "internal_lb_frontend_ip_name" {
@@ -186,7 +178,7 @@ variable "admin_password" {
 }
 
 variable "shared_avail_set_name" {
-  default = "Unit-10-PAN-RefArch-Firewall-AS"
+  default = "Unit-10-PAN-ARA-Shared-Firewall-AS"
 }
 
 variable "firewall_storage_acct_name" {
@@ -211,7 +203,7 @@ variable "firewallPublisher" {
 }
 
 variable "firewall1_mgmt_public_ip_name" {
-  default = "Unit-10-PAN-RefArch-Firewall-1-PIP"
+  default = "Unit-10-PAN-ARA-Shared-Firewall-1-PIP"
 }
 
 variable "firewall1_mgmt_domain_name_label" {
@@ -219,7 +211,7 @@ variable "firewall1_mgmt_domain_name_label" {
 }
 
 variable "firewall1_vm_name" {
-  default = "Unit-10-PAN-RefArch-Firewall-1"
+  default = "Unit-10-PAN-ARA-Shared-Firewall-1"
 }
 
 variable "firewall1_vnic0_name" {
@@ -267,7 +259,7 @@ variable "firewall1_os_disk_account_name" {
 }
 
 variable "firewall2_mgmt_public_ip_name" {
-  default = "Unit-10-PAN-RefArch-Firewall-2-PIP"
+  default = "Unit-10-PAN-ARA-Shared-Firewall-2-PIP"
 }
 
 variable "firewall2_mgmt_domain_name_label" {
@@ -275,7 +267,7 @@ variable "firewall2_mgmt_domain_name_label" {
 }
 
 variable "firewall2_vm_name" {
-  default = "Unit-10-PAN-RefArch-Firewall-2"
+  default = "Unit-10-PAN-ARA-Shared-Firewall-2"
 }
 
 variable "firewall2_vnic0_name" {
