@@ -25,7 +25,7 @@ variable "admin_password" {
 }
 
 variable "shared_resource_group_name" {
-  default = "Unit-10-PAN-ARA-Shared"
+  default = "Unit-10-PAN-ARA-Shared-RG"
 }
 
 variable "shared_resource_group_location" {
