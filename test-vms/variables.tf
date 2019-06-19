@@ -76,6 +76,9 @@ variable "admin_password" {
 # variable "shared_business_subnet_name" {
 #   default = "Shared-Business"
 # }
+variable "shared_allow_all_nsg_name" {
+  default = "AllowAll-Subnet"
+}
 
 variable "web_test_publicip_name" {
   default = "Unit-10-PAN-RefArch-Web-VM-PIP"
