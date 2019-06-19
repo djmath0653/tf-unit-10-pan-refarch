@@ -12,7 +12,7 @@ variable "subscription_id" {
   default = "7ef81faa-9186-4af3-b97c-71f4e517266f"
 }
 
-variable "azure_refarch_vnet_name" {
+variable "refarch_vnet_name" {
   default = "Unit-10-PAN-ARA-Shared-VNET"
 }
 
@@ -26,6 +26,10 @@ variable "shared_resource_group_name" {
 
 variable "shared_resource_group_location" {
   default = "centralus"
+}
+
+variable "refarch_shared_address_space" {
+  default = "10.255.255.64/26"
 }
 
 variable "refarch_shrd_ext_address_space" {
