@@ -39,10 +39,6 @@ resource "azurerm_public_ip" "vpn_gw_public_ip" {
   resource_group_name = "${data.azurerm_resource_group.shared_resource_group.name}"
   sku                 = "Basic"
   allocation_method   = "Dynamic"
-
-  tags = {
-    environment = "${var.environment_tag_name}"
-  }
 }
 
 ## Azure IPSEC tunnel configuration

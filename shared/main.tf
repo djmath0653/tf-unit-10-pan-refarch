@@ -1096,10 +1096,6 @@ resource "azurerm_public_ip" "vpn_gw_public_ip" {
   location            = "${azurerm_resource_group.shared_resource_group.location}"
   sku                 = "Basic"
   allocation_method   = "Dynamic"
-
-  tags = {
-    environment = "${var.environment_tag_name}"
-  }
 }
 
 ## rebuilding VNG will release/renew pubic IP

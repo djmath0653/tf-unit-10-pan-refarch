@@ -43,10 +43,6 @@ resource "azurerm_public_ip" "webtestpublicip" {
   sku                 = "Standard"
   allocation_method   = "Static"
   domain_name_label   = "${var.web_test_domain_name_label}"
-
-  tags = {
-    environment = "${var.environment_tag_name}"
-  }
 }
 
 # Create the public ip for db test vm
@@ -57,10 +53,6 @@ resource "azurerm_public_ip" "dbtestpublicip" {
   sku                 = "Standard"
   allocation_method   = "Static"
   domain_name_label   = "${var.db_test_domain_name_label}"
-
-  tags = {
-    environment = "${var.environment_tag_name}"
-  }
 }
 
 # Create the public ip for business
@@ -71,10 +63,6 @@ resource "azurerm_public_ip" "businesstestpublicip" {
   sku                 = "Standard"
   allocation_method   = "Static"
   domain_name_label   = "${var.business_test_domain_name_label}"
-
-  tags = {
-    environment = "${var.environment_tag_name}"
-  }
 }
 
 ## Create network interface for web test
@@ -90,10 +78,6 @@ resource "azurerm_network_interface" "webtestnic0" {
 
     # private_ip_address            = "${var.panorama1_vnic0_private_ip}"
     public_ip_address_id = "${azurerm_public_ip.webtestpublicip.id}"
-  }
-
-  tags = {
-    environment = "${var.environment_tag_name}"
   }
 }
 
@@ -111,10 +95,6 @@ resource "azurerm_network_interface" "dbtestnic0" {
     # private_ip_address            = "${var.panorama2_vnic0_private_ip}"
     public_ip_address_id = "${azurerm_public_ip.dbtestpublicip.id}"
   }
-
-  tags = {
-    environment = "${var.environment_tag_name}"
-  }
 }
 
 ## Create network interface for business test
@@ -130,10 +110,6 @@ resource "azurerm_network_interface" "businesstestnic0" {
 
     # private_ip_address            = "${var.panorama2_vnic0_private_ip}"
     public_ip_address_id = "${azurerm_public_ip.businesstestpublicip.id}"
-  }
-
-  tags = {
-    environment = "${var.environment_tag_name}"
   }
 }
 
@@ -170,10 +146,6 @@ resource "azurerm_virtual_machine" "webtestvm" {
   os_profile_linux_config {
     disable_password_authentication = false
   }
-
-  tags = {
-    environment = "${var.environment_tag_name}"
-  }
 }
 
 # DB Test VM
@@ -208,10 +180,6 @@ resource "azurerm_virtual_machine" "dbtestvm" {
   os_profile_linux_config {
     disable_password_authentication = false
   }
-
-  tags = {
-    environment = "${var.environment_tag_name}"
-  }
 }
 
 # Business Test VM
@@ -245,9 +213,5 @@ resource "azurerm_virtual_machine" "businesstestvm" {
 
   os_profile_linux_config {
     disable_password_authentication = false
-  }
-
-  tags = {
-    environment = "${var.environment_tag_name}"
   }
 }
