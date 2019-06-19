@@ -43,7 +43,7 @@ resource "azurerm_subnet" "db_subnet" {
 # Create network securirty group
 resource "azurerm_network_security_group" "allow_all_nsg" {
   name                = "${var.allow_all_nsg_name}"
-  location            = "${var.test_vm_resource_group_location}"
+  location            = "${azurerm_resource_group.test_vm_resource_group.location}"
   resource_group_name = "${azurerm_resource_group.test_vm_resource_group.name}"
 
   security_rule {
