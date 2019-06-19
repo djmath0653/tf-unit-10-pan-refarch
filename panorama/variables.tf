@@ -98,7 +98,7 @@ variable "panorama_avail_set_name" {
 }
 
 variable "panorama_storage_acct_name" {
-  default = "unit10panrefarchdiag"
+  default = "unit10panrefarchdiag-shared"
 }
 
 variable "panorama_vm_size" {
