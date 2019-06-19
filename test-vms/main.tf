@@ -40,22 +40,45 @@ resource "azurerm_subnet" "db_subnet" {
 }
 
 #NSGs
+# Create network securirty group
+resource "azurerm_network_security_group" "allow_all_nsg" {
+  name                = "${var.allow_all_nsg_name}"
+  location            = "${var.test_vm_resource_group_location}"
+  resource_group_name = "${azurerm_resource_group.test_vm_resource_group.name}"
+
+  security_rule {
+    name                       = "AllowAll-Inbound"
+    priority                   = 100
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "*"
+    source_port_range          = "*"
+    destination_port_range     = "*"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+
+  tags {
+    environment = "${var.environment_tag_name}"
+  }
+}
+
 # Associate the NSG to the subnet
 resource "azurerm_subnet_network_security_group_association" "web_subnet_nsg_assoc" {
   subnet_id                 = "${azurerm_subnet.web_subnet.id}"
-  network_security_group_id = "${azurerm_network_security_group.shared_allow_all_nsg.id}"
+  network_security_group_id = "${azurerm_network_security_group.fw_private_nsg.id}"
 }
 
 # Associate the NSG to the subnet
 resource "azurerm_subnet_network_security_group_association" "business_subnet_nsg_assoc" {
   subnet_id                 = "${azurerm_subnet.business_subnet.id}"
-  network_security_group_id = "${azurerm_network_security_group.shared_allow_all_nsg.id}"
+  network_security_group_id = "${azurerm_network_security_group.fw_private_nsg.id}"
 }
 
 # Associate the NSG to the subnet
 resource "azurerm_subnet_network_security_group_association" "db_subnet_nsg_assoc" {
   subnet_id                 = "${azurerm_subnet.db_subnet.id}"
-  network_security_group_id = "${azurerm_network_security_group.shared_allow_all_nsg.id}"
+  network_security_group_id = "${azurerm_network_security_group.fw_private_nsg.id}"
 }
 
 # Route Tables
