@@ -29,7 +29,7 @@ variable "shared_resource_group_name" {
 }
 
 variable "testvm_resource_group_name" {
-  default = "Unit-10-PAN-ARA-Shared-TestVMs"
+  default = "Unit-10-PAN-ARA-Shared-TestVM"
 }
 
 variable "testvm_resource_group_location" {

@@ -137,7 +137,7 @@ resource "azurerm_network_interface" "businesstestnic0" {
   }
 }
 
-## Create VMs
+## Create VM
 # Web Test VM
 resource "azurerm_virtual_machine" "webtestvm" {
   name                          = "${var.web_test_1vm_name}"
