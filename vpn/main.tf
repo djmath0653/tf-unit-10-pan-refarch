@@ -68,7 +68,7 @@ resource "azurerm_virtual_network_gateway" "vng" {
   ## Azure IPSEC tunnel interface
   bgp_settings {
     asn             = "65515"
-    peering_address = "10.5.40.254"
+    peering_address = "10.5.40.250"
   }
 
   #   vpn_client_configuration {
@@ -82,14 +82,14 @@ resource "azurerm_local_network_gateway" "lng" {
   location            = "${var.shared_resource_group_location}"
   resource_group_name = "${data.azurerm_resource_group.shared_resource_group.name}"
 
-  ## this is the local IKE gateway
+  ## this is the local BGP Peer
   gateway_address = "${var.lng_ip}"
-  address_space   = ["10.6.1.250/32"]
+  address_space   = ["10.6.1.251/32"]
 
   ## local IPSEC tunnel interface
   bgp_settings {
     asn                 = "65501"
-    bgp_peering_address = "10.6.1.250"
+    bgp_peering_address = "10.6.1.251"
   }
 }
 
