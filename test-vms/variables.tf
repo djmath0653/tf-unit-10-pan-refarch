@@ -16,32 +16,29 @@ variable "environment_tag_name" {
   default = "Unit 10 PAN Referece Architecture"
 }
 
-#
-#
-# variable "web_subnet_name" {
-#   default = "Transit-Web"
-# }
-#
-# variable "web_subnet_prefix" {
-#   default = "10.1.1.0/24"
-# }
-#
-# variable "business_subnet_name" {
-#   default = "Transit-Business"
-# }
-#
-# variable "business_subnet_prefix" {
-#   default = "10.1.2.0/24"
-# }
-#
-# variable "db_subnet_name" {
-#   default = "Transit-DB"
-# }
-#
-# variable "db_subnet_prefix" {
-#   default = "10.1.3.0/24"
-# }
-#
+variable "web_subnet_name" {
+  default = "Shared-Web"
+}
+
+variable "web_subnet_prefix" {
+  default = "10.5.1.0/24"
+}
+
+variable "business_subnet_name" {
+  default = "Shared-Business"
+}
+
+variable "business_subnet_prefix" {
+  default = "10.5.2.0/24"
+}
+
+variable "db_subnet_name" {
+  default = "Shared-DB"
+}
+
+variable "db_subnet_prefix" {
+  default = "10.5.3.0/24"
+}
 
 variable "admin_username" {
   default = "xmrefarchadmin"
