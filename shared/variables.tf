@@ -45,7 +45,7 @@ variable "refarch_shrd_address_space" {
 }
 
 variable "managment_subnet_name" {
-  default = "Management"
+  default = "Shared-Management"
 }
 
 variable "managment_subnet_prefix" {
