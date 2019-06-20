@@ -24,6 +24,14 @@ variable "shared_resource_group_location" {
   default = "centralus"
 }
 
+variable "management_resource_group_name" {
+  default = "Unit-10-PAN-ARA-Management"
+}
+
+variable "management_vnet_name" {
+  default = "Unit-10-PAN-ARA-Management"
+}
+
 variable "refarch_shared_address_space" {
   default = "10.255.255.64/26"
 }
