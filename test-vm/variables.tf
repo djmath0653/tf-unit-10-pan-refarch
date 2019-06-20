@@ -81,7 +81,7 @@ variable "web_test_1vm_name" {
 }
 
 variable "db_test_1vm_name" {
-  default = "Unit-10-PAN-ARA-Shared-DB-Testvm"
+  default = "Unit-10-PAN-ARA-Shared-DB-Test"
 }
 
 variable "business_test_1vm_name" {
