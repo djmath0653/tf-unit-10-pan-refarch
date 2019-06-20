@@ -248,7 +248,7 @@ resource "azurerm_subnet_network_security_group_association" "shared_vpn_subnet_
 
 ## Create route tables
 resource "azurerm_route_table" "management_route_table" {
-  name                          = "ARA-Management"
+  name                          = "ARA-Shared-Management"
   location                      = "${azurerm_resource_group.shared_resource_group.location}"
   resource_group_name           = "${azurerm_resource_group.shared_resource_group.name}"
   disable_bgp_route_propagation = false

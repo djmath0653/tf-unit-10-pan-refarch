@@ -57,7 +57,7 @@ variable "web_test_publicip_name" {
 }
 
 variable "web_test_domain_name_label" {
-  default = "unit-10-pan-refarch-web-test"
+  default = "unit-10-pan-refarch-web"
 }
 
 variable "db_test_publicip_name" {
@@ -65,7 +65,7 @@ variable "db_test_publicip_name" {
 }
 
 variable "db_test_domain_name_label" {
-  default = "unit-10-pan-refarch-db-test"
+  default = "unit-10-pan-refarch-db"
 }
 
 variable "business_test_publicip_name" {
@@ -73,17 +73,17 @@ variable "business_test_publicip_name" {
 }
 
 variable "business_test_domain_name_label" {
-  default = "unit-10-pan-refarch-business-test"
+  default = "unit-10-pan-refarch-business"
 }
 
 variable "web_test_1vm_name" {
-  default = "Unit-10-PAN-ARA-Shared-Web-Test"
+  default = "Unit-10-PAN-ARA-Shared-Web"
 }
 
 variable "db_test_1vm_name" {
-  default = "Unit-10-PAN-ARA-Shared-DB-Test"
+  default = "Unit-10-PAN-ARA-Shared-DB"
 }
 
 variable "business_test_1vm_name" {
-  default = "Unit-10-PAN-ARA-Shared-Business-Test"
+  default = "Unit-10-PAN-ARA-Shared-Business"
 }

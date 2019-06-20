@@ -138,7 +138,7 @@ resource "azurerm_virtual_machine" "webtestvm" {
   }
 
   os_profile {
-    computer_name  = "webtestvm"
+    computer_name  = "shared web"
     admin_username = "xmrefarchadmin"
     admin_password = "s0wqLK0N5f0!"
   }
@@ -172,7 +172,7 @@ resource "azurerm_virtual_machine" "dbtestvm" {
   }
 
   os_profile {
-    computer_name  = "dbtestvm"
+    computer_name  = "shareddb"
     admin_username = "xmrefarchadmin"
     admin_password = "s0wqLK0N5f0!"
   }
@@ -206,7 +206,7 @@ resource "azurerm_virtual_machine" "businesstestvm" {
   }
 
   os_profile {
-    computer_name  = "businesstestvm"
+    computer_name  = "sharedbusiness"
     admin_username = "xmrefarchadmin"
     admin_password = "s0wqLK0N5f0!"
   }
