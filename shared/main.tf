@@ -13,6 +13,11 @@ resource "azurerm_resource_group" "shared_resource_group" {
   location = "${var.shared_resource_group_location}"
 }
 
+data "azurerm_virtual_network" "management_vnet" {
+  name                = "${var.management_vnet_name}"
+  resource_group_name = "${var.management_resource_group_name}"
+}
+
 # Create a vnet within the resource group
 resource "azurerm_virtual_network" "refarch_vnet" {
   name                = "${var.refarch_vnet_name}"
