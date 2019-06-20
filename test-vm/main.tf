@@ -30,7 +30,7 @@ data "azurerm_subnet" "shareddbsubnet" {
 
 ## get the id of buisiness subnet
 data "azurerm_subnet" "sharedbusinesssubnet" {
-  name                 = "${var.shared_web_subnet_name}"
+  name                 = "${var.shared_business_subnet_name}"
   virtual_network_name = "${var.azure_refarch_vnet_name}"
   resource_group_name  = "${var.shared_resource_group_name}"
 }
