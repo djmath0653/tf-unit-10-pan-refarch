@@ -75,9 +75,7 @@ resource "azurerm_network_interface" "webtestnic0" {
     name                          = "web-test-nic0-ipconfig"
     subnet_id                     = "${data.azurerm_subnet.sharedwebsubnet.id}"
     private_ip_address_allocation = "Dynamic"
-
-    # private_ip_address            = "${var.panorama1_vnic0_private_ip}"
-    public_ip_address_id = "${azurerm_public_ip.webtestpublicip.id}"
+    public_ip_address_id          = "${azurerm_public_ip.webtestpublicip.id}"
   }
 }
 
@@ -91,9 +89,7 @@ resource "azurerm_network_interface" "dbtestnic0" {
     name                          = "db-test-nic0-ipconfig"
     subnet_id                     = "${data.azurerm_subnet.shareddbsubnet.id}"
     private_ip_address_allocation = "Dynamic"
-
-    # private_ip_address            = "${var.panorama2_vnic0_private_ip}"
-    public_ip_address_id = "${azurerm_public_ip.dbtestpublicip.id}"
+    public_ip_address_id          = "${azurerm_public_ip.dbtestpublicip.id}"
   }
 }
 
@@ -107,9 +103,7 @@ resource "azurerm_network_interface" "businesstestnic0" {
     name                          = "business-test-nic0-ipconfig"
     subnet_id                     = "${data.azurerm_subnet.sharedbusinesssubnet.id}"
     private_ip_address_allocation = "Dynamic"
-
-    # private_ip_address            = "${var.panorama2_vnic0_private_ip}"
-    public_ip_address_id = "${azurerm_public_ip.businesstestpublicip.id}"
+    public_ip_address_id          = "${azurerm_public_ip.businesstestpublicip.id}"
   }
 }
 
