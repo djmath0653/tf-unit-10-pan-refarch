@@ -26,15 +26,6 @@ resource "azurerm_virtual_network" "refarch_vnet" {
   resource_group_name = "${azurerm_resource_group.shared_resource_group.name}"
 }
 
-# resource "azurerm_virtual_network_peering" "management_to_shared" {
-#   name                         = "VNet-Peer_ARA-Management-VNET"
-#   resource_group_name          = "${azurerm_resource_group.shared_resource_group.name}"
-#   virtual_network_name         = "${azurerm_virtual_network.refarch_vnet.name}"
-#   remote_virtual_network_id    = "${data.azurerm_virtual_network.management_vnet.id}"
-#   allow_virtual_network_access = true
-#   allow_forwarded_traffic      = true
-# }
-
 # Create subnet within the vnet
 resource "azurerm_subnet" "managment_subnet" {
   name                 = "${var.managment_subnet_name}"
@@ -251,7 +242,7 @@ resource "azurerm_route_table" "management_route_table" {
   name                          = "ARA-Shared-Management"
   location                      = "${azurerm_resource_group.shared_resource_group.location}"
   resource_group_name           = "${azurerm_resource_group.shared_resource_group.name}"
-  disable_bgp_route_propagation = false
+  disable_bgp_route_propagation = true
 
   route {
     name           = "Blackhole-Private"
@@ -393,7 +384,7 @@ resource "azurerm_route_table" "web_route_table" {
   name                          = "ARA-Shared-Web"
   location                      = "${azurerm_resource_group.shared_resource_group.location}"
   resource_group_name           = "${azurerm_resource_group.shared_resource_group.name}"
-  disable_bgp_route_propagation = false
+  disable_bgp_route_propagation = true
 
   route {
     name           = "Backdoor"
@@ -452,7 +443,7 @@ resource "azurerm_route_table" "private_route_table" {
   name                          = "ARA-Shared-Private"
   location                      = "${azurerm_resource_group.shared_resource_group.location}"
   resource_group_name           = "${azurerm_resource_group.shared_resource_group.name}"
-  disable_bgp_route_propagation = false
+  disable_bgp_route_propagation = true
 
   route {
     name           = "Backdoor"
@@ -497,7 +488,7 @@ resource "azurerm_route_table" "public_route_table" {
   name                          = "ARA-Shared-Public"
   location                      = "${azurerm_resource_group.shared_resource_group.location}"
   resource_group_name           = "${azurerm_resource_group.shared_resource_group.name}"
-  disable_bgp_route_propagation = false
+  disable_bgp_route_propagation = true
 
   route {
     name           = "Blackhole-OnSite"
