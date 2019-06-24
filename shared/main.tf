@@ -242,7 +242,7 @@ resource "azurerm_route_table" "management_route_table" {
   name                          = "ARA-Shared-Management"
   location                      = "${azurerm_resource_group.shared_resource_group.location}"
   resource_group_name           = "${azurerm_resource_group.shared_resource_group.name}"
-  disable_bgp_route_propagation = true
+  disable_bgp_route_propagation = false
 
   route {
     name           = "Blackhole-Private"
@@ -552,17 +552,18 @@ resource "azurerm_route_table" "gateway_route_table" {
   }
 
   route {
-    name                   = "Net-10.5.0.0-23"
-    address_prefix         = "10.5.0.0/23"
+    name                   = "Net-10.5.0.0-20"
+    address_prefix         = "10.5.0.0/20"
     next_hop_type          = "VirtualAppliance"
     next_hop_in_ip_address = "10.5.15.21"
   }
 
-  route {
-    name           = "Net-10.5.0.0-20"
-    address_prefix = "10.5.0.0/20"
-    next_hop_type  = "VnetLocal"
-  }
+  # 
+  # route {
+  #   name           = "Net-10.5.0.0-20"
+  #   address_prefix = "10.5.0.0/20"
+  #   next_hop_type  = "VnetLocal"
+  # }
 }
 
 resource "azurerm_subnet_route_table_association" "gateway_route_table-assoc" {
